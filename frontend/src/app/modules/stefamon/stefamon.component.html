@@ -1,0 +1,22 @@
+<div id="main-store-div">
+  <ng-container *ngFor="let stefamon of stefamonList">
+    <p-card header="{{ stefamon.nome }}" styleClass="p-card-shadow"
+            [style]="{'width': '200px', 'margin-bottom': '2em'}">
+      <p-header>
+        <div style="width: 100%; padding: 1rem;">
+          <img alt="Card" src="{{ stefamon.urlFoto }}">
+        </div>
+      </p-header>
+      <p>Atributos</p>
+      <p>Ataque: {{stefamon.ataque}}</p>
+      <p>Defesa: {{stefamon.defesa}}</p>
+      <p>Vida: {{stefamon.vida}}</p>
+      <p>Inteligencia: {{stefamon.inteligencia}}</p>
+      <p>Velocidade: {{stefamon.velocidade}}</p>
+      <p>Poder: {{stefamon.poder}}</p>
+      <ng-template pTemplate="footer">
+        <p-button label="Comprar" icon="pi pi-check"></p-button>
+      </ng-template>
+    </p-card>
+  </ng-container>
+</div>
