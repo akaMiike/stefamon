@@ -52,8 +52,15 @@ public class JogadorService {
         return JogadorParser.EntityToReturnDTO(jogador);
     }
 
-    public void atualizar(JogadorCriacaoDTO jogador) {
-        jogadorRepository.update(JogadorParser.CreationDtoToEntity(jogador));
+    public void atualizar(JogadorCriacaoDTO jogador, long id) {
+        Jogador dadosJogadorAtualizado = JogadorParser.CreationDtoToEntity(jogador);
+        JogadorRetornoDTO dadosJogadorAntigo = buscarPorId(id);
+
+        dadosJogadorAtualizado.setSaldo(dadosJogadorAntigo.getSaldo());
+        dadosJogadorAtualizado.setPassword(PasswordUtils.encodeBase64(jogador.getPassword()));
+        dadosJogadorAtualizado.setId(id);
+
+        jogadorRepository.update(dadosJogadorAtualizado);
     }
 
     public void deletar(Long id) {

@@ -41,13 +41,14 @@ public class JogadorResource {
         return Response.status(Response.Status.CREATED).build();
     }
 
-    @POST
-    public Response atualizar(@Valid JogadorCriacaoDTO jogador) {
-        jogadorService.atualizar(jogador);
+    @PUT
+    @Path("/{id}")
+    public Response atualizar(@PathParam("id") Long id, @Valid JogadorCriacaoDTO jogador) {
+        jogadorService.atualizar(jogador, id);
         return Response.status(Response.Status.OK).build();
     }
 
-    @POST
+    @DELETE
     @Path("/{id}")
     public Response deletar(@PathParam("id") Long id) {
         jogadorService.deletar(id);
