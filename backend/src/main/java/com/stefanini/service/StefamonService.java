@@ -26,8 +26,8 @@ public class StefamonService {
 
     }
 
-    public List<StefamonDTO> listarTodosPaginado(int numPagina, int tamanhoPagina){
-        return repository.buscarTodosPaginado(numPagina, tamanhoPagina).stream()
+    public List<StefamonDTO> listarTodosPaginado(int numPagina, int tamanhoPagina, String ordem, String coluna){
+        return repository.buscarTodosPaginadoEOrdenado(numPagina, tamanhoPagina, ordem, coluna).stream()
                 .map(StefamonParser::EntityToDto)
                 .collect(Collectors.toList());
     }

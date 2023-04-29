@@ -3,6 +3,8 @@ package com.stefanini.resources;
 import com.stefanini.service.StefamonService;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
+import javax.validation.constraints.Pattern;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -19,10 +21,14 @@ public class StefamonResource {
     @Path("/todos")
     public Response listarTodos(
             @DefaultValue("1") @QueryParam("pagina") Integer pagina,
-            @DefaultValue("10") @QueryParam("tamanhoPagina") Integer tamanhoPagina
+            @DefaultValue("10") @QueryParam("tamanhoPagina") Integer tamanhoPagina,
+            @DefaultValue("DESC") @Pattern(regexp = "^(ASC|DESC)$", message= "Valor de ordenação deve ser 'ASC' ou 'DESC'")
+            @QueryParam("ordem") String ordem,
+            @DefaultValue("vida") @Pattern(regexp = "^(vida|ataque|defesa|inteligencia|poder|velocidade)$", message = "Coluna de ordenação deve corresponder a algum atributo do stefamon.")
+            @QueryParam("coluna") String coluna
     ) {
         return Response.status(Response.Status.OK)
-                .entity(service.listarTodosPaginado(pagina,tamanhoPagina))
+                .entity(service.listarTodosPaginado(pagina,tamanhoPagina,ordem,coluna))
                 .build();
     }
 
