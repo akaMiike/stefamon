@@ -1,5 +1,6 @@
 package com.stefanini.service;
 
+import com.stefanini.dto.paginacao.PageDTO;
 import com.stefanini.dto.stefamon.StefamonDTO;
 import com.stefanini.entity.Stefamon;
 import com.stefanini.exceptions.stefamon.StefamonNaoEncontradoException;
@@ -26,11 +27,16 @@ public class StefamonService {
 
     }
 
-    public List<StefamonDTO> listarTodosPaginado(int numPagina, int tamanhoPagina, String ordem, String coluna){
-        return repository.buscarTodosPaginadoEOrdenado(numPagina, tamanhoPagina, ordem, coluna).stream()
+    public PageDTO<StefamonDTO> listarTodosPaginado(int numPagina, int tamanhoPagina, String ordem, String coluna){
+        List<StefamonDTO> elementos = repository.buscarTodosPaginadoEOrdenado(numPagina, tamanhoPagina, ordem, coluna).stream()
                 .map(StefamonParser::EntityToDto)
                 .collect(Collectors.toList());
+
+        int totalPaginas = (int) Math.ceil( (double) repository.buscarQuantidadeStefamons() / tamanhoPagina);
+
+        return new PageDTO<>(elementos,totalPaginas);
     }
+
 
     public StefamonDTO buscarPorId(Long id) {
         var stefamon =  repository.findById(id);

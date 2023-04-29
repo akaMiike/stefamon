@@ -1,9 +1,10 @@
 package com.stefanini.resources;
 
+import com.stefanini.dto.paginacao.PageDTO;
+import com.stefanini.dto.stefamon.StefamonDTO;
 import com.stefanini.service.StefamonService;
 
 import javax.inject.Inject;
-import javax.validation.Valid;
 import javax.validation.constraints.Pattern;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;

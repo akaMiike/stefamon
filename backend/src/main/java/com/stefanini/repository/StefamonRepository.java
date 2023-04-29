@@ -32,4 +32,10 @@ public class StefamonRepository extends GenericDAO<Stefamon, Long> {
                 .setMaxResults(tamanhoPagina)
                 .getResultList();
     }
+
+    public Long buscarQuantidadeStefamons(){
+        return getEntityManager()
+                .createQuery("SELECT Count(s) FROM Stefamon s", Long.class)
+                .getSingleResult();
+    }
 }
