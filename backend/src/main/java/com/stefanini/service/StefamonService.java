@@ -26,6 +26,12 @@ public class StefamonService {
 
     }
 
+    public List<StefamonDTO> listarTodosPaginado(int numPagina, int tamanhoPagina){
+        return repository.buscarTodosPaginado(numPagina, tamanhoPagina).stream()
+                .map(StefamonParser::EntityToDto)
+                .collect(Collectors.toList());
+    }
+
     public StefamonDTO buscarPorId(Long id) {
         var stefamon =  repository.findById(id);
         if(Objects.isNull(stefamon)) {
