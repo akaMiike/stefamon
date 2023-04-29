@@ -2,6 +2,7 @@ package com.stefanini.resources;
 
 import com.stefanini.dto.jogador.JogadorCriacaoDTO;
 import com.stefanini.dto.jogador.JogadorLoginDTO;
+import com.stefanini.dto.stefamon.StefamonDTO;
 import com.stefanini.entity.Jogador;
 import com.stefanini.service.AuthService;
 import com.stefanini.service.JogadorService;
@@ -11,6 +12,7 @@ import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 @Path("/jogador")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -60,6 +62,13 @@ public class JogadorResource {
     public Response login(@Valid JogadorLoginDTO jogadorLoginDTO){
         authService.autenticar(jogadorLoginDTO.getNickname(), jogadorLoginDTO.getPassword());
         return Response.status(Response.Status.NO_CONTENT).build();
+    }
+
+    @PUT
+    @Path("/{id}/comprar-stefamons")
+    public Response comprarStefamons(@PathParam("id") Long id, @Valid List<StefamonDTO> stefamons){
+        jogadorService.comprarStefamons(stefamons, id);
+        return Response.status(Response.Status.OK).build();
     }
 
 }

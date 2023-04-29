@@ -26,5 +26,4 @@ public class StefamonResource {
     public Response pegarPorId(@PathParam("id") Long id) {
         return Response.status(Response.Status.OK).entity(service.buscarPorId(id)).build();
     }
-
 }

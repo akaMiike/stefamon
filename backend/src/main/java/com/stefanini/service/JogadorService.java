@@ -6,6 +6,7 @@ import com.stefanini.dto.stefamon.StefamonDTO;
 import com.stefanini.entity.Jogador;
 import com.stefanini.entity.Stefamon;
 import com.stefanini.exceptions.jogador.JogadorNaoEncontradoException;
+import com.stefanini.exceptions.jogador.LimiteDeStefamonsAtingidoException;
 import com.stefanini.exceptions.jogador.NicknameJaExistenteException;
 import com.stefanini.exceptions.jogador.SaldoInsuficienteException;
 import com.stefanini.parser.JogadorParser;
@@ -39,8 +40,6 @@ public class JogadorService {
         jogador.setSaldo(JogadorConstants.SALDO_INICIAL);
         jogador.setPassword(PasswordUtils.encodeBase64(jogador.getPassword()));
 
-        comprarStefamons(jogador.getStefamons(), jogador);
-
         jogadorRepository.save(jogador);
     }
 
@@ -53,14 +52,18 @@ public class JogadorService {
     }
 
     public void atualizar(JogadorCriacaoDTO jogador, long id) {
-        Jogador dadosJogadorAtualizado = JogadorParser.CreationDtoToEntity(jogador);
-        JogadorRetornoDTO dadosJogadorAntigo = buscarPorId(id);
+        if(jogadorRepository.existeJogadorPorNickname(jogador.getNickname()))
+            throw new NicknameJaExistenteException();
 
-        dadosJogadorAtualizado.setSaldo(dadosJogadorAntigo.getSaldo());
-        dadosJogadorAtualizado.setPassword(PasswordUtils.encodeBase64(jogador.getPassword()));
-        dadosJogadorAtualizado.setId(id);
+        Jogador dadosJogadorAntigo = jogadorRepository.findById(id);
+        if(Objects.isNull(dadosJogadorAntigo)) {
+            throw new JogadorNaoEncontradoException("Jogador de id " + id + " não foi encontrado.");
+        }
 
-        jogadorRepository.update(dadosJogadorAtualizado);
+        dadosJogadorAntigo.setNickname(jogador.getNickname());
+        dadosJogadorAntigo.setPassword(PasswordUtils.encodeBase64(jogador.getPassword()));
+
+        jogadorRepository.update(dadosJogadorAntigo);
     }
 
     public void deletar(Long id) {
@@ -79,7 +82,18 @@ public class JogadorService {
         );
     }
 
-    public void comprarStefamons(List<Stefamon> stefamons, Jogador jogador){
+    public void comprarStefamons(List<StefamonDTO> stefamons, Long id){
+        var jogador = jogadorRepository.findById(id);
+
+        if(Objects.isNull(jogador)) {
+            throw new JogadorNaoEncontradoException("Jogador de id " + id + " não foi encontrado.");
+        }
+
+        int totalStefamons = jogador.getStefamons().size() + stefamons.size();
+        if(totalStefamons > 6){
+            throw new LimiteDeStefamonsAtingidoException();
+        }
+
         BigDecimal valorTotal = stefamons.stream()
                 .map(s -> stefamonService.buscarPorId(s.getId()))
                 .map(StefamonDTO::getPreco)
@@ -87,9 +101,18 @@ public class JogadorService {
 
         boolean possuiSaldoParaCompra = jogador.getSaldo().compareTo(valorTotal) >= 0;
 
-        if(possuiSaldoParaCompra)
+        if(possuiSaldoParaCompra){
             jogador.setSaldo(jogador.getSaldo().subtract(valorTotal));
-        else
+            jogador.getStefamons().addAll(
+                    stefamons.stream()
+                            .map(StefamonParser::DtoToEntity)
+                            .collect(Collectors.toList())
+            );
+
+            jogadorRepository.update(jogador);
+
+        } else{
             throw new SaldoInsuficienteException();
+        }
     }
 }

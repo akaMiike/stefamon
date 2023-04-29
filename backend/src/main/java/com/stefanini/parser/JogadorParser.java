@@ -3,6 +3,8 @@ package com.stefanini.parser;
 import com.stefanini.dto.jogador.JogadorCriacaoDTO;
 import com.stefanini.dto.jogador.JogadorRetornoDTO;
 import com.stefanini.entity.Jogador;
+
+import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 public class JogadorParser {
@@ -12,9 +14,7 @@ public class JogadorParser {
                 dto.getNickname(),
                 dto.getPassword(),
                 null,
-                dto.getStefamons().stream()
-                        .map(StefamonParser::DtoToEntity)
-                        .collect(Collectors.toList())
+                new ArrayList<>()
         );
 
     }
