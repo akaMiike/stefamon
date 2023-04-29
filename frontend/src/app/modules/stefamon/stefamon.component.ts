@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Stefamon } from 'src/app/models/Stefamon.model';
+import { Page } from 'src/app/shared/models/Page.model';
 import { StefamonService } from '../../shared/services/stefamon.service';
 
 @Component({
@@ -8,16 +10,16 @@ import { StefamonService } from '../../shared/services/stefamon.service';
   providers: []
 })
 export class StefamonComponent implements OnInit {
-
-  stefamonList = [];
+  paginacaoStefamon = new Page<Stefamon>();
 
   constructor(
     private stefamonService: StefamonService
   ) { }
 
   ngOnInit(): void {
-    this.stefamonService.listAll().subscribe(res => {
-      this.stefamonList = res;
+    this.stefamonService.listarTodos(this.paginacaoStefamon).subscribe(res => {
+      this.paginacaoStefamon.elementos = res.elementos;
+      this.paginacaoStefamon.totalPaginas = res.totalPaginas;
     });
   }
 

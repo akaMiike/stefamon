@@ -1,5 +1,5 @@
 <div id="main-store-div">
-  <ng-container *ngFor="let stefamon of stefamonList">
+  <ng-container *ngFor="let stefamon of paginacaoStefamon.elementos">
     <p-card header="{{ stefamon.nome }}" styleClass="p-card-shadow"
             [style]="{'width': '200px', 'margin-bottom': '2em'}">
       <p-header>
@@ -14,6 +14,7 @@
       <p>Inteligencia: {{stefamon.inteligencia}}</p>
       <p>Velocidade: {{stefamon.velocidade}}</p>
       <p>Poder: {{stefamon.poder}}</p>
+      <p>Preço: {{stefamon.preco}}</p>
       <ng-template pTemplate="footer">
         <p-button label="Comprar" icon="pi pi-check"></p-button>
       </ng-template>

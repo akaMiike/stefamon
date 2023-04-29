@@ -7,5 +7,6 @@ export interface Stefamon{
     inteligencia: number,
     poder: number,
     velocidade: number,
+    preco: number,
     urlFoto: string
 }

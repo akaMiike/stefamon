@@ -3,6 +3,7 @@ import { environment } from '../../../environments/environment.prod';
 import { Observable } from 'rxjs';
 import { Stefamon } from 'src/app/models/Stefamon.model';
 import { Injectable } from '@angular/core';
+import { Page } from '../models/Page.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +16,15 @@ export class StefamonService {
     private http: HttpClient
   ) { }
 
-  listAll(): Observable<Stefamon[]> {
-    return this.http.get<Stefamon[]>(this.URL + "/todos");
+  listarTodos(paginacao: Page<Stefamon>): Observable<Page<Stefamon>>{
+    return this.http.get<Page<Stefamon>>(this.URL + "/todos", {
+      params: {
+        pagina: (paginacao.pagina).toString(),
+        tamanhoPagina: paginacao.tamanhoPagina.toString(),
+        coluna: paginacao.colunaOrdenacao,
+        ordem: paginacao.valorOrdenacao
+      }
+    });
   }
 
 }
