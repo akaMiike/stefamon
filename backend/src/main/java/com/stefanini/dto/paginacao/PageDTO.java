@@ -5,11 +5,11 @@ import java.util.List;
 public class PageDTO<T>{
 
     private List<T> elementos;
-    private int totalPaginas;
+    private Long totalElementos;
 
-    public PageDTO(List<T> elementos, int totalPaginas){
+    public PageDTO(List<T> elementos, Long totalElementos){
         this.elementos = elementos;
-        this.totalPaginas = totalPaginas;
+        this.totalElementos = totalElementos;
     }
 
     public List<T> getElementos() {
@@ -20,11 +20,11 @@ public class PageDTO<T>{
         this.elementos = elementos;
     }
 
-    public int getTotalPaginas() {
-        return totalPaginas;
+    public Long getTotalElementos() {
+        return totalElementos;
     }
 
-    public void setTotalPaginas(int totalPaginas) {
-        this.totalPaginas = totalPaginas;
+    public void setTotalElementos(Long totalElementos) {
+        this.totalElementos = totalElementos;
     }
 }

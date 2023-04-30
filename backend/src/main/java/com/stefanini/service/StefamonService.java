@@ -32,9 +32,9 @@ public class StefamonService {
                 .map(StefamonParser::EntityToDto)
                 .collect(Collectors.toList());
 
-        int totalPaginas = (int) Math.ceil( (double) repository.buscarQuantidadeStefamons() / tamanhoPagina);
+        Long totalElementos = repository.buscarQuantidadeStefamons();
 
-        return new PageDTO<>(elementos,totalPaginas);
+        return new PageDTO<>(elementos,totalElementos);
     }
 
 
