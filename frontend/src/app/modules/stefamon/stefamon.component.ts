@@ -19,7 +19,15 @@ export class StefamonComponent implements OnInit {
   ngOnInit(): void {
     this.stefamonService.listarTodos(this.paginacaoStefamon).subscribe(res => {
       this.paginacaoStefamon.elementos = res.elementos;
-      this.paginacaoStefamon.totalPaginas = res.totalPaginas;
+      this.paginacaoStefamon.totalElementos = res.totalElementos;
+    });
+  }
+
+  paginate(event){
+    this.paginacaoStefamon.pagina = event.page
+    this.stefamonService.listarTodos(this.paginacaoStefamon).subscribe(res => {
+      this.paginacaoStefamon.elementos = res.elementos;
+      this.paginacaoStefamon.totalElementos = res.totalElementos;
     });
   }
 

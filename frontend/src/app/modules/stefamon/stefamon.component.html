@@ -7,17 +7,30 @@
           <img alt="Card" src="{{ stefamon.urlFoto }}">
         </div>
       </p-header>
-      <p>Atributos</p>
+      <p><b>Atributos:</b></p>
       <p>Ataque: {{stefamon.ataque}}</p>
       <p>Defesa: {{stefamon.defesa}}</p>
       <p>Vida: {{stefamon.vida}}</p>
       <p>Inteligencia: {{stefamon.inteligencia}}</p>
       <p>Velocidade: {{stefamon.velocidade}}</p>
       <p>Poder: {{stefamon.poder}}</p>
-      <p>Preço: {{stefamon.preco}}</p>
       <ng-template pTemplate="footer">
-        <p-button label="Comprar" icon="pi pi-check"></p-button>
+        <div class="p-d-flex p-jc-center p-mb-1">
+          <div>Preço: {{stefamon.preco}} moedas</div>
+        </div>
+        <div class="p-d-flex p-jc-center">
+          <div>
+            <p-button class="p-mr-auto" label="Comprar" icon="pi pi-check"></p-button>
+          </div>
+        </div>
       </ng-template>
     </p-card>
   </ng-container>
+</div>
+<div>
+  <p-paginator 
+  [rows]="paginacaoStefamon.tamanhoPagina"
+  [totalRecords]="paginacaoStefamon.totalElementos"
+  (onPageChange) = "paginate($event)"
+  ></p-paginator>
 </div>
