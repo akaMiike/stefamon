@@ -3,6 +3,7 @@ package com.stefanini.dto.stefamon;
 import com.stefanini.entity.Stefamon;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class StefamonDTO {
 
@@ -105,7 +106,8 @@ public class StefamonDTO {
     }
 
     public BigDecimal getPreco() {
-        return BigDecimal.valueOf((vida + ataque + defesa + inteligencia + velocidade + poder) / 6.0);
+        BigDecimal preco = BigDecimal.valueOf((vida + ataque + defesa + inteligencia + velocidade + poder) / 6.0);
+        return preco.setScale(1, RoundingMode.HALF_EVEN);
     }
 
 }
