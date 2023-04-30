@@ -28,7 +28,7 @@ public class StefamonRepository extends GenericDAO<Stefamon, Long> {
 
         return getEntityManager()
                 .createQuery(select)
-                .setFirstResult((numPagina-1) * tamanhoPagina)
+                .setFirstResult((numPagina) * tamanhoPagina)
                 .setMaxResults(tamanhoPagina)
                 .getResultList();
     }

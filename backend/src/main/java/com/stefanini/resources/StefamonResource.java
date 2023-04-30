@@ -21,7 +21,7 @@ public class StefamonResource {
     @GET
     @Path("/todos")
     public Response listarTodos(
-            @DefaultValue("1") @QueryParam("pagina") Integer pagina,
+            @DefaultValue("0") @QueryParam("pagina") Integer pagina,
             @DefaultValue("10") @QueryParam("tamanhoPagina") Integer tamanhoPagina,
             @DefaultValue("DESC") @Pattern(regexp = "^(ASC|DESC)$", message= "Valor de ordenação deve ser 'ASC' ou 'DESC'")
             @QueryParam("ordem") String ordem,
