@@ -19,10 +19,12 @@ public class StefamonRepository extends GenericDAO<Stefamon, Long> {
         CriteriaQuery<Stefamon> cq = cb.createQuery(Stefamon.class);
         Root<Stefamon> root = cq.from(Stefamon.class);
 
-        if(ordem.equals("ASC"))
-            cq.orderBy(cb.asc(root.get(coluna)));
-        else
-            cq.orderBy(cb.desc(root.get(coluna)));
+        if(coluna != null){
+            if(ordem.equals("ASC"))
+                cq.orderBy(cb.asc(root.get(coluna)));
+            else
+                cq.orderBy(cb.desc(root.get(coluna)));
+        }
 
         CriteriaQuery<Stefamon> select = cq.select(root);
 

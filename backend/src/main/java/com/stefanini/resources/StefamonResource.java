@@ -25,7 +25,7 @@ public class StefamonResource {
             @DefaultValue("10") @QueryParam("tamanhoPagina") Integer tamanhoPagina,
             @DefaultValue("DESC") @Pattern(regexp = "^(ASC|DESC)$", message= "Valor de ordenação deve ser 'ASC' ou 'DESC'")
             @QueryParam("ordem") String ordem,
-            @DefaultValue("vida") @Pattern(regexp = "^(vida|ataque|defesa|inteligencia|poder|velocidade)$", message = "Coluna de ordenação deve corresponder a algum atributo do stefamon.")
+            @Pattern(regexp = "^(vida|ataque|defesa|inteligencia|poder|velocidade)$", message = "Coluna de ordenação deve corresponder a algum atributo do stefamon.")
             @QueryParam("coluna") String coluna
     ) {
         return Response.status(Response.Status.OK)
