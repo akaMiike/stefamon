@@ -1,4 +1,20 @@
 <div id="main-store-div">
+
+  <div id="dropdown-div">
+    <div class="p-d-flex p-flex-column p-flex-md-row">
+      <p-dropdown 
+      class="p-mr-2 p-mb-1"
+      [options]="atributosStefamon" 
+      [(ngModel)]="atributoSelecionado" 
+      placeholder="Ordenar por Atributo"
+      [showClear]="true"
+      (onChange)="ordenacao()"
+      ></p-dropdown>
+
+      <input type="text" class="p-mb-1" pInputText placeholder="Buscar por Nome" (keyup)="buscarPorNome($event)"/>
+    </div>
+  </div>
+
   <ng-container *ngFor="let stefamon of paginacaoStefamon.elementos">
     <p-card header="{{ stefamon.nome }}" styleClass="p-card-shadow"
             [style]="{'width': '200px', 'margin-bottom': '2em'}">
@@ -26,11 +42,13 @@
       </ng-template>
     </p-card>
   </ng-container>
+
 </div>
+
 <div>
   <p-paginator 
   [rows]="paginacaoStefamon.tamanhoPagina"
   [totalRecords]="paginacaoStefamon.totalElementos"
-  (onPageChange) = "paginate($event)"
+  (onPageChange) = "paginacao($event)"
   ></p-paginator>
 </div>

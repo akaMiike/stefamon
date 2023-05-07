@@ -9,6 +9,7 @@ import {TableModule} from 'primeng/table';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import {PaginatorModule} from 'primeng/paginator';
+import { DropdownModule } from 'primeng/dropdown';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import {PaginatorModule} from 'primeng/paginator';
     FormsModule,
     InputTextModule,
     TableModule,
-    PaginatorModule
+    PaginatorModule,
+    DropdownModule,
   ]
 })
 export class ModulesModule { }
