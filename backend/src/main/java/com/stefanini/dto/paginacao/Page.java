@@ -2,12 +2,12 @@ package com.stefanini.dto.paginacao;
 
 import java.util.List;
 
-public class PageDTO<T>{
+public class Page<T>{
 
     private List<T> elementos;
-    private Long totalElementos;
+    private int totalElementos;
 
-    public PageDTO(List<T> elementos, Long totalElementos){
+    public Page(List<T> elementos, int totalElementos){
         this.elementos = elementos;
         this.totalElementos = totalElementos;
     }
@@ -20,11 +20,11 @@ public class PageDTO<T>{
         this.elementos = elementos;
     }
 
-    public Long getTotalElementos() {
+    public int getTotalElementos() {
         return totalElementos;
     }
 
-    public void setTotalElementos(Long totalElementos) {
+    public void setTotalElementos(int totalElementos) {
         this.totalElementos = totalElementos;
     }
 }

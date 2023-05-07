@@ -1,7 +1,5 @@
 package com.stefanini.resources;
 
-import com.stefanini.dto.paginacao.PageDTO;
-import com.stefanini.dto.stefamon.StefamonDTO;
 import com.stefanini.service.StefamonService;
 
 import javax.inject.Inject;
@@ -21,6 +19,7 @@ public class StefamonResource {
     @GET
     @Path("/todos")
     public Response listarTodos(
+            @QueryParam("nome") String nomeStefamon,
             @DefaultValue("0") @QueryParam("pagina") Integer pagina,
             @DefaultValue("10") @QueryParam("tamanhoPagina") Integer tamanhoPagina,
             @DefaultValue("DESC") @Pattern(regexp = "^(ASC|DESC)$", message= "Valor de ordenação deve ser 'ASC' ou 'DESC'")
@@ -29,7 +28,7 @@ public class StefamonResource {
             @QueryParam("coluna") String coluna
     ) {
         return Response.status(Response.Status.OK)
-                .entity(service.listarTodosPaginado(pagina,tamanhoPagina,ordem,coluna))
+                .entity(service.listarTodosPaginado(pagina,tamanhoPagina,ordem,coluna,nomeStefamon))
                 .build();
     }
 

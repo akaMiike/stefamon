@@ -1,6 +1,6 @@
 package com.stefanini.service;
 
-import com.stefanini.dto.paginacao.PageDTO;
+import com.stefanini.dto.paginacao.Page;
 import com.stefanini.dto.stefamon.StefamonDTO;
 import com.stefanini.entity.Stefamon;
 import com.stefanini.exceptions.stefamon.StefamonNaoEncontradoException;
@@ -9,7 +9,6 @@ import com.stefanini.repository.StefamonRepository;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -27,14 +26,13 @@ public class StefamonService {
 
     }
 
-    public PageDTO<StefamonDTO> listarTodosPaginado(int numPagina, int tamanhoPagina, String ordem, String coluna){
-        List<StefamonDTO> elementos = repository.buscarTodosPaginadoEOrdenado(numPagina, tamanhoPagina, ordem, coluna).stream()
-                .map(StefamonParser::EntityToDto)
-                .collect(Collectors.toList());
+    public Page<StefamonDTO> listarTodosPaginado(int numPagina, int tamanhoPagina, String ordem, String coluna, String nome){
+        Page<Stefamon> stefamonPage = repository.buscarTodosPaginadoEOrdenado(numPagina, tamanhoPagina, ordem, coluna, nome);
 
-        Long totalElementos = repository.buscarQuantidadeStefamons();
-
-        return new PageDTO<>(elementos,totalElementos);
+        return new Page<>(
+                stefamonPage.getElementos().stream().map(StefamonParser::EntityToDto).collect(Collectors.toList()),
+                stefamonPage.getTotalElementos()
+        );
     }
 
 

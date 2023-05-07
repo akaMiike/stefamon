@@ -2,10 +2,10 @@ package com.stefanini.repository;
 
 
 import com.stefanini.dao.GenericDAO;
+import com.stefanini.dto.paginacao.Page;
 import com.stefanini.entity.Stefamon;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -14,7 +14,7 @@ import java.util.List;
 @ApplicationScoped
 public class StefamonRepository extends GenericDAO<Stefamon, Long> {
 
-    public List<Stefamon> buscarTodosPaginadoEOrdenado(int numPagina, int tamanhoPagina, String ordem, String coluna){
+    public Page<Stefamon> buscarTodosPaginadoEOrdenado(int numPagina, int tamanhoPagina, String ordem, String coluna, String nome){
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         CriteriaQuery<Stefamon> cq = cb.createQuery(Stefamon.class);
         Root<Stefamon> root = cq.from(Stefamon.class);
@@ -26,13 +26,20 @@ public class StefamonRepository extends GenericDAO<Stefamon, Long> {
                 cq.orderBy(cb.desc(root.get(coluna)));
         }
 
-        CriteriaQuery<Stefamon> select = cq.select(root);
+        if(nome != null){
+            cq.where(cb.like(root.get("nome"), nome + "%"));
+        }
 
-        return getEntityManager()
-                .createQuery(select)
+        CriteriaQuery<Stefamon> select = cq.select(root);
+        var query = getEntityManager().createQuery(select);
+
+        int totalElementos = query.getResultList().size();
+        List<Stefamon> resultados = query
                 .setFirstResult((numPagina) * tamanhoPagina)
                 .setMaxResults(tamanhoPagina)
                 .getResultList();
+
+        return new Page<>(resultados,totalElementos);
     }
 
     public Long buscarQuantidadeStefamons(){
