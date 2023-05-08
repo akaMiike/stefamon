@@ -1,4 +1,5 @@
-#main-store-div{
+.main-store-div{
+    z-index:100;
     padding: 20px;
     display: flex;
     flex-grow: 1;

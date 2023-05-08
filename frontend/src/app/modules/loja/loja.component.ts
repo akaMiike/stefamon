@@ -6,14 +6,16 @@ import { StefamonService } from '../../shared/services/stefamon.service';
 
 @Component({
   selector: 'app-stefamon',
-  templateUrl: './stefamon.component.html',
-  styleUrls: ['./stefamon.component.css'],
+  templateUrl: './loja.component.html',
+  styleUrls: ['./loja.component.css'],
   providers: []
 })
-export class StefamonComponent implements OnInit {
+export class LojaComponent implements OnInit {
   paginacaoStefamon = new Page<Stefamon>();
   atributosStefamon: SelectItem[] = [];
   atributoSelecionado: string;
+  direcoesOrdenacao: SelectItem[] = [];
+  direcaoOrdenacao: string;
 
   constructor(
     private stefamonService: StefamonService
@@ -26,6 +28,12 @@ export class StefamonComponent implements OnInit {
       {label: "Velocidade", value: "velocidade"},
       {label: "Poder", value: "poder"}
     ]
+
+    this.direcoesOrdenacao = [
+      {label:"Descendente", value: "DESC"},
+      {label:"Ascendente", value: "ASC"}
+    ]
+
   }
 
   ngOnInit(): void {
@@ -37,9 +45,9 @@ export class StefamonComponent implements OnInit {
     this.listarTodos();
   }
 
-  ordenacao(){
+  setColunaOrdenacao(){
     this.paginacaoStefamon.colunaOrdenacao = this.atributoSelecionado;
-    this.listarTodos();
+    this.direcaoOrdenacao = null;
   }
 
   buscarPorNome(event){
@@ -53,6 +61,16 @@ export class StefamonComponent implements OnInit {
       this.paginacaoStefamon.elementos = res.elementos;
       this.paginacaoStefamon.totalElementos = res.totalElementos;
     });
+  }
+
+  ordenacao(){
+    if(this.paginacaoStefamon.valorOrdenacao === "ASC"){
+      this.paginacaoStefamon.valorOrdenacao = "DESC"
+    }
+    else{
+      this.paginacaoStefamon.valorOrdenacao = "ASC"
+    }
+    this.listarTodos();
   }
 
 }

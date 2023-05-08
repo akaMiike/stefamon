@@ -1,18 +1,27 @@
-<div id="main-store-div">
+<div class="main-store-div">
 
   <div id="dropdown-div">
-    <div class="p-d-flex p-flex-column p-flex-md-row">
+      
       <p-dropdown 
       class="p-mr-2 p-mb-1"
       [options]="atributosStefamon" 
       [(ngModel)]="atributoSelecionado" 
-      placeholder="Ordenar por Atributo"
+      placeholder="Ordenar por atributo"
+      [showClear]="true"
+      (onChange)="setColunaOrdenacao()">
+      </p-dropdown>
+
+      <p-dropdown 
+      class="p-mr-2 p-mb-1"
+      [options]="direcoesOrdenacao" 
+      [(ngModel)]="direcaoOrdenacao" 
+      placeholder="Tipo da ordenação"
       [showClear]="true"
       (onChange)="ordenacao()"
-      ></p-dropdown>
+      [disabled]="paginacaoStefamon.colunaOrdenacao == null">
+      </p-dropdown>
 
-      <input type="text" class="p-mb-1" pInputText placeholder="Buscar por Nome" (keyup)="buscarPorNome($event)"/>
-    </div>
+      <input type="text" class="p-mb-1" pInputText placeholder="Buscar por nome" (keyup)="buscarPorNome($event)"/>
   </div>
 
   <ng-container *ngFor="let stefamon of paginacaoStefamon.elementos">
