@@ -9,14 +9,6 @@ import { MenuItem } from 'primeng/api';
 export class AppComponent implements OnInit {
 
   title = 'hackathon-angular';
-  items: MenuItem[];
 
-  ngOnInit(): void {
-
-    this.items = [
-      {label: 'Stefamon', disabled: true},
-      {label: 'Home', icon:'pi pi-home', routerLink:'/home'},
-      {label: 'Loja', icon: 'pi pi-shopping-cart', routerLink: '/loja'}
-    ];
-  }
+  ngOnInit(): void {}
 }
