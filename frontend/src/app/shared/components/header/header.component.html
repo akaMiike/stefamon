@@ -1,5 +1,7 @@
 <p-menubar [model]="items">
-    <input type="text" pInputText placeholder="Login">
-    <input type="text" pInputText placeholder="Senha">
-    <button pButton label="Entrar"></button>
+    <form [formGroup]="loginForm">
+        <input formControlName="usuario" type="text" pInputText placeholder="Usuário">
+        <input formControlName="senha" type="password" pInputText placeholder="Senha">
+        <button type="submit" pButton label="Entrar"></button>
+    </form>
 </p-menubar>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { MenuItem } from 'primeng/api';
 
 @Component({
@@ -8,8 +9,13 @@ import { MenuItem } from 'primeng/api';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
   items: MenuItem[];
+  loginForm = this.fb.group({
+    usuario: ['', Validators.required],
+    senha: ['', [Validators.required, Validators.min(4), Validators.max(10)]]
+  })
+
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
 
@@ -20,5 +26,8 @@ export class HeaderComponent implements OnInit {
     ];
   }
 
+  login(){
+    
+  }
 
 }

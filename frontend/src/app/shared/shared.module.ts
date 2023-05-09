@@ -1,22 +1,23 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HeaderComponent } from './components/header/header.component';
-import { MenubarModule } from 'primeng/menubar';
-import { InputTextModule } from 'primeng/inputtext';
-import { ButtonModule } from 'primeng/button';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { HeaderComponent } from './components/header/header.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MenubarModule } from 'primeng/menubar';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
 
 @NgModule({
   declarations: [HeaderComponent],
   imports: [
-    MenubarModule,
-    ReactiveFormsModule,
     FormsModule,
+    ReactiveFormsModule,
     InputTextModule,
-    HttpClientModule,
+    MenubarModule,
     ButtonModule,
-    CommonModule
-  ]
+    CommonModule,
+    HttpClientModule
+  ],
+  exports:[HeaderComponent]
 })
 export class SharedModule { }

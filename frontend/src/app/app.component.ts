@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-root',
@@ -11,4 +10,5 @@ export class AppComponent implements OnInit {
   title = 'hackathon-angular';
 
   ngOnInit(): void {}
+
 }
