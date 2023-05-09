@@ -1,7 +1,11 @@
 <p-menubar [model]="items">
-    <form [formGroup]="loginForm">
-        <input formControlName="usuario" type="text" pInputText placeholder="Usuário">
-        <input formControlName="senha" type="password" pInputText placeholder="Senha">
-        <button type="submit" pButton label="Entrar"></button>
+    <form [formGroup]="loginForm" *ngIf="!usuarioEstaLogado">
+        <input formControlName="usuario" type="text" pInputText placeholder="Usuário" >
+        <input class="p-ml-1" formControlName="senha" type="password" pInputText placeholder="Senha">
+        <button class="p-ml-1" type="submit" pButton label="Entrar" (click)="login()"></button>
     </form>
+    <div *ngIf="usuarioEstaLogado" class="p-d-flex p-ai-center">
+        <p>Bem vindo, {{usuarioLogado}}</p>
+        <button type="button" pButton label="Logout" (click)="logout()" class="p-ml-3"></button>
+    </div>
 </p-menubar>
