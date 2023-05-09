@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
+import { AuthService } from 'src/app/shared/services/auth.service';
 import { JogadorService } from 'src/app/shared/services/jogador.service';
 
 @Component({
@@ -12,23 +13,24 @@ export class HomeComponent implements OnInit {
 
   createUserForm = this.fb.group({
     nickname: ['', [Validators.required]],
-    password: ['', [Validators.required, Validators.min(4), Validators.max(10)]]
+    password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(10)]]
   })
 
   constructor(
     private fb: FormBuilder,
-    private jogadorService: JogadorService
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
   }
 
-  registerUser(){
-    this.jogadorService.register(
+  registrarUsuario(){
+    this.authService.registrar(
       this.createUserForm.value.nickname,
       this.createUserForm.value.password
     ).subscribe(() => {
       alert("Usuário cadastrado com sucesso.")
+      this.createUserForm.reset()
     })
   }
 

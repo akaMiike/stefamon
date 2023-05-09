@@ -12,12 +12,19 @@ export class AuthService {
   private _isAuthenticatedSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(localStorage.getItem("LOGGED_IN") != null);
   public isAuthenticatedObs: Observable<boolean> = this._isAuthenticatedSubject.asObservable();
 
-  private readonly API = `${environment.urlBackend}`
+  private readonly URL = `${environment.urlBackend}`
   
   constructor(private http: HttpClient) { }
+
+    registrar(nickname: string, password: string){
+      return this.http.post(`${this.URL}/jogador`, {
+        nickname: nickname,
+        password: password
+      })
+  }
   
     login(nickname: string, password: string){
-      return this.http.post(`${this.API}/jogador/login`, {
+      return this.http.post(`${this.URL}/jogador/login`, {
         nickname: nickname,
         password: password
       }).pipe(

@@ -13,11 +13,4 @@ export class JogadorService {
     private http: HttpClient
   ) { }
 
-
-  register(nickname: string, password: string){
-    return this.http.post(this.URL, {
-      nickname: nickname,
-      password: password
-    })
-  }
 }

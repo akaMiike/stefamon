@@ -28,3 +28,8 @@
 .content{
   z-index:100;
 }
+
+#descricao-jogo{
+  color:white;
+  text-align:center;
+}
