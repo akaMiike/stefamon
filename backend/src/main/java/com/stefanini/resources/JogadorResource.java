@@ -9,10 +9,12 @@ import com.stefanini.service.JogadorService;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
+import java.util.Objects;
 
 @Path("/jogador")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -32,12 +34,12 @@ public class JogadorResource {
     }
 
     @GET
-    @Path("/todos")
-    public Response listarTodos(){
-        return Response.status(Response.Status.OK).entity(jogadorService.listarTodos()).build();
+    public Response buscarPorNome(@NotNull(message="Nome do usuário é obrigatório") @QueryParam("nome") String nome){
+            return Response.status(Response.Status.OK).entity(jogadorService.buscarPorNickname(nome)).build();
     }
 
     @POST
+    @Path("/registrar")
     public Response salvar(@Valid JogadorCriacaoDTO jogador) {
         jogadorService.salvar(jogador);
         return Response.status(Response.Status.CREATED).build();

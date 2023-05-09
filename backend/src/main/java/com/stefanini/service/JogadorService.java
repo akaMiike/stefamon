@@ -76,9 +76,11 @@ public class JogadorService {
                 .collect(Collectors.toList());
     }
 
-    public Jogador buscarPorNickname(String nickname){
-        return jogadorRepository.buscarJogadorPorNickName(nickname).orElseThrow(
-                () -> new JogadorNaoEncontradoException("Jogador de nickname " + nickname + " não foi encontrado.")
+    public JogadorRetornoDTO buscarPorNickname(String nickname){
+        return jogadorRepository.buscarJogadorPorNickName(nickname)
+                .map(JogadorParser::EntityToReturnDTO)
+                .orElseThrow(
+                    () -> new JogadorNaoEncontradoException("Jogador de nickname " + nickname + " não foi encontrado.")
         );
     }
 
