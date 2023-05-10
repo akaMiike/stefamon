@@ -3,21 +3,27 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators'
 import { environment } from 'src/environments/environment.prod';
+import { JogadorService } from './jogador.service';
+import { Jogador } from 'src/app/models/Jogador.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private _isAuthenticatedSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(localStorage.getItem("LOGGED_IN") != null);
+  private _isAuthenticatedSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   public isAuthenticatedObs: Observable<boolean> = this._isAuthenticatedSubject.asObservable();
+
+  private usuarioLogado: string;
 
   private readonly URL = `${environment.urlBackend}`
   
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient
+  ) { }
 
     registrar(nickname: string, password: string){
-      return this.http.post(`${this.URL}/jogador`, {
+      return this.http.post(`${this.URL}/jogador/registrar`, {
         nickname: nickname,
         password: password
       })
@@ -30,27 +36,22 @@ export class AuthService {
       }).pipe(
         tap(() => {
           alert("Logado com sucesso!");
+          this.usuarioLogado = nickname;
           this._isAuthenticatedSubject.next(true);
-          this.setUsuarioLogado(nickname);
         })
       )
     }
 
     logout(){
-      localStorage.clear();
+      this.usuarioLogado = null;
       alert("Deslogado com sucesso!")
     }
 
     isLogado(){
-      return Boolean(localStorage.getItem("LOGGED_IN"))
+      return this.usuarioLogado != null;
     }
 
     getUsuarioLogado(){
-      return localStorage.getItem("LOGGED_IN_USERNAME")
-    }
-
-    setUsuarioLogado(username: string){
-      localStorage.setItem("LOGGED_IN", "true")
-      localStorage.setItem("LOGGED_IN_USERNAME", username)
+      return this.usuarioLogado;
     }
 }

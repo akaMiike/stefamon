@@ -10,11 +10,9 @@
         <div class="p-fluid p-p-2">
           <h1 class="p-text-center">Cadastrar novo Jogador</h1>
           <div class="p-field p-mt-3">
-            <label for="login" class="p-sr-only">Usuário</label>
-            <input id="login" type="text" pInputText formControlName="nickname" placeholder="Login">
+            <input id="login" type="text" pInputText formControlName="nickname" placeholder="Usuário">
           </div>
           <div class="p-field">
-            <label for="senha" class="p-sr-only">Senha</label>
             <input id="senha" type="password" pInputText formControlName="password" placeholder="Senha">
           </div>
           <button pButton type="submit" label="Cadastrar" (click)="registrarUsuario()"></button>

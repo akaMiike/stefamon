@@ -30,8 +30,8 @@ export class LojaComponent implements OnInit {
     ]
 
     this.direcoesOrdenacao = [
-      {label:"Descendente", value: "DESC"},
-      {label:"Ascendente", value: "ASC"}
+      {label:"Menor para Maior", value: "ASC"},
+      {label:"Maior para Maior", value: "DESC"}
     ]
 
   }
