@@ -1,27 +1,40 @@
+<div class="p-d-flex p-pb-4">
+  <div class="shop-menu-div" style="width:50%">
+    <a routerLink="loja" class="shop-menu-item">Comprar Stefamons</a>
+  </div>
+  <div class="shop-menu-div" style="width:50%">
+    <a routerLink="loja" class="shop-menu-item">Meus Stefamons</a>
+  </div>
+</div>
 
 <div class="p-d-flex p-ai-center filters-div">
+  <div>
+    <p-dropdown 
+    class="p-mr-2"
+    [options]="atributosStefamon" 
+    [(ngModel)]="atributoSelecionado" 
+    placeholder="Ordenar por..."
+    [showClear]="true"
+    (onChange)="setColunaOrdenacao()">
+    </p-dropdown>
+  </div>
+
+  <div>
+    <p-dropdown 
+    class="p-mr-2"
+    [options]="direcoesOrdenacao" 
+    [(ngModel)]="direcaoOrdenacao" 
+    placeholder="Tipo da ordenação"
+    [showClear]="true"
+    (onChange)="ordenacao()"
+    [disabled]="paginacaoStefamon.colunaOrdenacao == null">
+    </p-dropdown>
+  </div>
   
-  <p-dropdown 
-  class="p-mr-2"
-  [options]="atributosStefamon" 
-  [(ngModel)]="atributoSelecionado" 
-  placeholder="Ordenar por..."
-  [showClear]="true"
-  (onChange)="setColunaOrdenacao()">
-  </p-dropdown>
-
-  <p-dropdown 
-  class="p-mr-2"
-  [options]="direcoesOrdenacao" 
-  [(ngModel)]="direcaoOrdenacao" 
-  placeholder="Tipo da ordenação"
-  [showClear]="true"
-  (onChange)="ordenacao()"
-  [disabled]="paginacaoStefamon.colunaOrdenacao == null">
-  </p-dropdown>
-
-  <input type="text" pInputText placeholder="Buscar por nome" (keyup)="buscarPorNome($event)"/>
-
+  <div>
+    <input type="text" pInputText placeholder="Buscar por nome" (keyup)="buscarPorNome($event)"/>
+  </div>
+  
   <h4 class="p-ml-auto coins-text" *ngIf="usuarioEstaLogado">Você possui: {{dadosUsuarioLogado.saldo}} moedas</h4>
 </div>
 

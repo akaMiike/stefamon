@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import {PaginatorModule} from 'primeng/paginator';
 import { DropdownModule } from 'primeng/dropdown';
+import { TabMenuModule } from 'primeng/tabmenu';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { DropdownModule } from 'primeng/dropdown';
     TableModule,
     PaginatorModule,
     DropdownModule,
+    TabMenuModule
   ]
 })
 export class ModulesModule { }

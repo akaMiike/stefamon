@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuItem } from 'primeng/api/menuitem';
 import { SelectItem } from 'primeng/api/selectitem';
 import { Jogador } from 'src/app/models/Jogador.model';
 import { Stefamon } from 'src/app/models/Stefamon.model';
@@ -14,6 +15,7 @@ import { StefamonService } from '../../shared/services/stefamon.service';
   providers: []
 })
 export class LojaComponent implements OnInit {
+  menuLoja: MenuItem[];
   paginacaoStefamon = new Page<Stefamon>();
   atributosStefamon: SelectItem[] = [];
   atributoSelecionado: string;
@@ -28,6 +30,12 @@ export class LojaComponent implements OnInit {
     private jogadorService: JogadorService,
     private authService: AuthService
   ) { 
+
+    this.menuLoja = [
+      {label: "Comprar Stefamon"},
+      {label: "Meus Stefamons"}
+    ]
+
     this.atributosStefamon = [
       {label: "Vida", value: "vida"},
       {label: "Ataque", value:"ataque"},
