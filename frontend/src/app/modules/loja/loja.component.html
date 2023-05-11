@@ -1,28 +1,29 @@
+
+<div class="p-d-flex filters-div">
+  
+  <p-dropdown 
+  class="p-mr-2"
+  [options]="atributosStefamon" 
+  [(ngModel)]="atributoSelecionado" 
+  placeholder="Ordenar por..."
+  [showClear]="true"
+  (onChange)="setColunaOrdenacao()">
+  </p-dropdown>
+
+  <p-dropdown 
+  class="p-mr-2"
+  [options]="direcoesOrdenacao" 
+  [(ngModel)]="direcaoOrdenacao" 
+  placeholder="Tipo da ordenação"
+  [showClear]="true"
+  (onChange)="ordenacao()"
+  [disabled]="paginacaoStefamon.colunaOrdenacao == null">
+  </p-dropdown>
+
+  <input type="text" pInputText placeholder="Buscar por nome" (keyup)="buscarPorNome($event)"/>
+</div>
+
 <div class="main-store-div">
-
-  <div id="dropdown-div">
-      
-      <p-dropdown 
-      class="p-mr-2 p-mb-1"
-      [options]="atributosStefamon" 
-      [(ngModel)]="atributoSelecionado" 
-      placeholder="Ordenar por..."
-      [showClear]="true"
-      (onChange)="setColunaOrdenacao()">
-      </p-dropdown>
-
-      <p-dropdown 
-      class="p-mr-2 p-mb-1"
-      [options]="direcoesOrdenacao" 
-      [(ngModel)]="direcaoOrdenacao" 
-      placeholder="Tipo da ordenação"
-      [showClear]="true"
-      (onChange)="ordenacao()"
-      [disabled]="paginacaoStefamon.colunaOrdenacao == null">
-      </p-dropdown>
-
-      <input type="text" class="p-mb-1" pInputText placeholder="Buscar por nome" (keyup)="buscarPorNome($event)"/>
-  </div>
 
   <ng-container *ngFor="let stefamon of paginacaoStefamon.elementos">
     <p-card header="{{ stefamon.nome }}" styleClass="p-card-shadow"

@@ -1,16 +1,13 @@
 .main-store-div{
     z-index:100;
-    padding: 20px;
+    padding: 20px 20px 0px 20px;
     display: flex;
     flex-grow: 1;
     flex-wrap: wrap;
     gap: 1rem;
-    justify-content: center;
+    justify-content: space-between;
 }
 
-#dropdown-div{
-    color: white;
-    width:100%;
-    padding-top: 20px;
-    padding-left: 20px;
+.filters-div{
+    padding: 20px 20px 0px 20px;
 }
