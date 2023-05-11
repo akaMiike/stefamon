@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { SelectItem } from 'primeng/api/selectitem';
+import { Jogador } from 'src/app/models/Jogador.model';
 import { Stefamon } from 'src/app/models/Stefamon.model';
 import { Page } from 'src/app/shared/models/Page.model';
+import { AuthService } from 'src/app/shared/services/auth.service';
+import { JogadorService } from 'src/app/shared/services/jogador.service';
 import { StefamonService } from '../../shared/services/stefamon.service';
 
 @Component({
@@ -17,8 +20,13 @@ export class LojaComponent implements OnInit {
   direcoesOrdenacao: SelectItem[] = [];
   direcaoOrdenacao: string;
 
+  usuarioEstaLogado: boolean;
+  dadosUsuarioLogado: Jogador;
+
   constructor(
-    private stefamonService: StefamonService
+    private stefamonService: StefamonService,
+    private jogadorService: JogadorService,
+    private authService: AuthService
   ) { 
     this.atributosStefamon = [
       {label: "Vida", value: "vida"},
@@ -37,6 +45,14 @@ export class LojaComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.authService.isLogado().subscribe((estaLogado) => {
+      this.usuarioEstaLogado = estaLogado;
+      
+      if(estaLogado){
+        this.buscarDadosUsuarioLogado();
+      }
+    });
+
     this.listarTodos();
   }
 
@@ -71,6 +87,12 @@ export class LojaComponent implements OnInit {
       this.paginacaoStefamon.valorOrdenacao = "ASC"
     }
     this.listarTodos();
+  }
+
+  buscarDadosUsuarioLogado(){
+    this.jogadorService.buscarPorUsername(this.authService.getUsuarioLogado()).subscribe((dadosUsuario) => {
+      this.dadosUsuarioLogado = dadosUsuario;
+    })
   }
 
 }

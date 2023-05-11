@@ -3,8 +3,6 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators'
 import { environment } from 'src/environments/environment.prod';
-import { JogadorService } from './jogador.service';
-import { Jogador } from 'src/app/models/Jogador.model';
 
 @Injectable({
   providedIn: 'root'
@@ -48,7 +46,7 @@ export class AuthService {
     }
 
     isLogado(){
-      return this.usuarioLogado != null;
+      return this.isAuthenticatedObs;
     }
 
     getUsuarioLogado(){

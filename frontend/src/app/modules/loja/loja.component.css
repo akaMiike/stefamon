@@ -9,5 +9,14 @@
 }
 
 .filters-div{
+    color:white;
     padding: 20px 20px 0px 20px;
+}
+
+.coins-text{
+    background: linear-gradient(135deg, #00b4db, #0083b0);
+    border-radius: 5px;
+    color: white;
+    padding: 8px;
+    text-align: center;
 }

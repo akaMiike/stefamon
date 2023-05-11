@@ -1,5 +1,5 @@
 
-<div class="p-d-flex filters-div">
+<div class="p-d-flex p-ai-center filters-div">
   
   <p-dropdown 
   class="p-mr-2"
@@ -21,6 +21,8 @@
   </p-dropdown>
 
   <input type="text" pInputText placeholder="Buscar por nome" (keyup)="buscarPorNome($event)"/>
+
+  <h4 class="p-ml-auto coins-text" *ngIf="usuarioEstaLogado">Você possui: {{dadosUsuarioLogado.saldo}} moedas</h4>
 </div>
 
 <div class="main-store-div">

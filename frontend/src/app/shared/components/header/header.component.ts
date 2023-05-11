@@ -28,7 +28,11 @@ export class HeaderComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.usuarioEstaLogado = this.authService.isLogado();
+    
+    this.authService.isLogado().subscribe((estaLogado) => {
+      this.usuarioEstaLogado = estaLogado;
+    });
+
     this.getDadosUsuarioLogado();
 
     this.items = [
@@ -44,7 +48,6 @@ export class HeaderComponent implements OnInit {
       this.loginForm.value.usuario!!,
       this.loginForm.value.senha!!
     ).subscribe(() => {
-      this.usuarioEstaLogado = this.authService.isLogado();
       this.getDadosUsuarioLogado();
     });
   }
