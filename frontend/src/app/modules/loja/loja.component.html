@@ -1,79 +1,19 @@
-<div class="p-d-flex p-pb-4">
+<div class="p-d-flex p-pb-4" *ngIf="usuarioEstaLogado">
   <div class="shop-menu-div" style="width:50%">
-    <a routerLink="loja" class="shop-menu-item">Comprar Stefamons</a>
+    <a [routerLink]="" class="shop-menu-item" (click)="trocarOpcaoMenu(0)">Comprar Stefamons</a>
   </div>
   <div class="shop-menu-div" style="width:50%">
-    <a routerLink="loja" class="shop-menu-item">Meus Stefamons</a>
+    <a [routerLink]="" class="shop-menu-item" (click)="trocarOpcaoMenu(1)">Meus Stefamons</a>
   </div>
-</div>
-
-<div class="p-d-flex p-ai-center filters-div">
-  <div>
-    <p-dropdown 
-    class="p-mr-2"
-    [options]="atributosStefamon" 
-    [(ngModel)]="atributoSelecionado" 
-    placeholder="Ordenar por..."
-    [showClear]="true"
-    (onChange)="setColunaOrdenacao()">
-    </p-dropdown>
-  </div>
-
-  <div>
-    <p-dropdown 
-    class="p-mr-2"
-    [options]="direcoesOrdenacao" 
-    [(ngModel)]="direcaoOrdenacao" 
-    placeholder="Tipo da ordenação"
-    [showClear]="true"
-    (onChange)="ordenacao()"
-    [disabled]="paginacaoStefamon.colunaOrdenacao == null">
-    </p-dropdown>
-  </div>
-  
-  <div>
-    <input type="text" pInputText placeholder="Buscar por nome" (keyup)="buscarPorNome($event)"/>
-  </div>
-  
-  <h4 class="p-ml-auto coins-text" *ngIf="usuarioEstaLogado">Você possui: {{dadosUsuarioLogado.saldo}} moedas</h4>
-</div>
-
-<div class="main-store-div">
-
-  <ng-container *ngFor="let stefamon of paginacaoStefamon.elementos">
-    <p-card header="{{ stefamon.nome }}" styleClass="p-card-shadow"
-            [style]="{'width': '200px', 'margin-bottom': '2em'}">
-      <p-header>
-        <div style="width: 100%; padding: 1rem;">
-          <img alt="Card" src="{{ stefamon.urlFoto }}">
-        </div>
-      </p-header>
-      <p><b>Atributos:</b></p>
-      <p>Ataque: {{stefamon.ataque}}</p>
-      <p>Defesa: {{stefamon.defesa}}</p>
-      <p>Vida: {{stefamon.vida}}</p>
-      <p>Inteligencia: {{stefamon.inteligencia}}</p>
-      <p>Velocidade: {{stefamon.velocidade}}</p>
-      <p>Poder: {{stefamon.poder}}</p>
-      <ng-template pTemplate="footer">
-        <div class="p-d-flex p-jc-center p-mb-1">
-          <div>Preço: {{stefamon.preco}} moedas</div>
-        </div>
-        <div class="p-d-flex p-jc-center">
-          <div>
-            <p-button class="p-mr-auto" label="Comprar" icon="pi pi-check"></p-button>
-          </div>
-        </div>
-      </ng-template>
-    </p-card>
-  </ng-container>
-
 </div>
 
 <div>
-  <p-paginator 
-  [rows]="paginacaoStefamon.tamanhoPagina"
-  [totalRecords]="paginacaoStefamon.totalElementos"
-  (onPageChange) = "paginacao($event)"
-  ></p-paginator>
+  <app-comprar-stefamons 
+  [saldoJogador]="dadosUsuarioLogado ? dadosUsuarioLogado.saldo : null" 
+  *ngIf="opcaoMenuLoja === 0"></app-comprar-stefamons>
+
+  <app-meus-stefamons 
+  [stefamonsJogador]="dadosUsuarioLogado ? dadosUsuarioLogado.stefamons : null"
+  *ngIf="opcaoMenuLoja === 1"></app-meus-stefamons>
 </div>
+

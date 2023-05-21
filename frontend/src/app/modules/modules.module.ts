@@ -11,12 +11,16 @@ import { InputTextModule } from 'primeng/inputtext';
 import {PaginatorModule} from 'primeng/paginator';
 import { DropdownModule } from 'primeng/dropdown';
 import { TabMenuModule } from 'primeng/tabmenu';
+import { MeusStefamonsComponent } from './loja/meus-stefamons/meus-stefamons.component';
+import { ComprarStefamonsComponent } from './loja/comprar-stefamons/comprar-stefamons.component';
 
 
 @NgModule({
   declarations: [
     HomeComponent,
-    LojaComponent
+    LojaComponent,
+    MeusStefamonsComponent,
+    ComprarStefamonsComponent
   ],
   imports: [
     CommonModule,

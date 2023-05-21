@@ -42,7 +42,8 @@ export class AuthService {
 
     logout(){
       this.usuarioLogado = null;
-      alert("Deslogado com sucesso!")
+      this._isAuthenticatedSubject.next(false);
+      alert("Deslogado com sucesso!");
     }
 
     isLogado(){

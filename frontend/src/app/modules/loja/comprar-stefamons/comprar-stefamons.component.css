@@ -1,0 +1,28 @@
+.stefamons-div{
+    z-index:100;
+    padding: 20px 20px 0px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.stefamons-card-div{
+    margin-bottom: 2em;
+    width: 200px;
+    flex-grow: 1;
+    max-width: 300px;
+}
+
+.filters-div{
+    color:white;
+    padding: 20px 20px 0px 20px;
+}
+
+.coins-text{
+    background: linear-gradient(135deg, #00b4db, #0083b0);
+    border-radius: 5px;
+    color: white;
+    padding: 8px;
+    text-align: center;
+}

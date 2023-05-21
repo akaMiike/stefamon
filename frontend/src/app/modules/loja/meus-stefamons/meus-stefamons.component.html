@@ -1,0 +1,28 @@
+<div class="stefamons-div">
+  <ng-container *ngFor="let stefamon of stefamonsJogador">
+    <p-card header="{{ stefamon.nome }}" styleClass="p-card-shadow"
+            class="stefamons-card-div">
+      <p-header>
+        <div style="width: 100%; padding: 1rem;">
+          <img alt="Card" src="{{ stefamon.urlFoto }}">
+        </div>
+      </p-header>
+      <p><b>Atributos:</b></p>
+      <p>Ataque: {{stefamon.ataque}}</p>
+      <p>Defesa: {{stefamon.defesa}}</p>
+      <p>Vida: {{stefamon.vida}}</p>
+      <p>Inteligencia: {{stefamon.inteligencia}}</p>
+      <p>Velocidade: {{stefamon.velocidade}}</p>
+      <p>Poder: {{stefamon.poder}}</p>
+      <ng-template pTemplate="footer">
+        <div class="p-d-flex p-jc-center">
+          <div>
+            <p-button class="p-mr-auto" label="Vender" icon="pi pi-check"></p-button>
+          </div>
+        </div>
+      </ng-template>
+    </p-card>
+  </ng-container>
+
+  <h1 *ngIf="stefamonsJogador.length == 0">Você não possui nenhum Stefamon.</h1>
+</div>

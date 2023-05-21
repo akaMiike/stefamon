@@ -1,12 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api/menuitem';
-import { SelectItem } from 'primeng/api/selectitem';
 import { Jogador } from 'src/app/models/Jogador.model';
-import { Stefamon } from 'src/app/models/Stefamon.model';
-import { Page } from 'src/app/shared/models/Page.model';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { JogadorService } from 'src/app/shared/services/jogador.service';
-import { StefamonService } from '../../shared/services/stefamon.service';
 
 @Component({
   selector: 'app-stefamon',
@@ -15,42 +10,15 @@ import { StefamonService } from '../../shared/services/stefamon.service';
   providers: []
 })
 export class LojaComponent implements OnInit {
-  menuLoja: MenuItem[];
-  paginacaoStefamon = new Page<Stefamon>();
-  atributosStefamon: SelectItem[] = [];
-  atributoSelecionado: string;
-  direcoesOrdenacao: SelectItem[] = [];
-  direcaoOrdenacao: string;
 
   usuarioEstaLogado: boolean;
   dadosUsuarioLogado: Jogador;
+  opcaoMenuLoja: number = 0;
 
   constructor(
-    private stefamonService: StefamonService,
-    private jogadorService: JogadorService,
-    private authService: AuthService
-  ) { 
-
-    this.menuLoja = [
-      {label: "Comprar Stefamon"},
-      {label: "Meus Stefamons"}
-    ]
-
-    this.atributosStefamon = [
-      {label: "Vida", value: "vida"},
-      {label: "Ataque", value:"ataque"},
-      {label: "Defesa", value: "defesa"},
-      {label: "Inteligencia", value: "inteligencia"},
-      {label: "Velocidade", value: "velocidade"},
-      {label: "Poder", value: "poder"}
-    ]
-
-    this.direcoesOrdenacao = [
-      {label:"Menor para Maior", value: "ASC"},
-      {label:"Maior para Maior", value: "DESC"}
-    ]
-
-  }
+    private authService: AuthService,
+    private jogadorService: JogadorService
+  ) {}
 
   ngOnInit(): void {
     this.authService.isLogado().subscribe((estaLogado) => {
@@ -59,42 +27,14 @@ export class LojaComponent implements OnInit {
       if(estaLogado){
         this.buscarDadosUsuarioLogado();
       }
-    });
-
-    this.listarTodos();
-  }
-
-  paginacao(event){
-    this.paginacaoStefamon.pagina = event.page
-    this.listarTodos();
-  }
-
-  setColunaOrdenacao(){
-    this.paginacaoStefamon.colunaOrdenacao = this.atributoSelecionado;
-    this.direcaoOrdenacao = null;
-  }
-
-  buscarPorNome(event){
-    console.log(event);
-    this.paginacaoStefamon.filtros = event.target.value == '' ? {} : {nome: event.target.value};
-    this.listarTodos();
-  }
-
-  listarTodos(){
-    this.stefamonService.listarTodos(this.paginacaoStefamon).subscribe(res => {
-      this.paginacaoStefamon.elementos = res.elementos;
-      this.paginacaoStefamon.totalElementos = res.totalElementos;
+      else{
+        this.dadosUsuarioLogado = null;
+      }
     });
   }
 
-  ordenacao(){
-    if(this.paginacaoStefamon.valorOrdenacao === "ASC"){
-      this.paginacaoStefamon.valorOrdenacao = "DESC"
-    }
-    else{
-      this.paginacaoStefamon.valorOrdenacao = "ASC"
-    }
-    this.listarTodos();
+  trocarOpcaoMenu(opcao: number){
+    this.opcaoMenuLoja = opcao;
   }
 
   buscarDadosUsuarioLogado(){
@@ -102,5 +42,4 @@ export class LojaComponent implements OnInit {
       this.dadosUsuarioLogado = dadosUsuario;
     })
   }
-
 }
