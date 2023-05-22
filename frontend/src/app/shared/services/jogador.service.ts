@@ -23,4 +23,12 @@ export class JogadorService {
     })
   }
 
+  comprarStefamon(idJogador: number, idStefamon: number){
+    return this.http.put(`${this.URL}/${idJogador}/comprar-stefamons`, [
+      {
+        id: idStefamon
+      }
+    ])
+  }
+
 }

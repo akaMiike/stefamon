@@ -9,7 +9,7 @@
 
 <div>
   <app-comprar-stefamons 
-  [saldoJogador]="dadosUsuarioLogado ? dadosUsuarioLogado.saldo : null" 
+  [(dadosJogador)]="dadosUsuarioLogado" 
   *ngIf="opcaoMenuLoja === 0"></app-comprar-stefamons>
 
   <app-meus-stefamons 

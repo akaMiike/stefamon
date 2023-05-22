@@ -13,6 +13,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { MeusStefamonsComponent } from './loja/meus-stefamons/meus-stefamons.component';
 import { ComprarStefamonsComponent } from './loja/comprar-stefamons/comprar-stefamons.component';
+import {DialogModule} from 'primeng/dialog';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { ComprarStefamonsComponent } from './loja/comprar-stefamons/comprar-stef
     TableModule,
     PaginatorModule,
     DropdownModule,
-    TabMenuModule
+    TabMenuModule,
+    DialogModule
   ]
 })
 export class ModulesModule { }

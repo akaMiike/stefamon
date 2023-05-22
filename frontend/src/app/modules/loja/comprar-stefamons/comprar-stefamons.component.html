@@ -23,10 +23,10 @@
   </div>
   
   <div>
-    <input type="text" pInputText placeholder="Buscar por nome" (keyup)="buscarPorNome($event)"/>
+    <input type="text" pInputText placeholder="Buscar por nome" (keyup)="buscarStefamonPorNome($event)"/>
   </div>
   
-  <h4 class="p-ml-auto coins-text" *ngIf="saldoJogador">Você possui: {{saldoJogador}} moedas</h4>
+  <h4 class="p-ml-auto coins-text" *ngIf="dadosJogador">Você possui: {{dadosJogador.saldo}} moedas</h4>
 </div>
 
 <div class="stefamons-div">
@@ -51,7 +51,7 @@
         </div>
         <div class="p-d-flex p-jc-center">
           <div>
-            <p-button class="p-mr-auto" label="Comprar" icon="pi pi-check"></p-button>
+            <p-button class="p-mr-auto" label="Comprar" icon="pi pi-check" (click)="confirmarCompra(stefamon)"></p-button>
           </div>
         </div>
       </ng-template>
@@ -69,3 +69,26 @@
 ></p-paginator>
 </div>
 
+<p-dialog 
+header="Deseja confirmar a compra?" 
+*ngIf="mostrarModalConfirmacao" 
+[(visible)]="mostrarModalConfirmacao"
+[style]="{width:'50vw'}"
+>
+  <div class="p-text-center"><h3>{{stefamonEscolhido.nome}}</h3></div>
+  <div style="width: 100%; padding: 1rem;" class=" p-d-flex p-ai-center p-jc-center">
+    <img width="150px" heigth="150px" alt="stefamonEscolhido.nome" src="{{ stefamonEscolhido.urlFoto }}">
+  </div>
+
+  <div class="p-grid p-nogutter p-text-center" style="margin: auto;">
+    <div class="p-col-4"><strong>Saldo Atual:</strong></div>
+    <div class="p-col-4 p-offset-4"><strong>Saldo após a compra:</strong></div>
+    <div class="p-col-4"><strong>{{dadosJogador.saldo}} moedas</strong></div>
+    <div class="p-col-4 p-offset-4"><strong>{{dadosJogador.saldo - stefamonEscolhido.preco}} moedas</strong></div>
+  </div>
+  
+  <ng-template pTemplate="footer">
+    <p-button icon="pi pi-check" label="Comprar" (click)="comprarStefamon()"c></p-button>
+    <p-button icon="pi pi-times" label="Cancelar" (click)="mostrarModalConfirmacao=false"></p-button>
+  </ng-template>
+</p-dialog>
