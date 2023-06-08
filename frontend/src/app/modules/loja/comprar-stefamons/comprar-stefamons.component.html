@@ -84,7 +84,7 @@ header="Deseja confirmar a compra?"
     <div class="p-col-4"><strong>Saldo Atual:</strong></div>
     <div class="p-col-4 p-offset-4"><strong>Saldo após a compra:</strong></div>
     <div class="p-col-4"><strong>{{dadosJogador.saldo}} moedas</strong></div>
-    <div class="p-col-4 p-offset-4"><strong>{{dadosJogador.saldo - stefamonEscolhido.preco}} moedas</strong></div>
+    <div class="p-col-4 p-offset-4"><strong>{{dadosJogador.saldo - stefamonEscolhido.preco | number: '1.1-1'}} moedas</strong></div>
   </div>
   
   <ng-template pTemplate="footer">

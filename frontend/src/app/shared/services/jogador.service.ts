@@ -23,12 +23,8 @@ export class JogadorService {
     })
   }
 
-  comprarStefamon(idJogador: number, idStefamon: number){
-    return this.http.put(`${this.URL}/${idJogador}/comprar-stefamons`, [
-      {
-        id: idStefamon
-      }
-    ])
+  comprarStefamon(idJogador: number, idStefamon: number): Observable<Jogador>{
+    return this.http.put<Jogador>(`${this.URL}/${idJogador}/comprar-stefamon/${idStefamon}`, {})
   }
 
 }

@@ -84,34 +84,24 @@ public class JogadorService {
         );
     }
 
-    public void comprarStefamons(List<StefamonDTO> stefamons, Long id){
+    public JogadorRetornoDTO comprarStefamon(Long idStefamon, Long id){
         var jogador = jogadorRepository.findById(id);
 
         if(Objects.isNull(jogador)) {
             throw new JogadorNaoEncontradoException("Jogador de id " + id + " não foi encontrado.");
         }
-
-        int totalStefamons = jogador.getStefamons().size() + stefamons.size();
-        if(totalStefamons > 6){
+        if(jogador.getStefamons().size() == 6){
             throw new LimiteDeStefamonsAtingidoException();
         }
 
-        BigDecimal valorTotal = stefamons.stream()
-                .map(s -> stefamonService.buscarPorId(s.getId()))
-                .map(StefamonDTO::getPreco)
-                .reduce(BigDecimal.ZERO , BigDecimal::add);
-
-        boolean possuiSaldoParaCompra = jogador.getSaldo().compareTo(valorTotal) >= 0;
+        StefamonDTO stefamon = stefamonService.buscarPorId(idStefamon);
+        boolean possuiSaldoParaCompra = jogador.getSaldo().compareTo(stefamon.getPreco()) >= 0;
 
         if(possuiSaldoParaCompra){
-            jogador.setSaldo(jogador.getSaldo().subtract(valorTotal));
-            jogador.getStefamons().addAll(
-                    stefamons.stream()
-                            .map(StefamonParser::DtoToEntity)
-                            .collect(Collectors.toList())
-            );
+            jogador.setSaldo(jogador.getSaldo().subtract(stefamon.getPreco()));
+            jogador.getStefamons().add(StefamonParser.DtoToEntity(stefamon));
 
-            jogadorRepository.update(jogador);
+            return JogadorParser.EntityToReturnDTO(jogadorRepository.update(jogador));
 
         } else{
             throw new SaldoInsuficienteException();

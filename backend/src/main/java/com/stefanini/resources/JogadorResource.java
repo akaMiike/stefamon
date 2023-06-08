@@ -2,6 +2,7 @@ package com.stefanini.resources;
 
 import com.stefanini.dto.jogador.JogadorCriacaoDTO;
 import com.stefanini.dto.jogador.JogadorLoginDTO;
+import com.stefanini.dto.jogador.JogadorRetornoDTO;
 import com.stefanini.dto.stefamon.StefamonDTO;
 import com.stefanini.entity.Jogador;
 import com.stefanini.service.AuthService;
@@ -67,10 +68,10 @@ public class JogadorResource {
     }
 
     @PUT
-    @Path("/{id}/comprar-stefamons")
-    public Response comprarStefamons(@PathParam("id") Long id, @Valid List<StefamonDTO> stefamons){
-        jogadorService.comprarStefamons(stefamons, id);
-        return Response.status(Response.Status.OK).build();
+    @Path("/{id}/comprar-stefamon/{idStefamon}")
+    public Response comprarStefamon(@PathParam("id") Long id, @PathParam("idStefamon") Long idStefamon){
+        JogadorRetornoDTO jogadorAtualizado = jogadorService.comprarStefamon(idStefamon, id);
+        return Response.status(Response.Status.OK).entity(jogadorAtualizado).build();
     }
 
 }

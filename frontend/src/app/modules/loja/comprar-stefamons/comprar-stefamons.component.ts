@@ -99,10 +99,10 @@ export class ComprarStefamonsComponent implements OnInit {
   }
 
   comprarStefamon(){
-    this.jogadorService.comprarStefamon(this.dadosJogador.id, this.stefamonEscolhido.id).subscribe(() => {
+    this.jogadorService.comprarStefamon(this.dadosJogador.id, this.stefamonEscolhido.id).subscribe((jogadorAtualizado) => {
       alert('Stefamon comprado com sucesso!');
-      this.dadosJogador.saldo -= this.stefamonEscolhido.preco;
-      this.dadosJogador.stefamons.push(this.stefamonEscolhido);
+      this.dadosJogador.saldo = jogadorAtualizado.saldo;
+      this.dadosJogador.stefamons = jogadorAtualizado.stefamons;
       this.dadosJogadorChange.emit(this.dadosJogador);
     })
     this.mostrarModalConfirmacao = false;
