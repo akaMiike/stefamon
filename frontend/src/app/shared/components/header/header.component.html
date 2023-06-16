@@ -6,6 +6,6 @@
     </form>
     <div *ngIf="usuarioEstaLogado" class="p-d-flex p-ai-center">
         <p pTooltip="Saldo: {{dadosUsuarioLogado.saldo}} moedas" tooltipPosition="bottom">Bem vindo, {{dadosUsuarioLogado.nickname}}</p>
-        <button type="button" pButton label="Logout" (click)="logout()" class="p-ml-3"></button>
+        <button pButton type="button" label="Logout" (click)="logout()" class="p-ml-3 p-button-danger"></button>
     </div>
 </p-menubar>

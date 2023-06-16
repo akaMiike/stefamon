@@ -51,7 +51,7 @@
         </div>
         <div class="p-d-flex p-jc-center">
           <div>
-            <p-button class="p-mr-auto" label="Comprar" icon="pi pi-check" (click)="confirmarCompra(stefamon)"></p-button>
+            <button pButton type="button" class="p-mr-auto p-button-success" label="Comprar" icon="pi pi-check" (click)="confirmarCompra(stefamon)"></button>
           </div>
         </div>
       </ng-template>
@@ -88,7 +88,7 @@ header="Deseja confirmar a compra?"
   </div>
   
   <ng-template pTemplate="footer">
-    <p-button icon="pi pi-check" label="Comprar" (click)="comprarStefamon()"c></p-button>
-    <p-button icon="pi pi-times" label="Cancelar" (click)="mostrarModalConfirmacao=false"></p-button>
+    <button pButton class="p-button-success" type="button" icon="pi pi-check" label="Confirmar" (click)="comprarStefamon()"></button>
+    <button pButton class="p-button-danger" type="button" icon="pi pi-times" label="Cancelar" (click)="mostrarModalConfirmacao=false"></button>
   </ng-template>
 </p-dialog>

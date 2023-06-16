@@ -12,8 +12,8 @@
   [(dadosJogador)]="dadosUsuarioLogado" 
   *ngIf="opcaoMenuLoja === 0"></app-comprar-stefamons>
 
-  <app-meus-stefamons 
-  [stefamonsJogador]="dadosUsuarioLogado ? dadosUsuarioLogado.stefamons : null"
+  <app-meus-stefamons
+  [(dadosJogador)] = "dadosUsuarioLogado" 
   *ngIf="opcaoMenuLoja === 1"></app-meus-stefamons>
 </div>
 
