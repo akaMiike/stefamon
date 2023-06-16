@@ -74,4 +74,11 @@ public class JogadorResource {
         return Response.status(Response.Status.OK).entity(jogadorAtualizado).build();
     }
 
+    @DELETE
+    @Path("/{id}/vender-stefamon/{idStefamon}")
+    public Response venderStefamon(@PathParam("id") Long id, @PathParam("idStefamon") Long idStefamon){
+        JogadorRetornoDTO jogadorAtualizado = jogadorService.venderStefamon(idStefamon, id);
+        return Response.status(Response.Status.OK).entity(jogadorAtualizado).build();
+    }
+
 }

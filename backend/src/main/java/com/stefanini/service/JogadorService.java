@@ -9,6 +9,7 @@ import com.stefanini.exceptions.jogador.JogadorNaoEncontradoException;
 import com.stefanini.exceptions.jogador.LimiteDeStefamonsAtingidoException;
 import com.stefanini.exceptions.jogador.NicknameJaExistenteException;
 import com.stefanini.exceptions.jogador.SaldoInsuficienteException;
+import com.stefanini.exceptions.stefamon.StefamonNaoEncontradoException;
 import com.stefanini.parser.JogadorParser;
 import com.stefanini.parser.StefamonParser;
 import com.stefanini.repository.JogadorRepository;
@@ -106,5 +107,26 @@ public class JogadorService {
         } else{
             throw new SaldoInsuficienteException();
         }
+    }
+
+    public JogadorRetornoDTO venderStefamon(Long idStefamon, Long id){
+        var jogador = jogadorRepository.findById(id);
+
+        if(Objects.isNull(jogador)) {
+            throw new JogadorNaoEncontradoException("Jogador de id " + id + " não foi encontrado.");
+        }
+
+        var stefamonARemover = jogador.getStefamons().stream()
+                .filter(s -> s.getId().equals(idStefamon))
+                .findFirst()
+                .orElseThrow(() -> new StefamonNaoEncontradoException("Jogador não possui o stefamon informado"));
+
+        var stefamonARemoverDTO = StefamonParser.EntityToDto(stefamonARemover);
+        BigDecimal novoSaldo = jogador.getSaldo().add(stefamonARemoverDTO.getPreco());
+
+        jogador.setSaldo(novoSaldo);
+        jogador.getStefamons().remove(stefamonARemover);
+
+        return JogadorParser.EntityToReturnDTO(jogadorRepository.update(jogador));
     }
 }
