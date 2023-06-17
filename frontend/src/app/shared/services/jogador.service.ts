@@ -27,4 +27,8 @@ export class JogadorService {
     return this.http.put<Jogador>(`${this.URL}/${idJogador}/comprar-stefamon/${idStefamon}`, {})
   }
 
+  venderStefamon(idJogador: number, idStefamon:number): Observable<Jogador>{
+    return this.http.delete<Jogador>(`${this.URL}/${idJogador}/vender-stefamon/${idStefamon}`, {})
+  }
+
 }

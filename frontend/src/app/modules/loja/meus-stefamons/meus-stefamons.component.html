@@ -1,5 +1,5 @@
 <div class="stefamons-div">
-  <ng-container *ngFor="let stefamon of stefamonsJogador">
+  <ng-container *ngFor="let stefamon of dadosJogador.stefamons">
     <p-card header="{{ stefamon.nome }}" styleClass="p-card-shadow"
             class="stefamons-card-div">
       <p-header>
@@ -15,14 +15,41 @@
       <p>Velocidade: {{stefamon.velocidade}}</p>
       <p>Poder: {{stefamon.poder}}</p>
       <ng-template pTemplate="footer">
+        <div class="p-d-flex p-jc-center p-mb-1">
+          <div>Preço: {{stefamon.preco}} moedas</div>
+        </div>
         <div class="p-d-flex p-jc-center">
           <div>
-            <p-button class="p-mr-auto" label="Vender" icon="pi pi-check"></p-button>
+            <button pButton type="button" class="p-mr-auto p-button-danger" label="Vender" icon="pi pi-check" (click)="escolherStefamonVenda(stefamon)"></button>
           </div>
         </div>
       </ng-template>
     </p-card>
   </ng-container>
 
-  <h1 class="not-found-text p-pb-3" *ngIf="stefamonsJogador.length == 0">Você não possui nenhum Stefamon.</h1>
+  <h1 class="not-found-text p-pb-3" *ngIf="dadosJogador.stefamons.length == 0">Você não possui nenhum Stefamon.</h1>
 </div>
+
+<p-dialog 
+header="Deseja confirmar a venda?" 
+*ngIf="mostrarModalConfirmacao" 
+[(visible)]="mostrarModalConfirmacao"
+[style]="{width:'50vw'}"
+>
+  <div class="p-text-center"><h3>{{stefamonEscolhido.nome}}</h3></div>
+  <div style="width: 100%; padding: 1rem;" class=" p-d-flex p-ai-center p-jc-center">
+    <img width="150px" heigth="150px" alt="stefamonEscolhido.nome" src="{{ stefamonEscolhido.urlFoto }}">
+  </div>
+
+  <div class="p-grid p-nogutter p-text-center" style="margin: auto;">
+    <div class="p-col-4"><strong>Saldo Atual:</strong></div>
+    <div class="p-col-4 p-offset-4"><strong>Saldo após a venda:</strong></div>
+    <div class="p-col-4"><strong>{{dadosJogador.saldo}} moedas</strong></div>
+    <div class="p-col-4 p-offset-4"><strong>{{dadosJogador.saldo + stefamonEscolhido.preco | number: '1.1-1'}} moedas</strong></div>
+  </div>
+  
+  <ng-template pTemplate="footer">
+    <button pButton class="p-button-success" type="button" icon="pi pi-check" label="Confirmar" (click)="venderStefamon()"></button>
+    <button pButton class="p-button-danger" type="button" icon="pi pi-times" label="Cancelar" (click)="mostrarModalConfirmacao=false"></button>
+  </ng-template>
+</p-dialog>
