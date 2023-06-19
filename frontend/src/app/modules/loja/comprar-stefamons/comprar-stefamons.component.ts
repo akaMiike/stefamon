@@ -3,8 +3,8 @@ import { SelectItem } from 'primeng/api';
 import { Jogador } from 'src/app/models/Jogador.model';
 import { Stefamon } from 'src/app/models/Stefamon.model';
 import { Page } from 'src/app/shared/models/Page.model';
-import { JogadorService } from 'src/app/shared/services/jogador.service';
-import { StefamonService } from 'src/app/shared/services/stefamon.service';
+import { JogadorService } from 'src/app/shared/services/jogador/jogador.service';
+import { StefamonService } from 'src/app/shared/services/stefamon/stefamon.service';
 
 @Component({
   selector: 'app-comprar-stefamons',

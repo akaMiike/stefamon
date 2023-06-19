@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Jogador } from 'src/app/models/Jogador.model';
 import { Stefamon } from 'src/app/models/Stefamon.model';
-import { JogadorService } from 'src/app/shared/services/jogador.service';
+import { JogadorService } from 'src/app/shared/services/jogador/jogador.service';
 
 @Component({
   selector: 'app-meus-stefamons',

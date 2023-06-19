@@ -1,9 +1,9 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { environment } from '../../../environments/environment.prod';
+import { environment } from '../../../../environments/environment.prod';
 import { Observable } from 'rxjs';
 import { Stefamon } from 'src/app/models/Stefamon.model';
 import { Injectable } from '@angular/core';
-import { Page } from '../models/Page.model';
+import { Page } from '../../models/Page.model';
 
 @Injectable({
   providedIn: 'root'

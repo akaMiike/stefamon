@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Jogador } from 'src/app/models/Jogador.model';
-import { AuthService } from 'src/app/shared/services/auth.service';
-import { JogadorService } from 'src/app/shared/services/jogador.service';
+import { AuthService } from 'src/app/shared/services/auth/auth.service';
+import { JogadorService } from 'src/app/shared/services/jogador/jogador.service';
 
 @Component({
   selector: 'app-stefamon',
@@ -21,7 +21,7 @@ export class LojaComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.authService.isLogado().subscribe((estaLogado) => {
+    this.authService.isAuthenticatedObs.subscribe((estaLogado) => {
       this.usuarioEstaLogado = estaLogado;
       
       if(estaLogado){

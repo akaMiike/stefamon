@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { Jogador } from 'src/app/models/Jogador.model';
-import { AuthService } from '../../services/auth.service'
-import { JogadorService } from '../../services/jogador.service';
+import { AuthService } from '../../services/auth/auth.service'
+import { JogadorService } from '../../services/jogador/jogador.service';
 
 @Component({
   selector: 'app-header',
@@ -24,12 +25,13 @@ export class HeaderComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private jogadorService: JogadorService
+    private jogadorService: JogadorService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     
-    this.authService.isLogado().subscribe((estaLogado) => {
+    this.authService.isAuthenticatedObs.subscribe((estaLogado) => {
       this.usuarioEstaLogado = estaLogado;
     });
 
@@ -38,7 +40,7 @@ export class HeaderComponent implements OnInit {
     this.items = [
       {label: 'Home', icon:'pi pi-home', routerLink:'/home'},
       {label: 'Loja', icon: 'pi pi-shopping-cart', routerLink: '/loja'},
-      {label: 'Batalhar', icon: 'pi pi-users', routerLink:'/home'}
+      {label: 'Batalhar', icon: 'pi pi-users', routerLink:'/batalha'}
     ];
 
   }
@@ -57,6 +59,7 @@ export class HeaderComponent implements OnInit {
     this.dadosUsuarioLogado = null;
     this.loginForm.reset();
     this.authService.logout();
+    this.router.navigate(['/home']);
   }
 
   getDadosUsuarioLogado(){

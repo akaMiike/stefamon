@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { MessageService } from 'primeng/api';
-import { AuthService } from 'src/app/shared/services/auth.service';
-import { JogadorService } from 'src/app/shared/services/jogador.service';
+import { AuthService } from 'src/app/shared/services/auth/auth.service';
 
 @Component({
   selector: 'app-home',

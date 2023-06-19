@@ -47,7 +47,7 @@ export class AuthService {
     }
 
     isLogado(){
-      return this.isAuthenticatedObs;
+      return !!this.getUsuarioLogado();
     }
 
     getUsuarioLogado(){
