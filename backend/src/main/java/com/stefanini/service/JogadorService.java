@@ -2,6 +2,7 @@ package com.stefanini.service;
 
 import com.stefanini.dto.jogador.JogadorCriacaoDTO;
 import com.stefanini.dto.jogador.JogadorRetornoDTO;
+import com.stefanini.dto.paginacao.Page;
 import com.stefanini.dto.stefamon.StefamonDTO;
 import com.stefanini.entity.Jogador;
 import com.stefanini.entity.Stefamon;
@@ -71,10 +72,13 @@ public class JogadorService {
         jogadorRepository.delete(id);
     }
 
-    public List<JogadorRetornoDTO> listarTodos() {
-        return jogadorRepository.listAll().stream()
-                .map(JogadorParser::EntityToReturnDTO)
-                .collect(Collectors.toList());
+    public Page<JogadorRetornoDTO> listarTodos(Integer pagina, Integer tamanhoPagina) {
+        Page<Jogador> jogadorPage = jogadorRepository.buscarJogadoresPaginado(pagina, tamanhoPagina);
+
+        return new Page<>(
+                jogadorPage.getElementos().stream().map(JogadorParser::EntityToReturnDTO).collect(Collectors.toList()),
+                jogadorPage.getTotalElementos()
+        );
     }
 
     public JogadorRetornoDTO buscarPorNickname(String nickname){

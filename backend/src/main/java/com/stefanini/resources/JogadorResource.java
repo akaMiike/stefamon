@@ -14,8 +14,6 @@ import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.List;
-import java.util.Objects;
 
 @Path("/jogador")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -29,14 +27,26 @@ public class JogadorResource {
     AuthService authService;
 
     @GET
-    @Path("/{id}")
+    public Response buscarTodosPaginado(
+            @DefaultValue("0") @QueryParam("pagina") Integer pagina,
+            @DefaultValue("5") @QueryParam("tamanhoPagina") Integer tamanhoPagina
+    ){
+        return Response.status(Response.Status.OK)
+                .entity(jogadorService.listarTodos(pagina, tamanhoPagina)).build();
+    }
+
+    @GET
+    @Path("/{id:\\d+}")
     public Response buscarPorId(@PathParam("id") Long id){
         return Response.status(Response.Status.OK).entity(jogadorService.buscarPorId(id)).build();
     }
 
     @GET
-    public Response buscarPorNome(@NotNull(message="Nome do usuário é obrigatório") @QueryParam("nome") String nome){
-            return Response.status(Response.Status.OK).entity(jogadorService.buscarPorNickname(nome)).build();
+    @Path("/{nome: [a-zA-Z][a-zA-Z0-9]*}")
+    public Response buscarPorNome(@PathParam("nome") String nome){
+            return Response.status(Response.Status.OK)
+                    .entity(jogadorService.buscarPorNickname(nome))
+                    .build();
     }
 
     @POST

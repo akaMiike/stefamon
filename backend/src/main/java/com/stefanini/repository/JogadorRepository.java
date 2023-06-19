@@ -1,9 +1,13 @@
 package com.stefanini.repository;
 
 import com.stefanini.dao.GenericDAO;
+import com.stefanini.dto.paginacao.Page;
 import com.stefanini.entity.Jogador;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import java.util.List;
 import java.util.Optional;
 
 @ApplicationScoped
@@ -20,5 +24,20 @@ public class JogadorRepository extends GenericDAO<Jogador, Long> {
         return createQuery("SELECT j FROM Jogador j WHERE j.nickname = :nickname")
                 .setParameter("nickname", nickname)
                 .getResultStream().findFirst();
+    }
+
+    public Page<Jogador> buscarJogadoresPaginado(Integer pagina, Integer tamanhoPagina){
+        CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery<Jogador> query = builder.createQuery(Jogador.class);
+        query.from(Jogador.class);
+
+        int count = getEntityManager().createQuery(query).getResultList().size();
+        List<Jogador> result = getEntityManager()
+                .createQuery(query)
+                .setFirstResult(pagina * tamanhoPagina)
+                .setMaxResults(tamanhoPagina)
+                .getResultList();
+
+        return new Page<>(result, count);
     }
 }
