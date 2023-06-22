@@ -14,7 +14,7 @@ import { TabMenuModule } from 'primeng/tabmenu';
 import { MeusStefamonsComponent } from './loja/meus-stefamons/meus-stefamons.component';
 import { ComprarStefamonsComponent } from './loja/comprar-stefamons/comprar-stefamons.component';
 import {DialogModule} from 'primeng/dialog';
-import { BatalhaComponent } from './batalha/batalha.component';
+import { ListarOponentesComponent } from './batalha/listar-oponentes/listar-oponentes.component';
 
 
 @NgModule({
@@ -23,7 +23,7 @@ import { BatalhaComponent } from './batalha/batalha.component';
     LojaComponent,
     MeusStefamonsComponent,
     ComprarStefamonsComponent,
-    BatalhaComponent
+    ListarOponentesComponent
   ],
   imports: [
     CommonModule,
