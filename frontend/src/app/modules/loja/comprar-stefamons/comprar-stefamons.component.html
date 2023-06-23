@@ -58,11 +58,12 @@
     </p-card>
   </ng-container>
 
-  <h1 class="not-found-text p-pb-" *ngIf="paginacaoStefamon.elementos.length == 0">Nenhum Stefamon foi encontrado.</h1>
+  <h1 class="not-found-text p-pt-5" *ngIf="paginacaoStefamon.elementos.length == 0">Nenhum Stefamon foi encontrado.</h1>
 </div>
 
 <div>
 <p-paginator 
+*ngIf="!!paginacaoStefamon.totalElementos"
 [rows]="paginacaoStefamon.tamanhoPagina"
 [totalRecords]="paginacaoStefamon.totalElementos"
 (onPageChange) = "paginacao($event)"

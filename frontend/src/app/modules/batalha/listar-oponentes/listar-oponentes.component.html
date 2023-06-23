@@ -1,14 +1,65 @@
 <div class="background"></div>
 <div class="content">
     <div class="p-jc-center p-ai-center players-div">
-        <p-card header="Jogador 1" styleClass="p-card-shadow" class="players-card">
-            <h1>PLAYER 1</h1>
+        <p-card header=" {{ (nome.length>10) ? (nome | slice:0:10)+'...' : (nome) }}" styleClass="p-card-shadow" class="players-card">
+            <div class="p-jc-center p-pb-2">
+                <img src="../../../../assets/avatar-homem.png" class="player-avatar">
+                <img src="../../../../assets/stefaball.png" class="player-stefaballs">
+                <img src="../../../../assets/stefaball.png" class="player-stefaballs">
+                <img src="../../../../assets/stefaball.png" class="player-stefaballs">
+                <img src="../../../../assets/stefaball.png" class="player-stefaballs">
+                <img src="../../../../assets/stefaball.png" class="player-stefaballs">
+            </div>
+            <div class="p-pb-2 p-grid">
+                <div class="p-col-6">
+                    <p>Vitórias: 3000</p>
+                </div>
+                <div class="p-col-6">
+                    <p>Derrotas: 1400</p>
+                </div>
+            </div>
+            <div class="p-fluid">
+                <button pButton pRipple type="button" label="Batalhar"></button>
+            </div>
         </p-card>
         <p-card header="Jogador 2" styleClass="p-card-shadow" class="players-card">
-            <h1>PLAYER 2</h1>
+            <div class="p-jc-center p-pb-2">
+                <img src="../../../../assets/avatar-mulher.png" class="player-avatar">
+                <img src="../../../../assets/stefaball.png" class="player-stefaballs">
+                <img src="../../../../assets/stefaball.png" class="player-stefaballs">
+                <img src="../../../../assets/stefaball.png" class="player-stefaballs">
+                <img src="../../../../assets/stefaball.png" class="player-stefaballs">
+            </div>
+            <div class="p-pb-2 p-grid">
+                <div class="p-col-6">
+                    <p>Vitórias: 3000</p>
+                </div>
+                <div class="p-col-6">
+                    <p>Derrotas: 1400</p>
+                </div>
+            </div>
+            <div class="p-fluid">
+                <button pButton pRipple type="button" label="Batalhar"></button>
+            </div>
         </p-card>
         <p-card header="Jogador 3" styleClass="p-card-shadow" class="players-card">
-            <h1>PLAYER </h1>
+            <div class="p-jc-center p-pb-2">
+                <img src="../../../../assets/avatar-homem.png" class="player-avatar">
+                <img src="../../../../assets/stefaball.png" class="player-stefaballs">
+                <img src="../../../../assets/stefaball.png" class="player-stefaballs">
+                <img src="../../../../assets/stefaball.png" class="player-stefaballs">
+            </div>
+            <div class="p-pb-2 p-grid">
+                <div class="p-col-6">
+                    <p>Vitórias: 3000</p>
+                </div>
+                <div class="p-col-6">
+                    <p>Derrotas: 1400</p>
+                </div>
+            </div>
+            <div class="p-fluid">
+                <button pButton pRipple type="button" label="Batalhar"></button>
+            </div>
         </p-card>
     </div>
 </div>
