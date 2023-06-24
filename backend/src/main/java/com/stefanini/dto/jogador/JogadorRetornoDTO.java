@@ -10,12 +10,17 @@ public class JogadorRetornoDTO {
     private Long id;
     private String nickname;
     private BigDecimal saldo;
+    private Integer qtdVitorias;
+    private Integer qtdDerrotas;
     private List<StefamonDTO> stefamons;
 
-    public JogadorRetornoDTO(Long id, String nickname, BigDecimal saldo, List<StefamonDTO> stefamons) {
+    public JogadorRetornoDTO(Long id, String nickname, BigDecimal saldo,
+                             Integer qtdVitorias, Integer qtdDerrotas, List<StefamonDTO> stefamons) {
         this.id = id;
         this.nickname = nickname;
         this.saldo = saldo;
+        this.qtdVitorias = qtdVitorias;
+        this.qtdDerrotas = qtdDerrotas;
         this.stefamons = stefamons;
     }
 
@@ -49,5 +54,21 @@ public class JogadorRetornoDTO {
 
     public void setStefamons(List<StefamonDTO> stefamons) {
         this.stefamons = stefamons;
+    }
+
+    public Integer getQtdDerrotas() {
+        return qtdDerrotas;
+    }
+
+    public void setQtdDerrotas(Integer qtdDerrotas) {
+        this.qtdDerrotas = qtdDerrotas;
+    }
+
+    public Integer getQtdVitorias() {
+        return qtdVitorias;
+    }
+
+    public void setQtdVitorias(Integer qtdVitorias) {
+        this.qtdVitorias = qtdVitorias;
     }
 }

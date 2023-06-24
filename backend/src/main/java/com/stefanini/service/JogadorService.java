@@ -38,8 +38,6 @@ public class JogadorService {
             throw new NicknameJaExistenteException();
 
         Jogador jogador = JogadorParser.CreationDtoToEntity(jogadorDto);
-
-        jogador.setSaldo(JogadorConstants.SALDO_INICIAL);
         jogador.setPassword(PasswordUtils.encodeBase64(jogador.getPassword()));
 
         jogadorRepository.save(jogador);

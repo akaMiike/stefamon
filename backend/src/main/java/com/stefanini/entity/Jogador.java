@@ -19,6 +19,12 @@ public class Jogador {
 
     @Column
     private String password;
+    
+    @Column
+    private Integer qtdVitorias;
+
+    @Column
+    private Integer qtdDerrotas;
 
     @Column
     private BigDecimal saldo;
@@ -33,10 +39,13 @@ public class Jogador {
     public Jogador() {
     }
 
-    public Jogador(String nickname, String password, BigDecimal saldo, List<Stefamon> stefamons) {
+    public Jogador(String nickname, String password, BigDecimal saldo,
+                   Integer qtdVitorias, Integer qtdDerrotas, List<Stefamon> stefamons) {
         this.nickname = nickname;
         this.password = password;
         this.saldo = saldo;
+        this.qtdDerrotas = qtdDerrotas;
+        this.qtdVitorias = qtdVitorias;
         this.stefamons = stefamons;
     }
 
@@ -78,5 +87,21 @@ public class Jogador {
 
     public void setStefamons(List<Stefamon> stefamons) {
         this.stefamons = stefamons;
+    }
+
+    public Integer getQtdVitorias() {
+        return qtdVitorias;
+    }
+
+    public void setQtdVitorias(Integer qtdVitorias) {
+        this.qtdVitorias = qtdVitorias;
+    }
+
+    public Integer getQtdDerrotas() {
+        return qtdDerrotas;
+    }
+
+    public void setQtdDerrotas(Integer qtdDerrotas) {
+        this.qtdDerrotas = qtdDerrotas;
     }
 }
