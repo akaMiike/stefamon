@@ -36,3 +36,8 @@
 .player-stefaballs{
     width: 30px;
 }
+
+
+::ng-deep .p-tooltip{
+    max-width: fit-content;
+}
