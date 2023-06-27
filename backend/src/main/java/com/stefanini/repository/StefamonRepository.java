@@ -33,7 +33,7 @@ public class StefamonRepository extends GenericDAO<Stefamon, Long> {
         CriteriaQuery<Stefamon> select = cq.select(root);
         var query = getEntityManager().createQuery(select);
 
-        int totalElementos = query.getResultList().size();
+        long totalElementos = query.getResultList().size();
         List<Stefamon> resultados = query
                 .setFirstResult((numPagina) * tamanhoPagina)
                 .setMaxResults(tamanhoPagina)

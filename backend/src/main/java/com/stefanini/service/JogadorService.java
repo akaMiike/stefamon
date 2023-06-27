@@ -70,8 +70,8 @@ public class JogadorService {
         jogadorRepository.delete(id);
     }
 
-    public Page<JogadorRetornoDTO> listarTodos(Integer pagina, Integer tamanhoPagina) {
-        Page<Jogador> jogadorPage = jogadorRepository.buscarJogadoresPaginado(pagina, tamanhoPagina);
+    public Page<JogadorRetornoDTO> listarTodosOponentes(Integer pagina, Integer tamanhoPagina) {
+        Page<Jogador> jogadorPage = jogadorRepository.buscarOponentesPaginado(pagina, tamanhoPagina);
 
         return new Page<>(
                 jogadorPage.getElementos().stream().map(JogadorParser::EntityToReturnDTO).collect(Collectors.toList()),

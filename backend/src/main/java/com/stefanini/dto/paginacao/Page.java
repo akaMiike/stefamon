@@ -5,9 +5,9 @@ import java.util.List;
 public class Page<T>{
 
     private List<T> elementos;
-    private int totalElementos;
+    private long totalElementos;
 
-    public Page(List<T> elementos, int totalElementos){
+    public Page(List<T> elementos, long totalElementos){
         this.elementos = elementos;
         this.totalElementos = totalElementos;
     }
@@ -20,7 +20,7 @@ public class Page<T>{
         this.elementos = elementos;
     }
 
-    public int getTotalElementos() {
+    public long getTotalElementos() {
         return totalElementos;
     }
 

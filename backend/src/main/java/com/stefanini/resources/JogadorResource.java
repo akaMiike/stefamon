@@ -10,7 +10,6 @@ import com.stefanini.service.JogadorService;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -27,12 +26,12 @@ public class JogadorResource {
     AuthService authService;
 
     @GET
-    public Response buscarTodosPaginado(
+    public Response buscarTodosOponentesPaginado(
             @DefaultValue("0") @QueryParam("pagina") Integer pagina,
             @DefaultValue("5") @QueryParam("tamanhoPagina") Integer tamanhoPagina
     ){
         return Response.status(Response.Status.OK)
-                .entity(jogadorService.listarTodos(pagina, tamanhoPagina)).build();
+                .entity(jogadorService.listarTodosOponentes(pagina, tamanhoPagina)).build();
     }
 
     @GET

@@ -26,17 +26,16 @@ public class JogadorRepository extends GenericDAO<Jogador, Long> {
                 .getResultStream().findFirst();
     }
 
-    public Page<Jogador> buscarJogadoresPaginado(Integer pagina, Integer tamanhoPagina){
-        CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
-        CriteriaQuery<Jogador> query = builder.createQuery(Jogador.class);
-        query.from(Jogador.class);
+    public Page<Jogador> buscarOponentesPaginado(Integer pagina, Integer tamanhoPagina){
 
-        int count = getEntityManager().createQuery(query).getResultList().size();
-        List<Jogador> result = getEntityManager()
-                .createQuery(query)
+        List<Jogador> result = createQuery("SELECT DISTINCT j FROM Jogador j JOIN FETCH j.stefamons s")
                 .setFirstResult(pagina * tamanhoPagina)
                 .setMaxResults(tamanhoPagina)
                 .getResultList();
+
+        long count = getEntityManager()
+                .createQuery("SELECT COUNT(DISTINCT j) FROM Jogador j JOIN j.stefamons s", Long.class)
+                .getSingleResult();
 
         return new Page<>(result, count);
     }
