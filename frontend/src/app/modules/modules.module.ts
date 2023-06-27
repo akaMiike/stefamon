@@ -15,6 +15,8 @@ import { MeusStefamonsComponent } from './loja/meus-stefamons/meus-stefamons.com
 import { ComprarStefamonsComponent } from './loja/comprar-stefamons/comprar-stefamons.component';
 import {DialogModule} from 'primeng/dialog';
 import { ListarOponentesComponent } from './batalha/listar-oponentes/listar-oponentes.component';
+import {TooltipModule} from 'primeng/tooltip';
+
 
 
 @NgModule({
@@ -37,7 +39,8 @@ import { ListarOponentesComponent } from './batalha/listar-oponentes/listar-opon
     PaginatorModule,
     DropdownModule,
     TabMenuModule,
-    DialogModule
+    DialogModule,
+    TooltipModule
   ]
 })
 export class ModulesModule { }

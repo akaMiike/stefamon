@@ -1,13 +1,14 @@
 <div class="background"></div>
 <div class="content">
-    <div>
-        <button pButton label="Novos Jogadores" (click)="atualizarSugestaoJogadores()" icon="pi pi-refresh"></button>
+    <div class="p-p-3">
+        <button pButton type="button" class="p-mr-2 p-button-warning" icon="pi pi-question" pTooltip="Ajuda" tooltipPosition="bottom"></button>
+        <button pButton (click)="atualizarSugestaoJogadores()" icon="pi pi-refresh" pTooltip="Atualizar Oponentes" tooltipPosition="bottom"></button>
     </div>
     <div class="p-jc-center p-ai-center players-div">
         <ng-container *ngFor="let jogador of sugestaoJogadores">
             <p-card styleClass="p-card-shadow" class="players-card">
-                <h2 class="p-pb-2" [pTooltip]="jogador.nickname" tooltipPosition="top" [tooltipDisabled]="jogador.nickname.length < 10">
-                    {{ (jogador.nickname.length > 10) ? (jogador.nickname | slice:0:10)+'...' : (jogador.nickname) }}
+                <h2 class="p-pb-2" [pTooltip]="jogador.nickname" tooltipPosition="top" [tooltipDisabled]="jogador.nickname.length < 17">
+                    {{ (jogador.nickname.length > 17) ? (jogador.nickname | slice:0:17)+'...' : (jogador.nickname) }}
                 </h2>
                 <div class="p-jc-center p-pb-2">
                     <div>
@@ -32,5 +33,6 @@
                 </div>
             </p-card>
         </ng-container>
+        <h1 *ngIf="sugestaoJogadores.length == 0" style="color: white;">Nenhum oponente encontrado.</h1>
     </div>
 </div>
