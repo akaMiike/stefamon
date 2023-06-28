@@ -6,14 +6,16 @@
   </div>
   <div class="p-col-3 p-jc-end p-shadow-3 p-p-5 card-cadastro">
     <div class="p-ai-center vertical-container">
-      <form [formGroup]="createUserForm">
+      <form [formGroup]="criacaoUsuarioForm">
         <div class="p-fluid p-p-2">
           <h1 class="p-text-center">Cadastrar novo Jogador</h1>
           <div class="p-field p-mt-3">
             <input id="login" type="text" pInputText formControlName="nickname" placeholder="Usuário">
+            <span class="mensagem-erro-form" *ngIf="possuiErro('nickname')">O nome de usuário é obrigatório.</span>
           </div>
           <div class="p-field">
             <input id="senha" type="password" pInputText formControlName="password" placeholder="Senha">
+            <span class="mensagem-erro-form" *ngIf="possuiErro('password')">A senha deve possuir entre 4 e 10 caracteres.</span>
           </div>
           <button pButton type="submit" label="Cadastrar" (click)="registrarUsuario()"></button>
         </div>

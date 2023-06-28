@@ -10,3 +10,8 @@
 body {
   background-color: #191919;
 }
+
+.mensagem-erro-form{
+  color: lightcoral;
+  font-size: small;
+}
