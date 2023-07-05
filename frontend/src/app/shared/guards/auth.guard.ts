@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth/auth.service';
 
@@ -9,7 +10,8 @@ import { AuthService } from '../services/auth/auth.service';
 export class AuthGuard implements CanActivate {
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private messageService: MessageService
   ){}
 
   canActivate(
@@ -17,7 +19,7 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       
       if(!this.authService.isLogado()){
-        alert('Você deve estar logado para acessar esta página.');
+        this.messageService.add({severity: 'warning', summary:'Login necessário', detail:'Você deve estar logado para acessar esta página.'})
         this.router.navigate(['/home'])
       }
       return true;

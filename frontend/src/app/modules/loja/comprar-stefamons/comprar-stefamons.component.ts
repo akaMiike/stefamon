@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { SelectItem } from 'primeng/api';
+import { MessageService, SelectItem } from 'primeng/api';
 import { Jogador } from 'src/app/models/Jogador.model';
 import { Stefamon } from 'src/app/models/Stefamon.model';
 import { Page } from 'src/app/shared/models/Page.model';
@@ -27,7 +27,8 @@ export class ComprarStefamonsComponent implements OnInit {
 
   constructor(  
     private stefamonService: StefamonService,
-    private jogadorService: JogadorService
+    private jogadorService: JogadorService,
+    private messageService: MessageService
     ) { }
 
   ngOnInit(): void {
@@ -86,7 +87,7 @@ export class ComprarStefamonsComponent implements OnInit {
   confirmarCompra(stefamon: Stefamon){
     if(this.dadosJogador){
       if(this.dadosJogador.saldo < stefamon.preco){
-        alert("Saldo insuficiente");
+        this.messageService.add({severity: 'error', summary:'Saldo insuficiente', detail:'Você não possui saldo suficiente para realizar a compra.'})
       }
       else{
         this.mostrarModalConfirmacao = true;
@@ -94,16 +95,16 @@ export class ComprarStefamonsComponent implements OnInit {
       }
     }
     else{
-      alert("Você deve estar logado para comprar um stefamon.");
+      this.messageService.add({severity: 'error', summary:'Login necessário', detail:'Você deve estar logado para realizar a compra.'})
     }
   }
 
   comprarStefamon(){
     this.jogadorService.comprarStefamon(this.dadosJogador.id, this.stefamonEscolhido.id).subscribe((jogadorAtualizado) => {
-      alert('Stefamon comprado com sucesso!');
       this.dadosJogador.saldo = jogadorAtualizado.saldo;
       this.dadosJogador.stefamons = jogadorAtualizado.stefamons;
       this.dadosJogadorChange.emit(this.dadosJogador);
+      this.messageService.add({severity: 'success', summary:'Compra realizada', detail:'Stefamon comprado com sucesso.'})
     })
     this.mostrarModalConfirmacao = false;
   }

@@ -13,6 +13,10 @@ import { InputTextModule } from 'primeng/inputtext';
 import { MenubarModule } from 'primeng/menubar';
 import { ButtonModule } from 'primeng/button';
 import { SharedModule } from './shared/shared.module';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpInterceptorService } from './shared/interceptors/http-interceptor.service';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 
 @NgModule({
@@ -29,12 +33,19 @@ import { SharedModule } from './shared/shared.module';
     ReactiveFormsModule,
     InputTextModule,
     SharedModule,
-    ModulesModule
+    ModulesModule,
+    ToastModule
   ],
   providers: [
     AuthService,
     StefamonService,
-    JogadorService
+    JogadorService,
+    MessageService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpInterceptorService,
+      multi:true
+    }
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

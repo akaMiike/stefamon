@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { MessageService } from 'primeng/api';
 import { Jogador } from 'src/app/models/Jogador.model';
 import { Stefamon } from 'src/app/models/Stefamon.model';
 import { JogadorService } from 'src/app/shared/services/jogador/jogador.service';
@@ -16,7 +17,10 @@ export class MeusStefamonsComponent {
   stefamonEscolhido: Stefamon;
   mostrarModalConfirmacao: boolean = false;
 
-  constructor(private jogadorService: JogadorService){ }
+  constructor(
+    private jogadorService: JogadorService,
+    private messageService: MessageService
+  ){ }
 
 
   escolherStefamonVenda(stefamon: Stefamon){
@@ -29,7 +33,7 @@ export class MeusStefamonsComponent {
       this.dadosJogador = jogadorAtualizado;
       this.dadosJogadorChange.emit(this.dadosJogador);
     })
-    alert('O stefamon foi vendido com sucesso.')
+    this.messageService.add({severity:'success', summary:'Venda realizada', detail:'O stefamon foi vendido com sucesso.'})
     this.mostrarModalConfirmacao = false;
   }
 

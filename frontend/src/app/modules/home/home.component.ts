@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
 import { FormValidatorService } from 'src/app/shared/services/validators/form-validator.service';
 
@@ -18,7 +19,8 @@ export class HomeComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private formValidator: FormValidatorService
+    private formValidator: FormValidatorService,
+    private messageService: MessageService
   ) { }
 
   ngOnInit(): void {
@@ -33,7 +35,12 @@ export class HomeComponent implements OnInit {
       this.criacaoUsuarioForm.value.nickname,
       this.criacaoUsuarioForm.value.password
     ).subscribe(() => {
-      alert("Usuário cadastrado com sucesso.")
+      this.messageService.add({
+        severity:'success',
+        summary:'Cadastro Realizado',
+        detail:'Usuário cadastrado com sucesso.'
+      })
+      
       this.criacaoUsuarioForm.reset()
     })
   }

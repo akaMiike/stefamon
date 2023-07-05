@@ -18,7 +18,7 @@
   background-image: url('../../../assets/home-background.jpg');
   opacity: 75%;
   background-position: center;
-  background-repeat: no-repeat;
+  background-repeat: repeat-y;
   background-size:cover;
   filter: blur(3px);
   position:fixed;
