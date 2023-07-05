@@ -12,34 +12,21 @@ import { JogadorService } from 'src/app/shared/services/jogador/jogador.service'
 export class LojaComponent implements OnInit {
 
   usuarioEstaLogado: boolean;
-  dadosUsuarioLogado: Jogador;
+  dadosUsuarioLogado?: Jogador;
   opcaoMenuLoja: number = 0;
 
   constructor(
-    private authService: AuthService,
-    private jogadorService: JogadorService
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
-    this.authService.isAuthenticatedObs.subscribe((estaLogado) => {
-      this.usuarioEstaLogado = estaLogado;
-      
-      if(estaLogado){
-        this.buscarDadosUsuarioLogado();
-      }
-      else{
-        this.dadosUsuarioLogado = null;
-      }
+    this.authService.usuarioLogado.subscribe((jogadorLogado) => {
+        this.usuarioEstaLogado = !!jogadorLogado
+        this.dadosUsuarioLogado = jogadorLogado
     });
   }
 
   trocarOpcaoMenu(opcao: number){
     this.opcaoMenuLoja = opcao;
-  }
-
-  buscarDadosUsuarioLogado(){
-    this.jogadorService.buscarPorUsername(this.authService.getUsuarioLogado()).subscribe((dadosUsuario) => {
-      this.dadosUsuarioLogado = dadosUsuario;
-    })
   }
 }

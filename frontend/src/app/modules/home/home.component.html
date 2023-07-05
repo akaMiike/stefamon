@@ -10,11 +10,13 @@
         <div class="p-fluid p-p-2">
           <h1 class="p-text-center">Cadastrar novo Jogador</h1>
           <div class="p-field p-mt-3">
-            <input id="login" type="text" pInputText formControlName="nickname" placeholder="Usuário">
+            <input id="login" type="text" pInputText formControlName="nickname" placeholder="Usuário" 
+            pTooltip="O nome de usuário deve começar com uma letra." tooltipPosition="left">
             <span class="mensagem-erro-form" *ngIf="possuiErro('nickname')">O nome de usuário é obrigatório.</span>
           </div>
           <div class="p-field">
-            <input id="senha" type="password" pInputText formControlName="password" placeholder="Senha">
+            <input id="senha" type="password" pInputText formControlName="password" placeholder="Senha"
+            pTooltip="A senha deve possuir entre 4 e 10 caracteres." tooltipPosition="left">
             <span class="mensagem-erro-form" *ngIf="possuiErro('password')">A senha deve possuir entre 4 e 10 caracteres.</span>
           </div>
           <button pButton type="submit" label="Cadastrar" (click)="registrarUsuario()"></button>

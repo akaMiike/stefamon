@@ -3,23 +3,24 @@ import { Injectable } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators'
+import { Jogador } from 'src/app/models/Jogador.model';
 import { environment } from 'src/environments/environment.prod';
+import { JogadorService } from '../jogador/jogador.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private _isAuthenticatedSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  public isAuthenticatedObs: Observable<boolean> = this._isAuthenticatedSubject.asObservable();
-
-  private usuarioLogado: string;
+  private _isAuthenticatedSubject: BehaviorSubject<Jogador|null> = new BehaviorSubject<Jogador>(null);
+  public usuarioLogado: Observable<Jogador|null> = this._isAuthenticatedSubject.asObservable();
 
   private readonly URL = `${environment.urlBackend}`
   
   constructor(
     private http: HttpClient,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private jogadorService: JogadorService
   ) { }
 
     registrar(nickname: string, password: string){
@@ -30,29 +31,33 @@ export class AuthService {
   }
   
     login(nickname: string, password: string){
-      return this.http.post(`${this.URL}/jogador/login`, {
+      this.http.post(`${this.URL}/jogador/login`, {
         nickname: nickname,
         password: password
       }).pipe(
         tap(() => {
           this.messageService.add({severity:'success', summary:'Login', detail: 'Login realizado com sucesso.'})
-          this.usuarioLogado = nickname;
-          this._isAuthenticatedSubject.next(true);
+          this.obterDadosJogadorLogado(nickname);
         })
-      )
+      ).subscribe();
     }
 
     logout(){
-      this.usuarioLogado = null;
-      this._isAuthenticatedSubject.next(false);
+      this.atualizarJogadorLogado(null);
       this.messageService.add({severity:'success', summary:'Logout', detail: 'Logout realizado com sucesso.'})
     }
 
     isLogado(){
-      return !!this.getUsuarioLogado();
+      return !!this._isAuthenticatedSubject.getValue();
     }
 
-    getUsuarioLogado(){
-      return this.usuarioLogado;
+    atualizarJogadorLogado(jogadorAtualizado: Jogador){
+      this._isAuthenticatedSubject.next(jogadorAtualizado);
+    }
+
+    private obterDadosJogadorLogado(username: string){
+      this.jogadorService.buscarPorUsername(username).subscribe(jogador => {
+        this.atualizarJogadorLogado(jogador);
+      })
     }
 }

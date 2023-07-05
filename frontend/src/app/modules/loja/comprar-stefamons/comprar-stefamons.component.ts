@@ -3,6 +3,7 @@ import { MessageService, SelectItem } from 'primeng/api';
 import { Jogador } from 'src/app/models/Jogador.model';
 import { Stefamon } from 'src/app/models/Stefamon.model';
 import { Page } from 'src/app/shared/models/Page.model';
+import { AuthService } from 'src/app/shared/services/auth/auth.service';
 import { JogadorService } from 'src/app/shared/services/jogador/jogador.service';
 import { StefamonService } from 'src/app/shared/services/stefamon/stefamon.service';
 
@@ -13,8 +14,7 @@ import { StefamonService } from 'src/app/shared/services/stefamon/stefamon.servi
 })
 export class ComprarStefamonsComponent implements OnInit {
 
-  @Input() dadosJogador: Jogador = null;
-  @Output() dadosJogadorChange = new EventEmitter<Jogador>();
+  dadosJogador?: Jogador;
 
   mostrarModalConfirmacao: boolean = false;
   stefamonEscolhido: Stefamon;
@@ -28,10 +28,12 @@ export class ComprarStefamonsComponent implements OnInit {
   constructor(  
     private stefamonService: StefamonService,
     private jogadorService: JogadorService,
+    private authService: AuthService,
     private messageService: MessageService
     ) { }
 
   ngOnInit(): void {
+    this.authService.usuarioLogado.subscribe(jogadorLogado => {this.dadosJogador = jogadorLogado});
 
     this.atributosStefamon = [
       {label: "Vida", value: "vida"},
@@ -101,9 +103,7 @@ export class ComprarStefamonsComponent implements OnInit {
 
   comprarStefamon(){
     this.jogadorService.comprarStefamon(this.dadosJogador.id, this.stefamonEscolhido.id).subscribe((jogadorAtualizado) => {
-      this.dadosJogador.saldo = jogadorAtualizado.saldo;
-      this.dadosJogador.stefamons = jogadorAtualizado.stefamons;
-      this.dadosJogadorChange.emit(this.dadosJogador);
+      this.authService.atualizarJogadorLogado(jogadorAtualizado);
       this.messageService.add({severity: 'success', summary:'Compra realizada', detail:'Stefamon comprado com sucesso.'})
     })
     this.mostrarModalConfirmacao = false;

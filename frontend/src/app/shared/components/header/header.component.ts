@@ -14,7 +14,7 @@ import { JogadorService } from '../../services/jogador/jogador.service';
 export class HeaderComponent implements OnInit {
 
   usuarioEstaLogado: boolean;
-  dadosUsuarioLogado: Jogador;
+  dadosUsuarioLogado?: Jogador;
   items: MenuItem[];
 
   loginForm = this.fb.group({
@@ -25,17 +25,15 @@ export class HeaderComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private jogadorService: JogadorService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
     
-    this.authService.isAuthenticatedObs.subscribe((estaLogado) => {
-      this.usuarioEstaLogado = estaLogado;
+    this.authService.usuarioLogado.subscribe((jogadorLogado) => {
+      this.usuarioEstaLogado = !!jogadorLogado;
+      this.dadosUsuarioLogado = jogadorLogado;
     });
-
-    this.getDadosUsuarioLogado();
 
     this.items = [
       {label: 'Home', icon:'pi pi-home', routerLink:'/home'},
@@ -49,29 +47,13 @@ export class HeaderComponent implements OnInit {
     this.authService.login(
       this.loginForm.value.usuario!!,
       this.loginForm.value.senha!!
-    ).subscribe(() => {
-      this.getDadosUsuarioLogado();
-    });
+    );
   }
 
   logout(){
-    this.usuarioEstaLogado = false;
-    this.dadosUsuarioLogado = null;
     this.loginForm.reset();
     this.authService.logout();
     this.router.navigate(['/home']);
-  }
-
-  getDadosUsuarioLogado(){
-    var nicknameUsuarioLogado = this.authService.getUsuarioLogado();
-    
-    if(nicknameUsuarioLogado != null){
-      return this.jogadorService.buscarPorUsername(nicknameUsuarioLogado).subscribe((dadosUsuario) => {
-        this.dadosUsuarioLogado = dadosUsuario;
-      })
-    }
-
-    return null
   }
 
 }

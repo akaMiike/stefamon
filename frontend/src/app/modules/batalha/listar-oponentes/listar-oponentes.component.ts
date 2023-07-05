@@ -13,10 +13,10 @@ export class ListarOponentesComponent implements OnInit {
 
   paginaJogadores = new Page<Jogador>();
   sugestaoJogadores: Jogador[] = [];
+  usuarioLogado?: Jogador;
 
   inicioListaSugestao = 0;
   fimListaSugestao = 3;
-
 
   constructor(
     private jogadorService: JogadorService,
@@ -25,17 +25,16 @@ export class ListarOponentesComponent implements OnInit {
 
   ngOnInit(): void {
     this.paginaJogadores.tamanhoPagina = 30;
+    this.authService.usuarioLogado.subscribe(jogador => {this.usuarioLogado = jogador})
+
     this.jogadorService.buscarTodosPaginado(this.paginaJogadores).subscribe(paginaJogadores => {
       this.paginaJogadores.totalElementos = paginaJogadores.totalElementos;
-      this.paginaJogadores.elementos = paginaJogadores.elementos.filter(j => j.nickname != this.authService.getUsuarioLogado());
+      this.paginaJogadores.elementos = paginaJogadores.elementos.filter(j => j.nickname != this.usuarioLogado?.nickname);
       this.atualizarSugestaoJogadores();
     });
   }
 
   atualizarSugestaoJogadores(){
-    console.log("inicioLista: " + this.inicioListaSugestao);
-    console.log("fimLista: " + this.fimListaSugestao);
-
     this.sugestaoJogadores = this.paginaJogadores.elementos.slice(
       this.inicioListaSugestao,
       this.fimListaSugestao
@@ -50,7 +49,7 @@ export class ListarOponentesComponent implements OnInit {
 
       this.jogadorService.buscarTodosPaginado(this.paginaJogadores).subscribe(paginaJogadores => {
         this.paginaJogadores.totalElementos = paginaJogadores.totalElementos;
-        this.paginaJogadores.elementos = paginaJogadores.elementos.filter(j => j.nickname != this.authService.getUsuarioLogado());
+        this.paginaJogadores.elementos = paginaJogadores.elementos.filter(j => j.nickname != this.usuarioLogado?.nickname);
 
         this.inicioListaSugestao = 0;
         this.fimListaSugestao = Math.min(3, this.paginaJogadores.elementos.length);
