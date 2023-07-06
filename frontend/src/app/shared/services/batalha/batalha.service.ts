@@ -7,7 +7,7 @@ import { Stefamon } from 'src/app/models/Stefamon.model';
 })
 export class BatalhaService {
 
-  private readonly PORCENT_PROBABILIDADE_DEFESA = 20;
+  private readonly PORCENT_PROBABILIDADE_DEFESA = 10;
   private jogadorAtacante: Jogador;
   private jogadorAtacado: Jogador;
 
@@ -42,21 +42,18 @@ export class BatalhaService {
     return foiAtaqueCritico ? this.calcularAtaqueCritico(stefamon) : stefamon.ataque;
   }
 
-  private calcularDanoRecebido(stefamonAtacado: Stefamon, ataqueRecebido: number){
+  private atacarStefamon(stefamonAtacante: Stefamon, stefamonAtacado: Stefamon){
+    const ataqueRecebido = this.calcularAtaqueStefamon(stefamonAtacante);
     const defendeuAtaque = this.calcularProbabilidade(this.PORCENT_PROBABILIDADE_DEFESA);
+    const esquivouAtaque = this.calcularProbabilidade(stefamonAtacado.velocidade/10);
     
     if(defendeuAtaque){
       const qtdDanoReduzido = this.calcularDanoReduzido(stefamonAtacado.defesa, ataqueRecebido);
       stefamonAtacado.vida -= qtdDanoReduzido;
     }
-    else{
+    else if(!esquivouAtaque){
       stefamonAtacado.vida -= ataqueRecebido;
     }
-  }
-
-  private atacarStefamon(stefamonAtacante: Stefamon, stefamonAtacado: Stefamon){
-    const ataqueStefamonJogador = this.calcularAtaqueStefamon(stefamonAtacante);
-    this.calcularDanoRecebido(stefamonAtacado, ataqueStefamonJogador);
   }
 
   private calcularProbabilidade(valor: number): boolean{
@@ -68,7 +65,7 @@ export class BatalhaService {
   }
 
   private calcularDanoReduzido(defesa: number, ataqueRecebido: number){
-    return Math.max(0, ataqueRecebido - defesa);
+    return Math.max(0, ataqueRecebido - (defesa/100) * (ataqueRecebido));
   }
 
   private stefamonMorreu(stefamon: Stefamon): boolean{
