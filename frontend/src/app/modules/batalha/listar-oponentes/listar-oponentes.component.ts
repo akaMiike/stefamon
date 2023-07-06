@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Jogador } from 'src/app/models/Jogador.model';
 import { Page } from 'src/app/shared/models/Page.model';
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
+import { BatalhaService } from 'src/app/shared/services/batalha/batalha.service';
 import { JogadorService } from 'src/app/shared/services/jogador/jogador.service';
 
 @Component({
@@ -20,7 +21,8 @@ export class ListarOponentesComponent implements OnInit {
 
   constructor(
     private jogadorService: JogadorService,
-    private authService: AuthService
+    private authService: AuthService,
+    private batalhaService: BatalhaService
     ) { }
 
   ngOnInit(): void {
@@ -55,6 +57,10 @@ export class ListarOponentesComponent implements OnInit {
         this.fimListaSugestao = Math.min(3, this.paginaJogadores.elementos.length);
       });
     }
+  }
+
+  batalhar(oponente: Jogador){
+    this.batalhaService.iniciarBatalha(this.usuarioLogado, oponente);
   }
 
 }

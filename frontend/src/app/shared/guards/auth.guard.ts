@@ -19,7 +19,7 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       
       if(!this.authService.isLogado()){
-        this.messageService.add({severity: 'warning', summary:'Login necessário', detail:'Você deve estar logado para acessar esta página.'})
+        this.messageService.add({severity: 'warn', summary:'Login necessário', detail:'Você deve estar logado para acessar esta página.'})
         this.router.navigate(['/home'])
       }
       return true;

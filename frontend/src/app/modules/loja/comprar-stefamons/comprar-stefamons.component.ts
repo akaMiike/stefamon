@@ -89,7 +89,7 @@ export class ComprarStefamonsComponent implements OnInit {
   confirmarCompra(stefamon: Stefamon){
     if(this.dadosJogador){
       if(this.dadosJogador.saldo < stefamon.preco){
-        this.messageService.add({severity: 'error', summary:'Saldo insuficiente', detail:'Você não possui saldo suficiente para realizar a compra.'})
+        this.messageService.add({severity: 'warn', summary:'Saldo insuficiente', detail:'Você não possui saldo suficiente para realizar a compra.'})
       }
       else{
         this.mostrarModalConfirmacao = true;
@@ -97,7 +97,7 @@ export class ComprarStefamonsComponent implements OnInit {
       }
     }
     else{
-      this.messageService.add({severity: 'error', summary:'Login necessário', detail:'Você deve estar logado para realizar a compra.'})
+      this.messageService.add({severity: 'warn', summary:'Login necessário', detail:'Você deve estar logado para realizar a compra.'})
     }
   }
 
