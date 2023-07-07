@@ -37,15 +37,12 @@ export class BatalhaService {
     return this.jogadorAtacante.id === jogador.id ? jogador : oponente;
   }
 
-  private calcularAtaqueStefamon(stefamon: Stefamon){
-    const foiAtaqueCritico = this.calcularProbabilidade(stefamon.inteligencia);
-    return foiAtaqueCritico ? this.calcularAtaqueCritico(stefamon) : stefamon.ataque;
-  }
-
   private atacarStefamon(stefamonAtacante: Stefamon, stefamonAtacado: Stefamon){
-    const ataqueRecebido = this.calcularAtaqueStefamon(stefamonAtacante);
+    const foiAtaqueCritico = this.calcularProbabilidade(stefamonAtacante.inteligencia);
     const defendeuAtaque = this.calcularProbabilidade(this.PORCENT_PROBABILIDADE_DEFESA);
     const esquivouAtaque = this.calcularProbabilidade(stefamonAtacado.velocidade/10);
+    
+    const ataqueRecebido = foiAtaqueCritico ? this.calcularAtaqueCritico(stefamonAtacante) : stefamonAtacante.ataque;
     
     if(defendeuAtaque){
       const qtdDanoReduzido = this.calcularDanoReduzido(stefamonAtacado.defesa, ataqueRecebido);

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { Observable } from 'rxjs';
@@ -8,19 +8,22 @@ import { AuthService } from '../services/auth/auth.service';
 @Injectable({
   providedIn: 'root'
 })
-export class QuantidadeStefamonGuard implements CanActivate {
+export class QuantidadeStefamonGuard implements CanActivate, OnInit {
   constructor(
     private authService: AuthService,
     private messageService: MessageService,
     private router: Router
   ){}
 
+  ngOnInit(): void {
+    this.authService.usuarioLogado.subscribe(jogador => this.jogadorLogado = jogador);
+  }
+
   private jogadorLogado?: Jogador;
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      this.authService.usuarioLogado.subscribe(jogador => this.jogadorLogado = jogador);
     
       if(!this.authService.isLogado()){
         this.router.navigate(['/home']);
@@ -28,7 +31,7 @@ export class QuantidadeStefamonGuard implements CanActivate {
       }
       else{
         if(this.jogadorLogado.stefamons.length === 0){
-          this.messageService.add({severity: 'warn', summary:'Obrigatório ter Stefamons.', detail:'Você deve possuir ao menos 1 stefamon para participar da batalha.'})
+          this.messageService.add({severity: 'warn', summary:'Não possui Stefamons suficientes.', detail:'Você deve possuir ao menos 1 stefamon para participar da batalha.'})
           return false;
         }
         else{

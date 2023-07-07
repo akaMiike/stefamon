@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { Jogador } from 'src/app/models/Jogador.model';
 import { Page } from 'src/app/shared/models/Page.model';
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
-import { BatalhaService } from 'src/app/shared/services/batalha/batalha.service';
 import { JogadorService } from 'src/app/shared/services/jogador/jogador.service';
 
 @Component({
@@ -16,17 +16,22 @@ export class ListarOponentesComponent implements OnInit {
   sugestaoJogadores: Jogador[] = [];
   usuarioLogado?: Jogador;
 
-  inicioListaSugestao = 0;
-  fimListaSugestao = 3;
+  private readonly PAGINA_INICIAL = 0;
+  private readonly QTD_OPONENTES_PAGINA = 3;
+  private readonly TAMANHO_PAGINA = 30;
+
+  inicioListaSugestao = this.PAGINA_INICIAL;
+  fimListaSugestao = this.QTD_OPONENTES_PAGINA;
 
   constructor(
     private jogadorService: JogadorService,
     private authService: AuthService,
-    private batalhaService: BatalhaService
-    ) { }
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
-    this.paginaJogadores.tamanhoPagina = 30;
+    this.paginaJogadores.tamanhoPagina = this.TAMANHO_PAGINA;
     this.authService.usuarioLogado.subscribe(jogador => {this.usuarioLogado = jogador})
 
     this.jogadorService.buscarTodosPaginado(this.paginaJogadores).subscribe(paginaJogadores => {
@@ -42,25 +47,29 @@ export class ListarOponentesComponent implements OnInit {
       this.fimListaSugestao
     );
 
-    this.inicioListaSugestao += 3
-    this.fimListaSugestao += Math.min(3, this.paginaJogadores.elementos.length - this.fimListaSugestao);
+    this.inicioListaSugestao += this.QTD_OPONENTES_PAGINA
+    this.fimListaSugestao += Math.min(
+      this.QTD_OPONENTES_PAGINA,
+      this.paginaJogadores.elementos.length - this.fimListaSugestao
+    );
     
     if(this.inicioListaSugestao >= this.paginaJogadores.elementos.length){
-      const ultimaPagina = this.paginaJogadores.pagina > Math.ceil(this.paginaJogadores.totalElementos / this.paginaJogadores.tamanhoPagina);
-      this.paginaJogadores.pagina = ultimaPagina ? 0 : this.paginaJogadores.pagina++;
+      const isUltimaPagina = this.paginaJogadores.pagina > Math.ceil(this.paginaJogadores.totalElementos / this.paginaJogadores.tamanhoPagina);
+      this.paginaJogadores.pagina = isUltimaPagina ? this.PAGINA_INICIAL : this.paginaJogadores.pagina++;
 
       this.jogadorService.buscarTodosPaginado(this.paginaJogadores).subscribe(paginaJogadores => {
         this.paginaJogadores.totalElementos = paginaJogadores.totalElementos;
         this.paginaJogadores.elementos = paginaJogadores.elementos.filter(j => j.nickname != this.usuarioLogado?.nickname);
 
-        this.inicioListaSugestao = 0;
-        this.fimListaSugestao = Math.min(3, this.paginaJogadores.elementos.length);
+        this.inicioListaSugestao = this.PAGINA_INICIAL;
+        this.fimListaSugestao = Math.min(this.QTD_OPONENTES_PAGINA, this.paginaJogadores.elementos.length);
       });
     }
   }
 
   batalhar(oponente: Jogador){
-    this.batalhaService.iniciarBatalha(this.usuarioLogado, oponente);
+    const extras: NavigationExtras = { state: {oponente: oponente}, relativeTo: this.activatedRoute}
+    this.router.navigate(['resultado'], extras)
   }
 
 }

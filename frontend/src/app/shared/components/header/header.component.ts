@@ -38,7 +38,7 @@ export class HeaderComponent implements OnInit {
     this.items = [
       {label: 'Home', icon:'pi pi-home', routerLink:'/home'},
       {label: 'Loja', icon: 'pi pi-shopping-cart', routerLink: '/loja'},
-      {label: 'Batalhar', icon: 'pi pi-users', routerLink:'/batalha'}
+      {label: 'Batalhar', icon: 'pi pi-users', routerLink:'/batalhar'}
     ];
 
   }

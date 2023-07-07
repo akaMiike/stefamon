@@ -16,6 +16,7 @@ import { ComprarStefamonsComponent } from './loja/comprar-stefamons/comprar-stef
 import {DialogModule} from 'primeng/dialog';
 import { ListarOponentesComponent } from './batalha/listar-oponentes/listar-oponentes.component';
 import {TooltipModule} from 'primeng/tooltip';
+import { ResultadoBatalhaComponent } from './batalha/resultado-batalha/resultado-batalha.component';
 
 
 
@@ -25,7 +26,8 @@ import {TooltipModule} from 'primeng/tooltip';
     LojaComponent,
     MeusStefamonsComponent,
     ComprarStefamonsComponent,
-    ListarOponentesComponent
+    ListarOponentesComponent,
+    ResultadoBatalhaComponent
   ],
   imports: [
     CommonModule,
