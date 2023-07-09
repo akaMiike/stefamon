@@ -1,3 +1,36 @@
-.player-avatar{
-    width: 300px;
+.avatar-jogador{
+    width: 350px;
+}
+
+.texto-vencedor{
+    color: #FFD700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.texto-perdedor{
+    color: #FF4500;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.botao-batalha{
+    border: none !important;
+    background-color: #b8c925 !important;
+    box-shadow: 0px 4px 0px 0px #464d0e;
+}
+
+.botao-batalha:hover{
+    background-color: #cfe225 !important;
+    box-shadow: 0px 4px 0px 0px #565e12;
+}
+
+.botao-loja{
+    background-color: #56bdff;
+    border-color: #56bdff;
+    box-shadow: 0px 4px 0px 0px #3e5d74;
+}
+
+.botao-loja:hover{
+    background-color: #8dd0ff;
+    border: 1px solid #8dd0ff;
+    box-shadow: 0px 4px 0px 0px #527a97;;
 }

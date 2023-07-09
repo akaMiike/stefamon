@@ -10,7 +10,7 @@
     height: 100%;
 }
 
-.players-div{
+.jogadores-div{
     display: flex;
     gap: 1rem;
     position: fixed;
@@ -19,20 +19,16 @@
     transform: translate(-50%, -50%);
 }
 
-.players-card{
+.jogadores-card{
     width: 260px;
     text-align: center;
 }
 
-.players-card-header{
-    padding: 20px 20px 0px 20px;
-}
-
-.player-avatar{
+.avatar-jogador{
     width: 200px;
 }
 
-.player-stefaballs{
+.stefaballs{
     width: 30px;
 }
 

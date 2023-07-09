@@ -1,23 +1,28 @@
 <div class="p-mt-4">
-    <div class="p-grid p-nogutter">
-        <div class="p-col-3 p-d-flex p-jc-center">
-            <img src="../../../../assets/avatar-homem.png" class="player-avatar">
+    <div class="p-grid p-nogutter p-mr-4 p-ml-4">
+        <div class="p-col-4 p-d-flex p-jc-center">
+            <img src="../../../../assets/avatar-homem.png" class="avatar-jogador">
         </div>
-        <div class="p-col-6 p-text-center p-pt-5">
-            <h1>Você venceu a batalha!</h1>
-            <div class="p-mt-5">
-                <p-button type="button" class="p-button-warning" label="Voltar ao Menu" ></p-button>
+        <div class="p-col-4 p-text-center p-pt-5">
+            <p style="font-size:42px;" [ngClass]="{'texto-vencedor': isJogadorLogadoVencedor, 'texto-perdedor': !isJogadorLogadoVencedor}">
+                <b>{{isJogadorLogadoVencedor ? 'Você venceu a batalha!' : 'Você perdeu a batalha.'}}</b>
+            </p>
+            <p class="p-mt-1" style="color: white">
+                {{isJogadorLogadoVencedor ? 'Você ganhou ' : 'Você perdeu '}} {{recompensaJogador + ' moedas'}}
+            </p>
+            <div class="p-mt-5 p-d-flex p-jc-center">
+                <button pButton type="button" class="botao-batalha" label="Nova Batalha" (click)="redirecionarParaListarOponentes()"></button>
+                <button pButton type="button" class="botao-loja p-ml-3" label="Ir para a Loja" (click)="redirecionarParaLoja()"></button>
             </div>
         </div>
-        <div class="p-col-3 p-d-flex p-jc-center">
-            <img src="../../../../assets/avatar-homem.png" class="player-avatar">
+        <div class="p-col-4 p-d-flex p-jc-center">
+            <img src="../../../../assets/avatar-homem.png" class="avatar-jogador">
         </div>
-    </div>
-    <div class="p-grid p-nogutter">
-        <div class="p-col-3 p-text-center">
+
+        <div class="p-col-4 p-text-center" style="color:white;">
             <h3>{{resultadoBatalha.vencedor.nickname}}</h3>
         </div>
-        <div class="p-col-3 p-offset-6 p-text-center">
+        <div class="p-col-4 p-offset-4 p-text-center" style="color:white;">
             <h3>{{resultadoBatalha.perdedor.nickname}}</h3>
         </div>
     </div>

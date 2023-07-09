@@ -4,19 +4,19 @@
         <button pButton class="p-ml-auto p-mr-2 " (click)="atualizarSugestaoJogadores()" icon="pi pi-refresh" pTooltip="Atualizar Oponentes" tooltipPosition="bottom"></button>
         <button pButton type="button" class="p-button-warning" icon="pi pi-question" pTooltip="Ajuda" tooltipPosition="bottom"></button>
     </div>
-    <div class="p-jc-center p-ai-center players-div">
+    <div class="p-jc-center p-ai-center jogadores-div">
         <ng-container *ngFor="let jogador of sugestaoJogadores">
-            <p-card styleClass="p-card-shadow" class="players-card">
+            <p-card styleClass="p-card-shadow" class="jogadores-card">
                 <h2 class="p-pb-2" [pTooltip]="jogador.nickname" tooltipPosition="top" [tooltipDisabled]="jogador.nickname.length < 17">
                     {{ (jogador.nickname.length > 17) ? (jogador.nickname | slice:0:17)+'...' : (jogador.nickname) }}
                 </h2>
                 <div class="p-jc-center p-pb-2">
                     <div>
-                        <img src="../../../../assets/avatar-homem.png" class="player-avatar">
+                        <img src="../../../../assets/avatar-homem.png" class="avatar-jogador">
                     </div>
                     <div>
                         <ng-container *ngFor="let stefamon of jogador.stefamons">
-                            <img src="../../../../assets/stefaball.png" class="player-stefaballs">
+                            <img src="../../../../assets/stefaball.png" class="stefaballs">
                         </ng-container>
                     </div>
                 </div>
