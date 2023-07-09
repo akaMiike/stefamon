@@ -1,3 +1,12 @@
 <app-header></app-header>
 <router-outlet></router-outlet>
+
+<ng-container *ngIf="isTelaCarregando">
+    <p-blockUI [blocked]="true"></p-blockUI>
+    <div class="tela-loading">
+        <h3 class="p-text-center p-mb-1" style="color: white;">{{messagemTelaCarregamento}}</h3>
+        <p-progressBar [style]="{'height': '6px', 'width':'350px'}" mode="indeterminate"></p-progressBar>
+    </div>
+</ng-container>
+
 <p-toast></p-toast>
