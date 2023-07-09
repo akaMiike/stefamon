@@ -17,6 +17,9 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpInterceptorService } from './shared/interceptors/http-interceptor.service';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import {BlockUIModule} from 'primeng/blockui';
+import {ProgressBarModule} from 'primeng/progressbar';
+
 
 
 @NgModule({
@@ -34,7 +37,9 @@ import { ToastModule } from 'primeng/toast';
     InputTextModule,
     SharedModule,
     ModulesModule,
-    ToastModule
+    ToastModule,
+    BlockUIModule,
+    ProgressBarModule
   ],
   providers: [
     AuthService,

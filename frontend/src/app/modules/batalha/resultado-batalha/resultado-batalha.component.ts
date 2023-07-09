@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Jogador } from 'src/app/models/Jogador.model';
+import { ResultadoBatalha } from 'src/app/shared/models/ResultadoBatalha.model';
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
-import { BatalhaService } from 'src/app/shared/services/batalha/batalha.service';
 
 @Component({
   selector: 'app-resultado-batalha',
@@ -11,24 +11,25 @@ import { BatalhaService } from 'src/app/shared/services/batalha/batalha.service'
 })
 export class ResultadoBatalhaComponent implements OnInit {
   
-  dadosOponente: Jogador;
-  dadosJogador?: Jogador;
+  resultadoBatalha: ResultadoBatalha
   isJogadorLogadoVencedor: boolean;
+  dadosJogador: Jogador
 
   constructor(
     private authService: AuthService,
-    private batalhaService: BatalhaService,
     private router: Router
-  ) { }
+  ) {
+    if(this.router.getCurrentNavigation() != null){
+      this.resultadoBatalha = this.router.getCurrentNavigation().extras.state as ResultadoBatalha;
+    }
+   }
 
   ngOnInit(): void {
-    this.dadosOponente = this.router.getCurrentNavigation().extras.state.oponente;
-    this.authService.usuarioLogado.subscribe(jogador => this.dadosJogador = jogador);
-    this.isJogadorLogadoVencedor = this.obterResultadoBatalha().id === this.dadosJogador.id;
-  }
-
-  obterResultadoBatalha(): Jogador{
-    return this.batalhaService.iniciarBatalha(this.dadosJogador, this.dadosOponente);
+    console.log(this.resultadoBatalha);
+    this.authService.usuarioLogado.subscribe(jogador => {
+      this.dadosJogador = jogador
+      this.isJogadorLogadoVencedor = this.resultadoBatalha.vencedor.id === this.dadosJogador.id;
+    });
   }
 
 }

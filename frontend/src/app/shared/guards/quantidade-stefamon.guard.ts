@@ -8,23 +8,21 @@ import { AuthService } from '../services/auth/auth.service';
 @Injectable({
   providedIn: 'root'
 })
-export class QuantidadeStefamonGuard implements CanActivate, OnInit {
+export class QuantidadeStefamonGuard implements CanActivate{
+  
+  private jogadorLogado?: Jogador;
+
   constructor(
     private authService: AuthService,
     private messageService: MessageService,
     private router: Router
   ){}
 
-  ngOnInit(): void {
-    this.authService.usuarioLogado.subscribe(jogador => this.jogadorLogado = jogador);
-  }
-
-  private jogadorLogado?: Jogador;
-
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    
+      this.authService.usuarioLogado.subscribe(jogador => this.jogadorLogado = jogador);
+
       if(!this.authService.isLogado()){
         this.router.navigate(['/home']);
         return false;

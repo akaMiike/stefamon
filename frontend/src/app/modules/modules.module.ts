@@ -11,11 +11,11 @@ import { InputTextModule } from 'primeng/inputtext';
 import {PaginatorModule} from 'primeng/paginator';
 import { DropdownModule } from 'primeng/dropdown';
 import { TabMenuModule } from 'primeng/tabmenu';
+import {DialogModule} from 'primeng/dialog';
+import {TooltipModule} from 'primeng/tooltip';
 import { MeusStefamonsComponent } from './loja/meus-stefamons/meus-stefamons.component';
 import { ComprarStefamonsComponent } from './loja/comprar-stefamons/comprar-stefamons.component';
-import {DialogModule} from 'primeng/dialog';
 import { ListarOponentesComponent } from './batalha/listar-oponentes/listar-oponentes.component';
-import {TooltipModule} from 'primeng/tooltip';
 import { ResultadoBatalhaComponent } from './batalha/resultado-batalha/resultado-batalha.component';
 
 

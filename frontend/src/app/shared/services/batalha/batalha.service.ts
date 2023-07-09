@@ -13,7 +13,7 @@ export class BatalhaService {
 
   constructor() { }
 
-  iniciarBatalha(jogador: Jogador, oponente: Jogador){
+  iniciarBatalha(jogador: Jogador, oponente: Jogador): [Jogador, Jogador]{
     this.jogadorAtacante = {...jogador, stefamons: [...jogador.stefamons]};
     this.jogadorAtacado = {...oponente, stefamons: [...oponente.stefamons]};
 
@@ -34,7 +34,7 @@ export class BatalhaService {
       this.novaRodada();
     }
 
-    return this.jogadorAtacante.id === jogador.id ? jogador : oponente;
+    return [this.jogadorAtacante, this.jogadorAtacado];
   }
 
   private atacarStefamon(stefamonAtacante: Stefamon, stefamonAtacado: Stefamon){

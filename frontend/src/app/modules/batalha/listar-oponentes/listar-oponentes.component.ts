@@ -2,8 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { Jogador } from 'src/app/models/Jogador.model';
 import { Page } from 'src/app/shared/models/Page.model';
+import { ResultadoBatalha } from 'src/app/shared/models/ResultadoBatalha.model';
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
+import { BatalhaService } from 'src/app/shared/services/batalha/batalha.service';
 import { JogadorService } from 'src/app/shared/services/jogador/jogador.service';
+import { LoadingService } from 'src/app/shared/services/loading/loading.service';
 
 @Component({
   selector: 'app-listar-oponentes',
@@ -26,6 +29,8 @@ export class ListarOponentesComponent implements OnInit {
   constructor(
     private jogadorService: JogadorService,
     private authService: AuthService,
+    private batalhaService: BatalhaService,
+    private loadingService: LoadingService,
     private router: Router,
     private activatedRoute: ActivatedRoute
   ) { }
@@ -68,8 +73,15 @@ export class ListarOponentesComponent implements OnInit {
   }
 
   batalhar(oponente: Jogador){
-    const extras: NavigationExtras = { state: {oponente: oponente}, relativeTo: this.activatedRoute}
-    this.router.navigate(['resultado'], extras)
+    this.loadingService.mostrarCarregamento('Batalha em andamento...');
+    const [vencedor, perdedor] = this.batalhaService.iniciarBatalha(this.usuarioLogado, oponente);
+    const resultadoBatalha: ResultadoBatalha = {vencedor: vencedor, perdedor: perdedor}
+
+    setTimeout(() => {
+      const extras: NavigationExtras = { state: resultadoBatalha, relativeTo: this.activatedRoute}
+      this.loadingService.pararCarregamento();
+      this.router.navigate(['resultado'], extras)
+    }, 3000)
   }
 
 }

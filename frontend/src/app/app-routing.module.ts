@@ -9,11 +9,10 @@ import { QuantidadeStefamonGuard } from './shared/guards/quantidade-stefamon.gua
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
-  { path: 'batalhar', component: ListarOponentesComponent, canActivate: [AuthGuard, QuantidadeStefamonGuard],
+  { path: 'batalhar', canActivate: [AuthGuard, QuantidadeStefamonGuard],
     children: [
-      {
-        path: 'resultado', component: ResultadoBatalhaComponent
-      }
+      {path: '', component: ListarOponentesComponent},
+      {path: 'resultado', component: ResultadoBatalhaComponent}
     ]
   },
   { path: 'loja', component: LojaComponent },
