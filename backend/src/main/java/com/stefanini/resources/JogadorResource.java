@@ -3,8 +3,6 @@ package com.stefanini.resources;
 import com.stefanini.dto.jogador.JogadorCriacaoDTO;
 import com.stefanini.dto.jogador.JogadorLoginDTO;
 import com.stefanini.dto.jogador.JogadorRetornoDTO;
-import com.stefanini.dto.stefamon.StefamonDTO;
-import com.stefanini.entity.Jogador;
 import com.stefanini.service.AuthService;
 import com.stefanini.service.JogadorService;
 

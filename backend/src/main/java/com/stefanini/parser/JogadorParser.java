@@ -15,6 +15,7 @@ public class JogadorParser {
                 dto.getNickname(),
                 dto.getPassword(),
                 JogadorConstants.SALDO_INICIAL,
+                dto.getNomeArquivoAvatar(),
                 0, 0,
                 new ArrayList<>()
         );
@@ -26,6 +27,7 @@ public class JogadorParser {
                 jogador.getId(),
                 jogador.getNickname(),
                 jogador.getSaldo(),
+                jogador.getNomeArquivoAvatar(),
                 jogador.getQtdVitorias(),
                 jogador.getQtdDerrotas(),
                 jogador.getStefamons().stream()

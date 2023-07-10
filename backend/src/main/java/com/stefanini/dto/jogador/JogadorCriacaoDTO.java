@@ -1,11 +1,8 @@
 package com.stefanini.dto.jogador;
 
-import com.stefanini.dto.stefamon.StefamonDTO;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import java.util.List;
 
 public class JogadorCriacaoDTO {
 
@@ -17,6 +14,9 @@ public class JogadorCriacaoDTO {
     @NotBlank(message = "Senha não pode estar vazia.")
     @Size(min = 4, max = 10, message = "A senha deve ter entre 4 e 10 caracteres.")
     private String password;
+
+    @NotBlank(message="Avatar deve ser obrigatório")
+    private String nomeArquivoAvatar;
 
     public JogadorCriacaoDTO(){}
 
@@ -34,5 +34,13 @@ public class JogadorCriacaoDTO {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getNomeArquivoAvatar() {
+        return nomeArquivoAvatar;
+    }
+
+    public void setNomeArquivoAvatar(String nomeArquivoAvatar) {
+        this.nomeArquivoAvatar = nomeArquivoAvatar;
     }
 }

@@ -27,8 +27,10 @@ public class Jogador {
     private Integer qtdDerrotas;
 
     @Column
-    private BigDecimal saldo;
+    private String nomeArquivoAvatar;
 
+    @Column
+    private BigDecimal saldo;
 
     @ManyToMany
     @JoinTable(name = "Jogador_Stefamon",
@@ -39,11 +41,12 @@ public class Jogador {
     public Jogador() {
     }
 
-    public Jogador(String nickname, String password, BigDecimal saldo,
+    public Jogador(String nickname, String password, BigDecimal saldo, String nomeArquivoAvatar,
                    Integer qtdVitorias, Integer qtdDerrotas, List<Stefamon> stefamons) {
         this.nickname = nickname;
         this.password = password;
         this.saldo = saldo;
+        this.nomeArquivoAvatar = nomeArquivoAvatar;
         this.qtdDerrotas = qtdDerrotas;
         this.qtdVitorias = qtdVitorias;
         this.stefamons = stefamons;
@@ -72,6 +75,10 @@ public class Jogador {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getNomeArquivoAvatar(){ return nomeArquivoAvatar; }
+
+    public void setNomeArquivoAvatar(String nomeArquivoAvatar){ this.nomeArquivoAvatar = nomeArquivoAvatar; }
 
     public BigDecimal getSaldo() {
         return saldo;
