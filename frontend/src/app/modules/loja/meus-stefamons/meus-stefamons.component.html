@@ -30,26 +30,9 @@
   <h1 class="not-found-text p-pb-3" *ngIf="dadosJogador.stefamons.length == 0">Você não possui nenhum Stefamon.</h1>
 </div>
 
-<p-dialog 
-header="Deseja confirmar a venda?" 
-*ngIf="mostrarModalConfirmacao" 
-[(visible)]="mostrarModalConfirmacao"
-[style]="{width:'50vw'}"
->
-  <div class="p-text-center"><h3>{{stefamonEscolhido.nome}}</h3></div>
-  <div style="width: 100%; padding: 1rem;" class=" p-d-flex p-ai-center p-jc-center">
-    <img width="150px" heigth="150px" alt="stefamonEscolhido.nome" src="{{ stefamonEscolhido.urlFoto }}">
-  </div>
-
-  <div class="p-grid p-nogutter p-text-center" style="margin: auto;">
-    <div class="p-col-4"><strong>Saldo Atual:</strong></div>
-    <div class="p-col-4 p-offset-4"><strong>Saldo após a venda:</strong></div>
-    <div class="p-col-4"><strong>{{dadosJogador.saldo}} moedas</strong></div>
-    <div class="p-col-4 p-offset-4"><strong>{{dadosJogador.saldo + stefamonEscolhido.preco | number: '1.1-1'}} moedas</strong></div>
-  </div>
-  
-  <ng-template pTemplate="footer">
-    <button pButton class="p-button-success" type="button" icon="pi pi-check" label="Confirmar" (click)="venderStefamon()"></button>
-    <button pButton class="p-button-danger" type="button" icon="pi pi-times" label="Cancelar" (click)="mostrarModalConfirmacao=false"></button>
-  </ng-template>
-</p-dialog>
+<app-modal-confirmacao-loja
+*ngIf="mostrarModalConfirmacao"
+[(mostrarModal)]="mostrarModalConfirmacao"
+[stefamonEscolhido]="stefamonEscolhido"
+[isCompra]="false"
+></app-modal-confirmacao-loja>

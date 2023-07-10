@@ -17,6 +17,7 @@ import { MeusStefamonsComponent } from './loja/meus-stefamons/meus-stefamons.com
 import { ComprarStefamonsComponent } from './loja/comprar-stefamons/comprar-stefamons.component';
 import { ListarOponentesComponent } from './batalha/listar-oponentes/listar-oponentes.component';
 import { ResultadoBatalhaComponent } from './batalha/resultado-batalha/resultado-batalha.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -41,8 +42,8 @@ import { ResultadoBatalhaComponent } from './batalha/resultado-batalha/resultado
     PaginatorModule,
     DropdownModule,
     TabMenuModule,
-    DialogModule,
-    TooltipModule
+    TooltipModule,
+    SharedModule
   ]
 })
 export class ModulesModule { }

@@ -1,10 +1,9 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MessageService, SelectItem } from 'primeng/api';
 import { Jogador } from 'src/app/models/Jogador.model';
 import { Stefamon } from 'src/app/models/Stefamon.model';
 import { Page } from 'src/app/shared/models/Page.model';
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
-import { JogadorService } from 'src/app/shared/services/jogador/jogador.service';
 import { StefamonService } from 'src/app/shared/services/stefamon/stefamon.service';
 
 @Component({
@@ -15,19 +14,17 @@ import { StefamonService } from 'src/app/shared/services/stefamon/stefamon.servi
 export class ComprarStefamonsComponent implements OnInit {
 
   dadosJogador?: Jogador;
-
   mostrarModalConfirmacao: boolean = false;
   stefamonEscolhido: Stefamon;
-  
+
   paginacaoStefamon = new Page<Stefamon>();
   atributosStefamon: SelectItem[] = [];
   atributoSelecionado: string;
   direcoesOrdenacao: SelectItem[] = [];
   direcaoOrdenacao: string;
 
-  constructor(  
+  constructor(
     private stefamonService: StefamonService,
-    private jogadorService: JogadorService,
     private authService: AuthService,
     private messageService: MessageService
     ) { }
@@ -92,21 +89,13 @@ export class ComprarStefamonsComponent implements OnInit {
         this.messageService.add({severity: 'warn', summary:'Saldo insuficiente', detail:'Você não possui saldo suficiente para realizar a compra.'})
       }
       else{
-        this.mostrarModalConfirmacao = true;
         this.stefamonEscolhido = stefamon;
+        this.mostrarModalConfirmacao = true;
       }
     }
     else{
       this.messageService.add({severity: 'warn', summary:'Login necessário', detail:'Você deve estar logado para realizar a compra.'})
     }
-  }
-
-  comprarStefamon(){
-    this.jogadorService.comprarStefamon(this.dadosJogador.id, this.stefamonEscolhido.id).subscribe((jogadorAtualizado) => {
-      this.authService.atualizarJogadorLogado(jogadorAtualizado);
-      this.messageService.add({severity: 'success', summary:'Compra realizada', detail:'Stefamon comprado com sucesso.'})
-    })
-    this.mostrarModalConfirmacao = false;
   }
 
 }

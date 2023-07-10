@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Jogador } from 'src/app/models/Jogador.model';
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
-import { JogadorService } from 'src/app/shared/services/jogador/jogador.service';
 
 @Component({
   selector: 'app-stefamon',
