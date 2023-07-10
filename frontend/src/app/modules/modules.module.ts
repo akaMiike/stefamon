@@ -11,6 +11,8 @@ import {PaginatorModule} from 'primeng/paginator';
 import { DropdownModule } from 'primeng/dropdown';
 import { TabMenuModule } from 'primeng/tabmenu';
 import {TooltipModule} from 'primeng/tooltip';
+import {SelectButtonModule} from 'primeng/selectbutton';
+import {CarouselModule} from 'primeng/carousel';
 import { MeusStefamonsComponent } from './loja/meus-stefamons/meus-stefamons.component';
 import { ComprarStefamonsComponent } from './loja/comprar-stefamons/comprar-stefamons.component';
 import { ListarOponentesComponent } from './batalha/listar-oponentes/listar-oponentes.component';
@@ -40,7 +42,9 @@ import { SharedModule } from '../shared/shared.module';
     DropdownModule,
     TabMenuModule,
     TooltipModule,
-    SharedModule
+    SharedModule,
+    SelectButtonModule,
+    CarouselModule
   ]
 })
 export class ModulesModule { }

@@ -8,7 +8,7 @@
 
 .card-cadastro {
   height: fit-content;
-  min-height: 300px;
+  min-height: 280px;
   min-width: 50vmin;
   background-color: #242a35;
   color: #dddddd;
@@ -43,4 +43,8 @@
 
 .botao-historico-batalha:hover{
   background-color: #cfe225 !important;
+}
+
+:host ::ng-deep p-carousel .p-carousel-indicators{
+  display: none !important;
 }

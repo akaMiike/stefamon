@@ -16,20 +16,21 @@ export class AuthService {
   public usuarioLogado: Observable<Jogador|null> = this._isAuthenticatedSubject.asObservable();
 
   private readonly URL = `${environment.urlBackend}`
-  
+
   constructor(
     private http: HttpClient,
     private messageService: MessageService,
     private jogadorService: JogadorService
   ) { }
 
-    registrar(nickname: string, password: string){
+    registrar(nickname: string, password: string, avatar: string){
       return this.http.post(`${this.URL}/jogador/registrar`, {
         nickname: nickname,
-        password: password
+        password: password,
+        nomeArquivoAvatar: avatar
       })
   }
-  
+
     login(nickname: string, password: string){
       this.http.post(`${this.URL}/jogador/login`, {
         nickname: nickname,

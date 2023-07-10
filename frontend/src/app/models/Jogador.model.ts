@@ -5,6 +5,7 @@ export interface Jogador {
     nickname: string
     password: string,
     saldo: number,
+    nomeArquivoAvatar: string,
     qtdVitorias: number,
     qtdDerrotas: number,
     stefamons: Stefamon[];
