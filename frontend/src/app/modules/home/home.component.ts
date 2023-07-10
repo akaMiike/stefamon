@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
+import { Jogador } from 'src/app/models/Jogador.model';
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
 import { FormValidatorService } from 'src/app/shared/services/validators/form-validator.service';
 
@@ -10,6 +11,9 @@ import { FormValidatorService } from 'src/app/shared/services/validators/form-va
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+
+  isUsuarioLogado: boolean
+  dadosJogadorLogado: Jogador
 
   criacaoUsuarioForm = this.fb.group({
     nickname: ['', [Validators.required]],
@@ -24,6 +28,10 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.authService.usuarioLogado.subscribe(jogador => {
+      this.dadosJogadorLogado = jogador;
+      this.isUsuarioLogado = !!jogador
+    })
   }
 
   possuiErro(nomeCampo: string){

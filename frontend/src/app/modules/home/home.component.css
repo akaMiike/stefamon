@@ -7,8 +7,8 @@
 }
 
 .card-cadastro {
-  height: 330px;
-  min-height: 330px;
+  height: fit-content;
+  min-height: 300px;
   min-width: 50vmin;
   background-color: #242a35;
   color: #dddddd;
@@ -34,4 +34,13 @@
 #descricao-jogo{
   color:white;
   text-align:center;
+}
+
+.botao-historico-batalha{
+  border: none !important;
+  background-color: #b8c925 !important;
+}
+
+.botao-historico-batalha:hover{
+  background-color: #cfe225 !important;
 }

@@ -6,9 +6,9 @@
   </div>
   <div class="p-col-3 p-jc-end p-shadow-3 p-p-5 card-cadastro">
     <div class="p-ai-center vertical-container">
-      <form [formGroup]="criacaoUsuarioForm">
+      <form *ngIf="!isUsuarioLogado" [formGroup]="criacaoUsuarioForm">
         <div class="p-fluid p-p-2">
-          <h1 class="p-text-center">Cadastrar novo Jogador</h1>
+          <h1 class="p-text-center p-mb-1">Cadastre-se</h1>
           <div class="p-field p-mt-3">
             <input id="login" type="text" pInputText formControlName="nickname" placeholder="Usuário" 
             pTooltip="O nome de usuário deve começar com uma letra." tooltipPosition="left">
@@ -22,6 +22,27 @@
           <button pButton type="submit" label="Cadastrar" (click)="registrarUsuario()"></button>
         </div>
       </form>
+
+      <div *ngIf="isUsuarioLogado" class="p-text-center">
+        <h2>Suas Informações</h2>
+        <div>
+          <img src="/assets/avatar-homem.png"  width="150px"/>
+        </div>
+        <h3>{{dadosJogadorLogado.nickname}}</h3>
+        <div class="p-grid">
+          <div class="p-col-6">
+            <p>Vitórias: {{dadosJogadorLogado.qtdVitorias}}</p>
+          </div>
+          <div class="p-col-6">
+            <p>Derrotas: {{dadosJogadorLogado.qtdDerrotas}}</p>
+          </div>
+        </div>
+        
+        <div class="p-fluid">
+          <button pButton class="p-mb-2" type="button" label="Meus Stefamons"></button>
+          <button pButton type="button" class="botao-historico-batalha" label="Histórico de Batalhas"></button>
+        </div>
+      </div>      
     </div>
   </div>
 </div>
