@@ -22,7 +22,7 @@ export class MeusStefamonsComponent implements OnInit {
     this.authService.usuarioLogado.subscribe(jogadorLogado => this.dadosJogador = jogadorLogado);
   }
 
-  escolherStefamonVenda(stefamon: Stefamon){
+  setStefamonEscolhido(stefamon: Stefamon){
     this.stefamonEscolhido = stefamon;
     this.mostrarModalConfirmacao = true;
   }

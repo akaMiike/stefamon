@@ -1,0 +1,32 @@
+<div class="stefamons-div">
+  <ng-container *ngFor="let stefamon of stefamons">
+    <p-card header="{{ stefamon.nome }}" styleClass="p-card-shadow"
+            class="stefamons-card-div">
+      <p-header>
+        <div style="width: 100%; padding: 1rem;">
+          <img alt="Card" src="{{ stefamon.urlFoto }}">
+        </div>
+      </p-header>
+      <p><b>Atributos:</b></p>
+      <p>Ataque: {{stefamon.ataque}}</p>
+      <p>Defesa: {{stefamon.defesa}}</p>
+      <p>Vida: {{stefamon.vida}}</p>
+      <p>Inteligencia: {{stefamon.inteligencia}}</p>
+      <p>Velocidade: {{stefamon.velocidade}}</p>
+      <p>Poder: {{stefamon.poder}}</p>
+      <ng-template pTemplate="footer">
+        <div class="p-d-flex p-jc-center p-mb-1">
+          <div>Preço: {{stefamon.preco}} moedas</div>
+        </div>
+        <div class="p-d-flex p-jc-center">
+          <div>
+            <button pButton type="button" *ngIf="isCompra" class="p-mr-auto p-button-success" label="Comprar" icon="pi pi-check" (click)="escolherStefamonCompra(stefamon)"></button>
+            <button pButton type="button" *ngIf="isVenda" class="p-mr-auto p-button-danger" label="Vender" icon="pi pi-check" (click)="escolherStefamonVenda(stefamon)"></button>
+          </div>
+        </div>
+      </ng-template>
+    </p-card>
+  </ng-container>
+
+  <h1 class="not-found-text p-pb-3" *ngIf="stefamons.length == 0">Nenhum Stefamon encontrado.</h1>
+</div>

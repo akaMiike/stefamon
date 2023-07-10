@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MessageService, SelectItem } from 'primeng/api';
+import { SelectItem } from 'primeng/api';
 import { Jogador } from 'src/app/models/Jogador.model';
 import { Stefamon } from 'src/app/models/Stefamon.model';
 import { Page } from 'src/app/shared/models/Page.model';
@@ -25,12 +25,11 @@ export class ComprarStefamonsComponent implements OnInit {
 
   constructor(
     private stefamonService: StefamonService,
-    private authService: AuthService,
-    private messageService: MessageService
+    private authService: AuthService
     ) { }
 
   ngOnInit(): void {
-    this.authService.usuarioLogado.subscribe(jogadorLogado => {this.dadosJogador = jogadorLogado});
+    this.authService.usuarioLogado.subscribe(jogadorLogado => this.dadosJogador = jogadorLogado);
 
     this.atributosStefamon = [
       {label: "Vida", value: "vida"},
@@ -73,29 +72,14 @@ export class ComprarStefamonsComponent implements OnInit {
     });
   }
 
-  ordenacao(){
-    if(this.paginacaoStefamon.valorOrdenacao === "ASC"){
-      this.paginacaoStefamon.valorOrdenacao = "DESC"
-    }
-    else{
-      this.paginacaoStefamon.valorOrdenacao = "ASC"
-    }
+  ordenacao(direcaoOrdenacao: string){
+    this.paginacaoStefamon.valorOrdenacao = direcaoOrdenacao;
     this.listarTodosStefamons();
   }
 
-  confirmarCompra(stefamon: Stefamon){
-    if(this.dadosJogador){
-      if(this.dadosJogador.saldo < stefamon.preco){
-        this.messageService.add({severity: 'warn', summary:'Saldo insuficiente', detail:'Você não possui saldo suficiente para realizar a compra.'})
-      }
-      else{
-        this.stefamonEscolhido = stefamon;
-        this.mostrarModalConfirmacao = true;
-      }
-    }
-    else{
-      this.messageService.add({severity: 'warn', summary:'Login necessário', detail:'Você deve estar logado para realizar a compra.'})
-    }
+  setStefamonEscolhido(stefamon: Stefamon){
+    this.stefamonEscolhido = stefamon;
+    this.mostrarModalConfirmacao = true;
   }
 
 }

@@ -8,19 +8,21 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { DialogModule } from 'primeng/dialog';
 import {TooltipModule} from 'primeng/tooltip';
-import { MostrarStefamonsComponent } from './components/mostrar-stefamons/mostrar-stefamons.component';
+import {CardModule} from 'primeng/card';
+import { ListarStefamonsComponent } from './components/listar-stefamons/listar-stefamons.component';
 import { ModalConfirmacaoLojaComponent } from './components/modal-confirmacao-loja/modal-confirmacao-loja.component';
 
 @NgModule({
   declarations: [
     HeaderComponent,
-    MostrarStefamonsComponent,
+    ListarStefamonsComponent,
     ModalConfirmacaoLojaComponent
   ],
   imports: [
     FormsModule,
     ReactiveFormsModule,
     InputTextModule,
+    CardModule,
     MenubarModule,
     ButtonModule,
     CommonModule,
@@ -30,7 +32,7 @@ import { ModalConfirmacaoLojaComponent } from './components/modal-confirmacao-lo
   ],
   exports:[
     HeaderComponent,
-    MostrarStefamonsComponent,
+    ListarStefamonsComponent,
     ModalConfirmacaoLojaComponent
   ]
 })

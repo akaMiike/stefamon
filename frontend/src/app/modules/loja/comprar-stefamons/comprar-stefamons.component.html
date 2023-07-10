@@ -1,9 +1,9 @@
 <div class="p-grid p-ai-center filters-div p-nogutter">
   <div>
-    <p-dropdown 
+    <p-dropdown
     class="p-mr-2"
-    [options]="atributosStefamon" 
-    [(ngModel)]="atributoSelecionado" 
+    [options]="atributosStefamon"
+    [(ngModel)]="atributoSelecionado"
     placeholder="Ordenar por..."
     [showClear]="true"
     (onChange)="setColunaOrdenacao()">
@@ -11,58 +11,33 @@
   </div>
 
   <div>
-    <p-dropdown 
+    <p-dropdown
     class="p-mr-2"
-    [options]="direcoesOrdenacao" 
-    [(ngModel)]="direcaoOrdenacao" 
+    [options]="direcoesOrdenacao"
+    [(ngModel)]="direcaoOrdenacao"
     placeholder="Tipo da ordenação"
     [showClear]="true"
-    (onChange)="ordenacao()"
+    (onChange)="ordenacao($event.value)"
     [disabled]="paginacaoStefamon.colunaOrdenacao == null">
     </p-dropdown>
   </div>
-  
+
   <div>
     <input type="text" pInputText placeholder="Buscar por nome" (keyup)="buscarStefamonPorNome($event)"/>
   </div>
-  
+
   <h4 class="p-ml-auto coins-text" *ngIf="dadosJogador">Você possui: {{dadosJogador.saldo}} moedas</h4>
 </div>
 
-<div class="stefamons-div">
-  <ng-container *ngFor="let stefamon of paginacaoStefamon.elementos">
-    <p-card header="{{ stefamon.nome }}" styleClass="p-card-shadow"
-            class="stefamons-card-div">
-      <p-header>
-        <div style="width: 100%; padding: 1rem;">
-          <img alt="Card" src="{{ stefamon.urlFoto }}">
-        </div>
-      </p-header>
-      <p><b>Atributos:</b></p>
-      <p>Ataque: {{stefamon.ataque}}</p>
-      <p>Defesa: {{stefamon.defesa}}</p>
-      <p>Vida: {{stefamon.vida}}</p>
-      <p>Inteligencia: {{stefamon.inteligencia}}</p>
-      <p>Velocidade: {{stefamon.velocidade}}</p>
-      <p>Poder: {{stefamon.poder}}</p>
-      <ng-template pTemplate="footer">
-        <div class="p-d-flex p-jc-center p-mb-1">
-          <div>Preço: {{stefamon.preco}} moedas</div>
-        </div>
-        <div class="p-d-flex p-jc-center">
-          <div>
-            <button pButton type="button" class="p-mr-auto p-button-success" label="Comprar" icon="pi pi-check" (click)="confirmarCompra(stefamon)"></button>
-          </div>
-        </div>
-      </ng-template>
-    </p-card>
-  </ng-container>
-
-  <h1 class="not-found-text p-pt-5" *ngIf="paginacaoStefamon.elementos.length == 0">Nenhum Stefamon foi encontrado.</h1>
-</div>
+<app-listar-stefamons
+  [isCompra]="true"
+  [isVenda]="false"
+  [stefamons]="paginacaoStefamon.elementos"
+  (stefamonEscolhido)="setStefamonEscolhido($event)"
+></app-listar-stefamons>
 
 <div>
-<p-paginator 
+<p-paginator
 *ngIf="!!paginacaoStefamon.totalElementos"
 [rows]="paginacaoStefamon.tamanhoPagina"
 [totalRecords]="paginacaoStefamon.totalElementos"

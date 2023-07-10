@@ -1,0 +1,18 @@
+.stefamons-div{
+    z-index:100;
+    padding: 20px 20px 0px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.stefamons-card-div{
+    margin-bottom: 2em;
+    width: 200px;
+}
+
+.not-found-text{
+    color: white;
+    text-align: center;
+}
