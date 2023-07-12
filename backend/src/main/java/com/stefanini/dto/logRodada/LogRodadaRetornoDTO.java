@@ -1,29 +1,13 @@
-package com.stefanini.entity;
+package com.stefanini.dto.logRodada;
 
+public class LogRodadaRetornoDTO {
 
-import javax.persistence.*;
-
-@Entity
-public class LogRodada {
-
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @ManyToOne
-    private Batalha batalha;
-
-    @Column
     private Long numRodada;
-
-    @Column
     private String detalhesRodada;
 
-    public LogRodada(){}
-
-    public LogRodada(Batalha batalha, Long numRodada, String detalhesRodada) {
-        this.batalha = batalha;
+    public LogRodadaRetornoDTO(Long id, Long numRodada, String detalhesRodada) {
+        this.id = id;
         this.numRodada = numRodada;
         this.detalhesRodada = detalhesRodada;
     }
@@ -34,14 +18,6 @@ public class LogRodada {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Batalha getBatalha() {
-        return batalha;
-    }
-
-    public void setBatalha(Batalha batalha) {
-        this.batalha = batalha;
     }
 
     public String getDetalhesRodada() {

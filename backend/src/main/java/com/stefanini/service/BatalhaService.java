@@ -2,11 +2,15 @@ package com.stefanini.service;
 
 import com.stefanini.dto.batalha.BatalhaCriacaoDTO;
 import com.stefanini.dto.batalha.BatalhaRetornoDTO;
+import com.stefanini.dto.jogador.JogadorRetornoDTO;
+import com.stefanini.dto.logRodada.LogRodadaCreationDTO;
 import com.stefanini.entity.Batalha;
 import com.stefanini.entity.Jogador;
+import com.stefanini.entity.LogRodada;
 import com.stefanini.exceptions.batalha.BatalhaNaoEncontradaException;
 import com.stefanini.exceptions.jogador.JogadorNaoEncontradoException;
 import com.stefanini.parser.BatalhaParser;
+import com.stefanini.parser.LogRodadaParser;
 import com.stefanini.repository.BatalhaRepository;
 import com.stefanini.repository.JogadorRepository;
 
@@ -25,6 +29,9 @@ public class BatalhaService {
 
     @Inject
     JogadorRepository jogadorRepository;
+
+    @Inject
+    JogadorService jogadorService;
 
     public void salvar(BatalhaCriacaoDTO batalhaCriacaoDTO){
         Jogador jogador = this.jogadorRepository.findById(batalhaCriacaoDTO.getIdJogador());
@@ -52,9 +59,24 @@ public class BatalhaService {
     }
 
     public List<BatalhaRetornoDTO> buscarBatalhasPorJogador(Long idJogador){
-        return batalhaRepository.buscarTodasBatalhasPorJogador(idJogador)
+        JogadorRetornoDTO jogador = jogadorService.buscarPorId(idJogador);
+        return batalhaRepository.buscarTodasBatalhasPorJogador(jogador.getId())
                 .stream()
                 .map(BatalhaParser::EntityToReturnDTO)
                 .collect(Collectors.toList());
+    }
+
+    public void criarLogsBatalha(List<LogRodadaCreationDTO> logBatalha, Long idBatalha){
+        Batalha batalha = batalhaRepository.findById(idBatalha);
+        if(Objects.isNull(batalha)){
+            throw new BatalhaNaoEncontradaException();
+        }
+
+        List<LogRodada> novosLogBatalha = logBatalha.stream()
+                .map(log -> LogRodadaParser.CreationDTOToEntity(log, batalha))
+                .collect(Collectors.toList());
+
+        batalha.setLogBatalha(novosLogBatalha);
+        batalhaRepository.update(batalha);
     }
 }

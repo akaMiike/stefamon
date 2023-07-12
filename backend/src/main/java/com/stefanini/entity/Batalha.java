@@ -24,7 +24,7 @@ public class Batalha {
     @ManyToOne
     private Jogador oponente;
 
-    @OneToMany(mappedBy = "batalha", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "batalha", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     private List<LogRodada> logBatalha;
 
     public Batalha(){}
