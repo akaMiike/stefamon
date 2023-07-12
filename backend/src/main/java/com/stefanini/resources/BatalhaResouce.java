@@ -26,8 +26,12 @@ public class BatalhaResouce {
 
     @GET
     @Path("/{id}")
-    public Response buscarTodasBatalhasPorJogador(@PathParam("id") Long id){
-        return Response.ok().entity(batalhaService.buscarBatalhasPorJogador(id)).build();
+    public Response buscarTodasBatalhasPorJogadorPaginado(
+            @PathParam("id") Long id,
+            @DefaultValue("0") @QueryParam("pagina") Integer pagina,
+            @DefaultValue("10") @QueryParam("tamanhoPagina") Integer tamanhoPagina
+    ){
+        return Response.ok().entity(batalhaService.buscarBatalhasPorJogadorPaginado(id, pagina, tamanhoPagina)).build();
     }
 
     @POST

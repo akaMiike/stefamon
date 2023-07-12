@@ -4,6 +4,7 @@ import com.stefanini.dto.batalha.BatalhaCriacaoDTO;
 import com.stefanini.dto.batalha.BatalhaRetornoDTO;
 import com.stefanini.dto.jogador.JogadorRetornoDTO;
 import com.stefanini.dto.logRodada.LogRodadaCreationDTO;
+import com.stefanini.dto.paginacao.Page;
 import com.stefanini.entity.Batalha;
 import com.stefanini.entity.Jogador;
 import com.stefanini.entity.LogRodada;
@@ -58,12 +59,14 @@ public class BatalhaService {
         return BatalhaParser.EntityToReturnDTO(batalha);
     }
 
-    public List<BatalhaRetornoDTO> buscarBatalhasPorJogador(Long idJogador){
+    public Page<BatalhaRetornoDTO> buscarBatalhasPorJogadorPaginado(Long idJogador, Integer pagina, Integer tamanhoPagina){
         JogadorRetornoDTO jogador = jogadorService.buscarPorId(idJogador);
-        return batalhaRepository.buscarTodasBatalhasPorJogador(jogador.getId())
-                .stream()
-                .map(BatalhaParser::EntityToReturnDTO)
-                .collect(Collectors.toList());
+        Page<Batalha> batalhasPaginada = batalhaRepository.buscarTodasBatalhasPorJogador(jogador.getId(), pagina, tamanhoPagina);
+
+        return new Page<>(
+                batalhasPaginada.getElementos().stream().map(BatalhaParser::EntityToReturnDTO).collect(Collectors.toList()),
+                batalhasPaginada.getTotalElementos()
+        );
     }
 
     public void criarLogsBatalha(List<LogRodadaCreationDTO> logBatalha, Long idBatalha){
