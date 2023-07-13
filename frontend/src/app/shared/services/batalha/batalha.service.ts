@@ -1,81 +1,41 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Jogador } from 'src/app/models/Jogador.model';
-import { Stefamon } from 'src/app/models/Stefamon.model';
+import { Batalha } from 'src/app/models/Batalha.model';
+import { LogRodada } from 'src/app/models/LogRodada.model';
+import { environment } from 'src/environments/environment.prod';
+import { Page } from '../../models/Page.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BatalhaService {
 
-  private readonly PORCENT_PROBABILIDADE_DEFESA = 10;
-  private jogadorAtacante: Jogador;
-  private jogadorAtacado: Jogador;
+  private readonly URL: string = `${environment.urlBackend}/batalha`
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  iniciarBatalha(jogador: Jogador, oponente: Jogador): [Jogador, Jogador]{
-    this.jogadorAtacante = {...jogador, stefamons: [...jogador.stefamons]};
-    this.jogadorAtacado = {...oponente, stefamons: [...oponente.stefamons]};
-
-    while(true){
-      var stefamonAtacante = this.jogadorAtacante.stefamons[this.jogadorAtacante.stefamons.length -1];
-      var stefamonAtacado = this.jogadorAtacado.stefamons[this.jogadorAtacado.stefamons.length -1];
-
-      this.atacarStefamon(stefamonAtacante, stefamonAtacado);
-      
-      if(this.stefamonMorreu(stefamonAtacado)){
-        this.jogadorAtacado.stefamons.pop();
+  buscarBatalhasPorJogador(idJogador: number, paginacao: Page<Batalha>){
+    return this.http.get<Page<Batalha>>(`${this.URL}/${idJogador}`, {
+      params: {
+        pagina: paginacao.pagina.toString(),
+        tamanhoPagina: paginacao.tamanhoPagina.toString()
       }
-
-      if(!this.possuiStefamonVivo(this.jogadorAtacado)){
-        break;
-      }
-
-      this.novaRodada();
-    }
-
-    return [this.jogadorAtacante, this.jogadorAtacado];
+    });
   }
 
-  private atacarStefamon(stefamonAtacante: Stefamon, stefamonAtacado: Stefamon){
-    const foiAtaqueCritico = this.calcularProbabilidade(stefamonAtacante.inteligencia);
-    const defendeuAtaque = this.calcularProbabilidade(this.PORCENT_PROBABILIDADE_DEFESA);
-    const esquivouAtaque = this.calcularProbabilidade(stefamonAtacado.velocidade/10);
-    
-    const ataqueRecebido = foiAtaqueCritico ? this.calcularAtaqueCritico(stefamonAtacante) : stefamonAtacante.ataque;
-    
-    if(defendeuAtaque){
-      const qtdDanoReduzido = this.calcularDanoReduzido(stefamonAtacado.defesa, ataqueRecebido);
-      stefamonAtacado.vida -= qtdDanoReduzido;
-    }
-    else if(!esquivouAtaque){
-      stefamonAtacado.vida -= ataqueRecebido;
-    }
+  salvarBatalha(idJogador: number, idOponente: number, isJogadorVencedor: boolean){
+    return this.http.post(this.URL, {
+      idJogador: idJogador,
+      idOponente: idOponente,
+      isJogadorVencedor: isJogadorVencedor
+    })
   }
 
-  private calcularProbabilidade(valor: number): boolean{
-    return Math.random() <= (valor/100);
+  criarLogsBatalha(idBatalha: number, logsBatalha: LogRodada[]){
+    return this.http.post(`${this.URL}/${idBatalha}/logs`, logsBatalha)
   }
 
-  private calcularAtaqueCritico(stefamon: Stefamon){
-    return stefamon.ataque + stefamon.ataque * (stefamon.poder / 100);
-  }
-
-  private calcularDanoReduzido(defesa: number, ataqueRecebido: number){
-    return Math.max(0, ataqueRecebido - (defesa/100) * (ataqueRecebido));
-  }
-
-  private stefamonMorreu(stefamon: Stefamon): boolean{
-    return stefamon.vida <= 0;
-  }
-
-  private possuiStefamonVivo(jogador: Jogador){
-    return jogador.stefamons.length !== 0;
-  }
-
-  private novaRodada(){
-    var temp = this.jogadorAtacado;
-    this.jogadorAtacado = this.jogadorAtacante;
-    this.jogadorAtacante = temp;
+  obterLogsBatalha(idBatalha: number){
+    return this.http.get(`${this.URL}/${idBatalha}/logs`)
   }
 }
