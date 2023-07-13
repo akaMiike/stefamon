@@ -4,6 +4,7 @@ import com.stefanini.dto.batalha.BatalhaCriacaoDTO;
 import com.stefanini.dto.batalha.BatalhaRetornoDTO;
 import com.stefanini.dto.jogador.JogadorRetornoDTO;
 import com.stefanini.dto.logRodada.LogRodadaCreationDTO;
+import com.stefanini.dto.logRodada.LogRodadaRetornoDTO;
 import com.stefanini.dto.paginacao.Page;
 import com.stefanini.entity.Batalha;
 import com.stefanini.entity.Jogador;
@@ -34,7 +35,7 @@ public class BatalhaService {
     @Inject
     JogadorService jogadorService;
 
-    public void salvar(BatalhaCriacaoDTO batalhaCriacaoDTO){
+    public BatalhaRetornoDTO salvar(BatalhaCriacaoDTO batalhaCriacaoDTO){
         Jogador jogador = this.jogadorRepository.findById(batalhaCriacaoDTO.getIdJogador());
         Jogador oponente = this.jogadorRepository.findById(batalhaCriacaoDTO.getIdOponente());
 
@@ -47,6 +48,7 @@ public class BatalhaService {
 
         Batalha novaBatalha = new Batalha(batalhaCriacaoDTO.getJogadorVenceu(), LocalDateTime.now(), jogador, oponente);
         batalhaRepository.save(novaBatalha);
+        return BatalhaParser.EntityToReturnDTO(novaBatalha);
 
     }
 

@@ -7,18 +7,15 @@ public class LogRodadaCreationDTO {
 
     @NotNull(message="Log da rodada deve conter o número da rodada")
     private Long numRodada;
-    @NotBlank(message="Log da rodada deve conter o nome do jogador atacante")
-    private String nomeJogadorAtacante;
-    @NotBlank(message="Log da rodada deve conter o nome do jogador atacado")
-    private String nomeJogadorAtacado;
-    @NotBlank(message="Log da rodada deve conter o nome do stefamon atacante")
-    private String nomeStefamonAtacante;
-    @NotBlank(message="Log da rodada deve conter o nome do stefamon atacado")
-    private String nomeStefamonAtacado;
-    @NotBlank(message="Log da rodada deve conter a vida do stefamon atacado após o ataque")
-    private String vidaStefamonAposAtaque;
+
     @NotBlank(message = "Detalhes da rodada é obrigatório.")
     private String detalhesRodada;
+
+    private String nomeJogadorAtacante;
+    private String nomeJogadorAtacado;
+    private String nomeStefamonAtacante;
+    private String nomeStefamonAtacado;
+    private String vidaStefamonAposAtaque;
 
     public LogRodadaCreationDTO() {}
 

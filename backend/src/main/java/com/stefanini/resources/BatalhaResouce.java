@@ -36,8 +36,9 @@ public class BatalhaResouce {
 
     @POST
     public Response salvarBatalha(@Valid BatalhaCriacaoDTO batalha){
-        batalhaService.salvar(batalha);
-        return Response.status(Response.Status.CREATED).build();
+        return Response.status(Response.Status.CREATED)
+                .entity(batalhaService.salvar(batalha))
+                .build();
     }
 
     @POST
