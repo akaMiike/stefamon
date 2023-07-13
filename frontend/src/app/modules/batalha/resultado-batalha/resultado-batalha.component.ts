@@ -26,7 +26,6 @@ export class ResultadoBatalhaComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    console.log(this.resultadoBatalha);
     this.authService.usuarioLogado.subscribe(jogador => {
       this.dadosJogador = jogador
       this.isJogadorLogadoVencedor = this.resultadoBatalha.vencedor.id === this.dadosJogador.id;

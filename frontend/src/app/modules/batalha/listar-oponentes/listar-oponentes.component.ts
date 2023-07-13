@@ -4,7 +4,7 @@ import { Jogador } from 'src/app/models/Jogador.model';
 import { Page } from 'src/app/shared/models/Page.model';
 import { ResultadoBatalha } from 'src/app/shared/models/ResultadoBatalha.model';
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
-import { BatalhaService } from 'src/app/shared/services/batalha/batalha.service';
+import { LogicaBatalhaService } from 'src/app/shared/services/batalha/logica-batalha/logica-batalha.service';
 import { JogadorService } from 'src/app/shared/services/jogador/jogador.service';
 import { LoadingService } from 'src/app/shared/services/loading/loading.service';
 
@@ -29,7 +29,7 @@ export class ListarOponentesComponent implements OnInit {
   constructor(
     private jogadorService: JogadorService,
     private authService: AuthService,
-    private batalhaService: BatalhaService,
+    private logicaBatalhaService: LogicaBatalhaService,
     private loadingService: LoadingService,
     private router: Router,
     private activatedRoute: ActivatedRoute
@@ -74,7 +74,7 @@ export class ListarOponentesComponent implements OnInit {
 
   batalhar(oponente: Jogador){
     this.loadingService.mostrarCarregamento('Batalha em andamento...');
-    const [vencedor, perdedor] = this.batalhaService.iniciarBatalha(this.usuarioLogado, oponente);
+    const [vencedor, perdedor] = this.logicaBatalhaService.iniciarBatalha(this.usuarioLogado, oponente);
     const resultadoBatalha: ResultadoBatalha = {vencedor: vencedor, perdedor: perdedor}
 
     setTimeout(() => {
