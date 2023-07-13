@@ -14,6 +14,7 @@ import {TooltipModule} from 'primeng/tooltip';
 import {SelectButtonModule} from 'primeng/selectbutton';
 import {CarouselModule} from 'primeng/carousel';
 import { CardModule } from 'primeng/card';
+import { DialogModule } from 'primeng/dialog';
 import { MeusStefamonsComponent } from './loja/meus-stefamons/meus-stefamons.component';
 import { ComprarStefamonsComponent } from './loja/comprar-stefamons/comprar-stefamons.component';
 import { ListarOponentesComponent } from './batalha/listar-oponentes/listar-oponentes.component';
@@ -46,7 +47,8 @@ import { SharedModule } from '../shared/shared.module';
     TooltipModule,
     SharedModule,
     SelectButtonModule,
-    CarouselModule
+    CarouselModule,
+    DialogModule
   ]
 })
 export class ModulesModule { }

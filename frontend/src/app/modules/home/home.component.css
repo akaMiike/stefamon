@@ -1,10 +1,7 @@
-.h-100 {
+.h-90 {
   height: 90vh;
 }
 
-.p-grid {
-  margin: 0;
-}
 
 .card-cadastro {
   height: fit-content;
@@ -38,11 +35,11 @@
 
 .botao-historico-batalha{
   border: none !important;
-  background-color: #b8c925 !important;
+  background-color: #bebc22 !important;
 }
 
 .botao-historico-batalha:hover{
-  background-color: #cfe225 !important;
+  background-color: #d5e225 !important;
 }
 
 :host ::ng-deep p-carousel .p-carousel-indicators{

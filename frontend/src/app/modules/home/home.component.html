@@ -1,5 +1,5 @@
 <div class="background"></div>
-<div class="content p-grid p-jc-center p-ai-center vertical-container p-mt-15 p-p-5 h-100">
+<div class="content p-grid p-nogutter p-jc-center p-ai-center vertical-container p-mt-15 p-p-5 h-90">
   <div class="p-col-6 p-jc-start p-p-0">
       <img src="assets/header.png"  style="width: 100%" />
       <h3 id="descricao-jogo">Junte-se a milhares de jogadores e batalhe com seus Stefamons!</h3>
@@ -48,11 +48,11 @@
 
       <div *ngIf="isUsuarioLogado" class="p-text-center">
         <h2>Suas Informações</h2>
-        <div>
+        <div class="p-mb-2">
           <img src="assets/{{dadosJogadorLogado.nomeArquivoAvatar}}"  width="150px"/>
+          <h3>{{dadosJogadorLogado.nickname}}</h3>
         </div>
-        <h3>{{dadosJogadorLogado.nickname}}</h3>
-        <div class="p-grid">
+        <div class="p-grid p-mb-2">
           <div class="p-col-6">
             <p>Vitórias: {{dadosJogadorLogado.qtdVitorias}}</p>
           </div>
@@ -62,10 +62,15 @@
         </div>
 
         <div class="p-fluid">
-          <button pButton class="p-mb-2" type="button" label="Meus Stefamons"></button>
-          <button pButton type="button" class="botao-historico-batalha" label="Histórico de Batalhas"></button>
+          <button pButton class="p-mb-2" type="button" label="Meus Stefamons" (click)="redirecionarParaMeusStefamons()"></button>
+          <button pButton type="button" class="botao-historico-batalha" label="Histórico de Batalhas" (click)="abrirModalHistoricoBatalha()"></button>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+
+<app-modal-historico-batalhas
+[(mostrarModal)]="mostrarModalHistoricoBatalha"
+></app-modal-historico-batalhas>

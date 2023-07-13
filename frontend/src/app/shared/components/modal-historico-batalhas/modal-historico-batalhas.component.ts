@@ -14,8 +14,8 @@ import { BatalhaService } from '../../services/batalha/requests/batalha.service'
 export class ModalHistoricoBatalhasComponent implements OnInit {
 
   dadosJogadorLogado: Jogador;
-  @Input() mostrarModal: boolean
-  @Output() mostrarModalChange = new EventEmitter<boolean>()
+  @Input() mostrarModal = false;
+  @Output() mostrarModalChange = new EventEmitter<boolean>();
   paginaHistoricoBatalha = new Page<Batalha>();
 
   constructor(
@@ -29,16 +29,7 @@ export class ModalHistoricoBatalhasComponent implements OnInit {
 
     this.authService.usuarioLogado.subscribe(jogador => {
       this.dadosJogadorLogado = jogador;
-      this.batalhaService.buscarBatalhasPorJogador(this.dadosJogadorLogado.id, this.paginaHistoricoBatalha).subscribe(batalhas => {
-        this.paginaHistoricoBatalha.totalElementos = batalhas.totalElementos;
-        this.paginaHistoricoBatalha.elementos = batalhas.elementos;
-      });
     });
-  }
-
-  fecharModal(){
-    this.mostrarModal = false;
-    this.mostrarModalChange.emit(this.mostrarModal);
   }
 
   obterProximaPagina(event: LazyLoadEvent){
@@ -48,6 +39,11 @@ export class ModalHistoricoBatalhasComponent implements OnInit {
       this.paginaHistoricoBatalha.elementos = batalhas.elementos;
     });
 
+  }
+
+  fecharModal(){
+    this.mostrarModal = false;
+    this.mostrarModalChange.emit(this.mostrarModal);
   }
 
 }

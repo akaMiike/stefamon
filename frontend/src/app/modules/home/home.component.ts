@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { NavigationExtras, Router } from '@angular/router';
 import { MessageService, SelectItem } from 'primeng/api';
 import { Jogador } from 'src/app/models/Jogador.model';
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
@@ -19,6 +20,8 @@ export class HomeComponent implements OnInit {
   sexoAvatar: SelectItem[];
   sexoAvatarEscolhido: string = 'masculino';
 
+  mostrarModalHistoricoBatalha = false;
+
   criacaoUsuarioForm = this.fb.group({
     nickname: ['', [Validators.required]],
     password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(10)]],
@@ -29,6 +32,7 @@ export class HomeComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
+    private router: Router,
     private formValidator: FormValidatorService,
     private messageService: MessageService
   ) { }
@@ -44,7 +48,6 @@ export class HomeComponent implements OnInit {
     this.authService.usuarioLogado.subscribe(jogador => {
       this.dadosJogadorLogado = jogador;
       this.isUsuarioLogado = !!jogador;
-      console.log(this.dadosJogadorLogado);
     });
   }
 
@@ -83,6 +86,15 @@ export class HomeComponent implements OnInit {
           this.fotosAvatares.push(`mulher_avatar${i}.png`);
         }
     }
+  }
+
+  abrirModalHistoricoBatalha(){
+    this.mostrarModalHistoricoBatalha = true;
+  }
+
+  redirecionarParaMeusStefamons(){
+    const extras: NavigationExtras = { state: {fromHome: true}}
+    this.router.navigate(['loja'], extras);
   }
 
 }

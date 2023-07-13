@@ -24,7 +24,6 @@ export class QuantidadeStefamonGuard implements CanActivate{
       this.authService.usuarioLogado.subscribe(jogador => this.jogadorLogado = jogador);
 
       if(!this.authService.isLogado()){
-        this.router.navigate(['/home']);
         return false;
       }
       else{
