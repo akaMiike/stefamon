@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Batalha } from 'src/app/models/Batalha.model';
 import { LogRodada } from 'src/app/models/LogRodada.model';
 import { environment } from 'src/environments/environment.prod';
-import { Page } from '../../models/Page.model';
+import { Page } from '../../../models/Page.model';
 
 @Injectable({
   providedIn: 'root'
