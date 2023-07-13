@@ -11,6 +11,11 @@ public class LogRodadaParser {
         return new LogRodadaRetornoDTO(
                 logRodada.getId(),
                 logRodada.getNumRodada(),
+                logRodada.getNomeJogadorAtacante(),
+                logRodada.getNomeJogadorAtacado(),
+                logRodada.getNomeStefamonAtacante(),
+                logRodada.getNomeStefamonAtacado(),
+                logRodada.getVidaStefamonAposAtaque(),
                 logRodada.getDetalhesRodada()
         );
     }
@@ -19,6 +24,11 @@ public class LogRodadaParser {
         return new LogRodada(
                 batalha,
                 logRodada.getNumRodada(),
+                logRodada.getNomeJogadorAtacante(),
+                logRodada.getNomeJogadorAtacado(),
+                logRodada.getNomeStefamonAtacante(),
+                logRodada.getNomeStefamonAtacado(),
+                logRodada.getVidaStefamonAposAtaque(),
                 logRodada.getDetalhesRodada()
         );
     }

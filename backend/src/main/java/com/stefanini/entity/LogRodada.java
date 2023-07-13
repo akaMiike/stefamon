@@ -18,13 +18,34 @@ public class LogRodada {
     private Long numRodada;
 
     @Column
+    private String nomeJogadorAtacante;
+
+    @Column
+    private String nomeJogadorAtacado;
+
+    @Column
+    private String nomeStefamonAtacante;
+
+    @Column
+    private String nomeStefamonAtacado;
+
+    @Column
+    private String vidaStefamonAposAtaque;
+
+    @Column
     private String detalhesRodada;
 
     public LogRodada(){}
 
-    public LogRodada(Batalha batalha, Long numRodada, String detalhesRodada) {
+    public LogRodada(Batalha batalha, Long numRodada, String nomeJogadorAtacante, String nomeJogadorAtacado,
+                     String nomeStefamonAtacante, String nomeStefamonAtacado, String vidaStefamonAposAtaque, String detalhesRodada) {
         this.batalha = batalha;
         this.numRodada = numRodada;
+        this.nomeJogadorAtacante = nomeJogadorAtacante;
+        this.nomeJogadorAtacado = nomeJogadorAtacado;
+        this.nomeStefamonAtacante = nomeStefamonAtacante;
+        this.nomeStefamonAtacado = nomeStefamonAtacado;
+        this.vidaStefamonAposAtaque = vidaStefamonAposAtaque;
         this.detalhesRodada = detalhesRodada;
     }
 
@@ -44,19 +65,59 @@ public class LogRodada {
         this.batalha = batalha;
     }
 
-    public String getDetalhesRodada() {
-        return detalhesRodada;
-    }
-
-    public void setDetalhesRodada(String detalhesRodada) {
-        this.detalhesRodada = detalhesRodada;
-    }
-
     public Long getNumRodada() {
         return numRodada;
     }
 
     public void setNumRodada(Long numRodada) {
         this.numRodada = numRodada;
+    }
+
+    public String getNomeJogadorAtacante() {
+        return nomeJogadorAtacante;
+    }
+
+    public void setNomeJogadorAtacante(String nomeJogadorAtacante) {
+        this.nomeJogadorAtacante = nomeJogadorAtacante;
+    }
+
+    public String getNomeJogadorAtacado() {
+        return nomeJogadorAtacado;
+    }
+
+    public void setNomeJogadorAtacado(String nomeJogadorAtacado) {
+        this.nomeJogadorAtacado = nomeJogadorAtacado;
+    }
+
+    public String getNomeStefamonAtacante() {
+        return nomeStefamonAtacante;
+    }
+
+    public void setNomeStefamonAtacante(String nomeStefamonAtacante) {
+        this.nomeStefamonAtacante = nomeStefamonAtacante;
+    }
+
+    public String getNomeStefamonAtacado() {
+        return nomeStefamonAtacado;
+    }
+
+    public void setNomeStefamonAtacado(String nomeStefamonAtacado) {
+        this.nomeStefamonAtacado = nomeStefamonAtacado;
+    }
+
+    public String getVidaStefamonAposAtaque() {
+        return vidaStefamonAposAtaque;
+    }
+
+    public void setVidaStefamonAposAtaque(String vidaStefamonAposAtaque) {
+        this.vidaStefamonAposAtaque = vidaStefamonAposAtaque;
+    }
+
+    public String getDetalhesRodada() {
+        return detalhesRodada;
+    }
+
+    public void setDetalhesRodada(String detalhesRodada) {
+        this.detalhesRodada = detalhesRodada;
     }
 }

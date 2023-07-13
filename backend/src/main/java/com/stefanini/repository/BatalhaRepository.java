@@ -11,7 +11,7 @@ import java.util.List;
 public class BatalhaRepository extends GenericDAO<Batalha, Long> {
 
     public Page<Batalha> buscarTodasBatalhasPorJogador(Long idJogador, Integer pagina, Integer tamanhoPagina){
-        List<Batalha> batalhas = createQuery("SELECT b FROM Batalha b WHERE jogador.id = :idJogador OR oponente.id = :idOponente")
+        List<Batalha> batalhas = createQuery("SELECT b FROM Batalha b WHERE jogador.id = :idJogador OR oponente.id = :idOponente ORDER BY b.dataBatalha DESC")
                 .setParameter("idJogador", idJogador)
                 .setParameter("idOponente", idJogador)
                 .setFirstResult(pagina * tamanhoPagina)
