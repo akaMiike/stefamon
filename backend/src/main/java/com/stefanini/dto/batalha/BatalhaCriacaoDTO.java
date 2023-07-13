@@ -9,12 +9,12 @@ public class BatalhaCriacaoDTO {
     @NotNull(message= "Id do oponente é obrigatório")
     private Long idOponente;
     @NotNull(message= "Resultado da batalha é obrigatório")
-    private Boolean isJogadorVencedor;
+    private Boolean jogadorVenceu;
 
-    public BatalhaCriacaoDTO(Long idJogador, Long idOponente, Boolean isJogadorVencedor) {
+    public BatalhaCriacaoDTO(Long idJogador, Long idOponente, Boolean jogadorVenceu) {
         this.idJogador = idJogador;
         this.idOponente = idOponente;
-        this.isJogadorVencedor = isJogadorVencedor;
+        this.jogadorVenceu = jogadorVenceu;
     }
 
     public Long getIdJogador() {
@@ -33,11 +33,11 @@ public class BatalhaCriacaoDTO {
         this.idOponente = idOponente;
     }
 
-    public Boolean getJogadorVencedor() {
-        return isJogadorVencedor;
+    public Boolean getJogadorVenceu() {
+        return jogadorVenceu;
     }
 
-    public void setJogadorVencedor(Boolean jogadorVencedor) {
-        isJogadorVencedor = jogadorVencedor;
+    public void setJogadorVenceu(Boolean jogadorVenceu) {
+        this.jogadorVenceu = jogadorVenceu;
     }
 }

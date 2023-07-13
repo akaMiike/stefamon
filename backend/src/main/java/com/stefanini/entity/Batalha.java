@@ -13,7 +13,7 @@ public class Batalha {
     private Long id;
 
     @Column
-    private Boolean isJogadorVencedor;
+    private Boolean jogadorVenceu;
 
     @Column
     private LocalDateTime dataBatalha;
@@ -29,8 +29,8 @@ public class Batalha {
 
     public Batalha(){}
 
-    public Batalha(Boolean isJogadorVencedor, LocalDateTime dataBatalha, Jogador jogador, Jogador oponente) {
-        this.isJogadorVencedor = isJogadorVencedor;
+    public Batalha(Boolean jogadorVenceu, LocalDateTime dataBatalha, Jogador jogador, Jogador oponente) {
+        this.jogadorVenceu = jogadorVenceu;
         this.dataBatalha = dataBatalha;
         this.jogador = jogador;
         this.oponente = oponente;
@@ -44,12 +44,12 @@ public class Batalha {
         this.id = id;
     }
 
-    public Boolean getJogadorVencedor() {
-        return isJogadorVencedor;
+    public Boolean getJogadorVenceu() {
+        return jogadorVenceu;
     }
 
-    public void setJogadorVencedor(Boolean jogadorVencedor) {
-        isJogadorVencedor = jogadorVencedor;
+    public void setJogadorVenceu(Boolean jogadorVenceu) {
+        jogadorVenceu = jogadorVenceu;
     }
 
     public LocalDateTime getDataBatalha() {

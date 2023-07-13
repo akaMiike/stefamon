@@ -9,17 +9,17 @@ public class BatalhaRetornoDTO {
     private Long id;
     private String nomeJogador;
     private String nomeOponente;
-    private Boolean isJogadorVencedor;
+    private Boolean jogadorVenceu;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime dataBatalha;
 
     public BatalhaRetornoDTO(){}
 
-    public BatalhaRetornoDTO(Long id, String nomeJogador, String nomeOponente, Boolean isJogadorVencedor, LocalDateTime dataBatalha) {
+    public BatalhaRetornoDTO(Long id, String nomeJogador, String nomeOponente, Boolean jogadorVenceu, LocalDateTime dataBatalha) {
         this.id = id;
         this.nomeJogador = nomeJogador;
         this.nomeOponente = nomeOponente;
-        this.isJogadorVencedor = isJogadorVencedor;
+        this.jogadorVenceu = jogadorVenceu;
         this.dataBatalha = dataBatalha;
     }
 
@@ -47,12 +47,12 @@ public class BatalhaRetornoDTO {
         this.nomeOponente = nomeOponente;
     }
 
-    public Boolean getJogadorVencedor() {
-        return isJogadorVencedor;
+    public Boolean getJogadorVenceu() {
+        return jogadorVenceu;
     }
 
-    public void setJogadorVencedor(Boolean jogadorVencedor) {
-        isJogadorVencedor = jogadorVencedor;
+    public void setJogadorVenceu(Boolean jogadorVenceu) {
+        this.jogadorVenceu = jogadorVenceu;
     }
 
     public LocalDateTime getDataBatalha() {

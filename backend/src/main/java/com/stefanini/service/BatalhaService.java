@@ -45,7 +45,7 @@ public class BatalhaService {
             throw new JogadorNaoEncontradoException("Oponente de id " + batalhaCriacaoDTO.getIdOponente() + " não foi encontrado.");
         }
 
-        Batalha novaBatalha = new Batalha(batalhaCriacaoDTO.getJogadorVencedor(), LocalDateTime.now(), jogador, oponente);
+        Batalha novaBatalha = new Batalha(batalhaCriacaoDTO.getJogadorVenceu(), LocalDateTime.now(), jogador, oponente);
         batalhaRepository.save(novaBatalha);
 
     }

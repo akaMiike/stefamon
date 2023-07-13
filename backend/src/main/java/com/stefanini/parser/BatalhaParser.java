@@ -10,7 +10,7 @@ public class BatalhaParser {
                 batalha.getId(),
                 batalha.getJogador().getNickname(),
                 batalha.getOponente().getNickname(),
-                batalha.getJogadorVencedor(),
+                batalha.getJogadorVenceu(),
                 batalha.getDataBatalha()
         );
     }
