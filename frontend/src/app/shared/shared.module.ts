@@ -14,6 +14,7 @@ import { ListarStefamonsComponent } from './components/listar-stefamons/listar-s
 import { ModalConfirmacaoLojaComponent } from './components/modal-confirmacao-loja/modal-confirmacao-loja.component';
 import { ModalHistoricoBatalhasComponent } from './components/modal-historico-batalhas/modal-historico-batalhas.component';
 import { QntdTempoAtrasPipe } from './pipes/qntd-tempo-atras.pipe';
+import { ListarLogBatalhaComponent } from './components/listar-log-batalha/listar-log-batalha.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { QntdTempoAtrasPipe } from './pipes/qntd-tempo-atras.pipe';
     ListarStefamonsComponent,
     ModalConfirmacaoLojaComponent,
     ModalHistoricoBatalhasComponent,
-    QntdTempoAtrasPipe
+    QntdTempoAtrasPipe,
+    ListarLogBatalhaComponent
   ],
   imports: [
     FormsModule,
@@ -41,7 +43,8 @@ import { QntdTempoAtrasPipe } from './pipes/qntd-tempo-atras.pipe';
     ListarStefamonsComponent,
     ModalConfirmacaoLojaComponent,
     ModalHistoricoBatalhasComponent,
-    QntdTempoAtrasPipe
+    QntdTempoAtrasPipe,
+    ListarLogBatalhaComponent
   ]
 })
 export class SharedModule { }

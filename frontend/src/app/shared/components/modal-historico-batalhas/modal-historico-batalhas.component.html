@@ -47,9 +47,21 @@ header="Histórico de Batalhas"
                         <span>{{dadosJogadorLogado.nickname === batalha.nomeJogador ? batalha.moedasObtidas : -1*batalha.moedasObtidas}} moedas</span>
                     </td>
                     <td class="p-text-center">
-                        <p-button type="button" icon="pi pi-info" styleClass="p-button-sm" pTooltip="Ver detalhes da batalha."></p-button>
+                        <p-button type="button" icon="pi pi-info" styleClass="p-button-sm" pTooltip="Ver detalhes da batalha." (click)="visualizarLogBatalha(batalha)"></p-button>
                     </td>
                 </tr>
             </ng-template>
     </p-table>
+
+    <div *ngIf="mostrarLogBatalha">
+        <div class="p-d-flex p-jc-evenly p-ai-center p-mb-4 p-mt-2">
+            <h3>{{dadosBatalhaEscolhido.nomeJogador}} </h3>
+            <i class="pi pi-times" style="font-size: 20px"></i>
+            <h3>{{dadosBatalhaEscolhido.nomeOponente}} </h3>
+        </div>
+        <app-listar-log-batalha [idBatalha]="dadosBatalhaEscolhido.id"></app-listar-log-batalha>
+    </div>
+    <div class="p-dialog-footer" style="padding: 1rem 0 0 0;" *ngIf="mostrarLogBatalha">
+        <p-button label="Voltar" icon="pi pi-angle-left" iconPos="left" (click)="voltarHistoricoBatalhas()"></p-button>
+    </div>
 </p-dialog>

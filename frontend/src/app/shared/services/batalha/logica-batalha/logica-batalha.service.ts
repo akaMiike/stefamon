@@ -35,6 +35,12 @@ export class LogicaBatalhaService {
       
       if(this.stefamonMorreu(stefamonAtacado)){
         this.jogadorAtacado.stefamons.pop();
+        
+        this.logRodadaService.adicionarJogadoresRodada(
+          this.jogadorAtacante.nickname, stefamonAtacante.nome,
+          this.jogadorAtacado.nickname, stefamonAtacado.nome
+        );
+        
         this.logRodadaService.registrarNovaRodada(`O stefamon ${stefamonAtacado.nome} morreu.`);
       }
 
@@ -55,6 +61,7 @@ export class LogicaBatalhaService {
     const esquivouAtaque = this.calcularProbabilidade(stefamonAtacado.velocidade/10);
     
     let ataqueRecebido = foiAtaqueCritico ? this.calcularAtaqueCritico(stefamonAtacante) : stefamonAtacante.ataque;
+    const vidaStefamonAntesAtaque = stefamonAtacado.vida
     
     if(defendeuAtaque){
       ataqueRecebido = this.calcularDanoReduzido(stefamonAtacado.defesa, ataqueRecebido);
@@ -65,7 +72,7 @@ export class LogicaBatalhaService {
     }
 
     this.logRodadaService.adicionarDetalhesAtaqueRodada(
-      ataqueRecebido, defendeuAtaque, foiAtaqueCritico, esquivouAtaque, stefamonAtacado.vida + ataqueRecebido ,stefamonAtacado.vida
+      ataqueRecebido, defendeuAtaque, foiAtaqueCritico, esquivouAtaque, vidaStefamonAntesAtaque, stefamonAtacado.vida
     );
   }
 
@@ -74,11 +81,11 @@ export class LogicaBatalhaService {
   }
 
   private calcularAtaqueCritico(stefamon: Stefamon){
-    return stefamon.ataque + stefamon.ataque * (stefamon.poder / 100);
+    return Math.floor(stefamon.ataque + stefamon.ataque * (stefamon.poder / 100));
   }
 
   private calcularDanoReduzido(defesa: number, ataqueRecebido: number){
-    return Math.max(0, ataqueRecebido - (defesa/100) * (ataqueRecebido));
+    return Math.floor(Math.max(0, ataqueRecebido - (defesa/100) * (ataqueRecebido)));
   }
 
   private stefamonMorreu(stefamon: Stefamon): boolean{

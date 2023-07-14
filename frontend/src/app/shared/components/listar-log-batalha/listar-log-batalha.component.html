@@ -1,0 +1,52 @@
+<p-table 
+[value]="logsBatalha"
+scrollHeight="300px"
+[scrollable]="true"
+[virtualScroll]="true"
+[virtualRowHeight]="30"
+[rows]="100">
+
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="width: 15%; text-align:center">Atacante</th>
+            <th style="width: 15%; text-align:center">Atacado</th>
+            <th style="width: 55%; text-align:center">Ação</th>
+            <th style="width: 15%; text-align:center">Vida</th>
+        </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-log>
+        <tr style="height: 30px;">
+            
+            <td style="width: 15%; text-align:center">
+                <div *ngIf="log.nomeJogadorAtacante">
+                    {{log.nomeJogadorAtacante}}
+                </div>
+                <div *ngIf="!log.nomeJogadorAtacante">
+                    <i class="pi pi-minus"></i>
+                </div>
+            </td>
+            
+            <td style="width: 15%; text-align:center">
+                <div *ngIf="log.nomeJogadorAtacado">
+                    {{log.nomeJogadorAtacado}}
+                </div>
+                <div *ngIf="!log.nomeJogadorAtacado">
+                    <i class="pi pi-minus"></i>
+                </div>
+            </td>
+            <td style="width: 55%; text-align:center">{{log.detalhesRodada}}</td>
+            
+            <td style="width: 15%; text-align:center">
+                <div *ngIf="log.vidaStefamonAntesAtaque">
+                    {{log.vidaStefamonAntesAtaque}}
+                    <i class="pi pi-arrow-right"></i>
+                    {{log.vidaStefamonAposAtaque}}
+                </div>
+                <div *ngIf="!log.vidaStefamonAntesAtaque">
+                    <i class="pi pi-minus"></i>
+                </div>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>

@@ -13,8 +13,8 @@ export class ResultadoBatalhaComponent implements OnInit {
   
   resultadoBatalha: ResultadoBatalha
   isJogadorLogadoVencedor: boolean;
-  dadosJogador: Jogador
-  recompensaJogador: number;
+  dadosJogador: Jogador;
+  dadosOponente: Jogador;
 
   constructor(
     private authService: AuthService,
@@ -29,13 +29,8 @@ export class ResultadoBatalhaComponent implements OnInit {
     this.authService.usuarioLogado.subscribe(jogador => {
       this.dadosJogador = jogador
       this.isJogadorLogadoVencedor = this.resultadoBatalha.vencedor.id === this.dadosJogador.id;
-      this.recompensaJogador = this.isJogadorLogadoVencedor ? this.gerarMoedasRecompensa() : -1 * this.gerarMoedasRecompensa();
+      this.dadosOponente = this.isJogadorLogadoVencedor ? this.resultadoBatalha.perdedor : this.resultadoBatalha.vencedor
     });
-  }
-
-  gerarMoedasRecompensa(){
-    const max = 10; const min = 5;
-    return (Math.floor(Math.random() * (10*max - 10*(min+1))) + 10*min) / 10;
   }
 
   redirecionarParaLoja(){

@@ -82,6 +82,7 @@ export class LogRodadaService {
     this.nomeJogadorAtacado = null;
     this.nomeStefamonAtacado = null;
     this.danoRecebido = null;
+    this.vidaStefamonAntesAtaque = null;
     this.vidaStefamonAposAtaque = null;
     this.defendeuAtaque = null;
     this.ataqueCritico = null;
