@@ -65,7 +65,7 @@ export class LogicaBatalhaService {
     }
 
     this.logRodadaService.adicionarDetalhesAtaqueRodada(
-      ataqueRecebido, defendeuAtaque, foiAtaqueCritico, esquivouAtaque, stefamonAtacado.vida
+      ataqueRecebido, defendeuAtaque, foiAtaqueCritico, esquivouAtaque, stefamonAtacado.vida + ataqueRecebido ,stefamonAtacado.vida
     );
   }
 

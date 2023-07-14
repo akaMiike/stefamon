@@ -36,6 +36,6 @@ export class BatalhaService {
   }
 
   obterLogsBatalha(idBatalha: number){
-    return this.http.get(`${this.URL}/${idBatalha}/logs`)
+    return this.http.get<LogRodada[]>(`${this.URL}/${idBatalha}/logs`)
   }
 }

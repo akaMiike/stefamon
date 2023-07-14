@@ -15,6 +15,7 @@ export class LogRodadaService {
   private nomeStefamonAtacante?: string;
   private nomeJogadorAtacado?: string;
   private nomeStefamonAtacado?: string;
+  private vidaStefamonAntesAtaque?: number;
   private vidaStefamonAposAtaque?: number;
 
   private danoRecebido: number;
@@ -35,13 +36,14 @@ export class LogRodadaService {
 
   adicionarDetalhesAtaqueRodada(
     danoRecebido: number, defendeuAtaque: boolean, ataqueCritico: boolean,
-    esquivouAtaque: boolean, vidaStefamonAposAtaque: number
+    esquivouAtaque: boolean, vidaStefamonAntesAtaque: number, vidaStefamonAposAtaque: number
   ){
     this.danoRecebido = danoRecebido;
     this.defendeuAtaque = defendeuAtaque;
     this.ataqueCritico = ataqueCritico;
     this.esquivouAtaque = esquivouAtaque;
     this.vidaStefamonAposAtaque = vidaStefamonAposAtaque;
+    this.vidaStefamonAntesAtaque = vidaStefamonAntesAtaque;
   }
 
   registrarNovaRodada(descricaoRodada: string = null){
@@ -53,6 +55,7 @@ export class LogRodadaService {
       nomeJogadorAtacado: this.nomeJogadorAtacado,
       nomeStefamonAtacante: this.nomeStefamonAtacante,
       nomeStefamonAtacado: this.nomeStefamonAtacado,
+      vidaStefamonAntesAtaque: this.vidaStefamonAntesAtaque?.toString(),
       vidaStefamonAposAtaque: this.vidaStefamonAposAtaque?.toString(),
       detalhesRodada: detalheRodada
     } as LogRodada);
