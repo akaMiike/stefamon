@@ -11,7 +11,8 @@ public class BatalhaParser {
                 batalha.getJogador().getNickname(),
                 batalha.getOponente().getNickname(),
                 batalha.getJogadorVenceu(),
-                batalha.getDataBatalha()
+                batalha.getDataBatalha(),
+                batalha.getMoedasObtidas()
         );
     }
 

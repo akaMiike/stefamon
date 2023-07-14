@@ -18,6 +18,8 @@ import com.stefanini.repository.JogadorRepository;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
@@ -35,6 +37,9 @@ public class BatalhaService {
     @Inject
     JogadorService jogadorService;
 
+    private final Integer MIN_MOEDAS_RECOMPENSA = 5;
+    private final Integer MAX_MOEDAS_RECOMPENSA = 10;
+
     public BatalhaRetornoDTO salvar(BatalhaCriacaoDTO batalhaCriacaoDTO){
         Jogador jogador = this.jogadorRepository.findById(batalhaCriacaoDTO.getIdJogador());
         Jogador oponente = this.jogadorRepository.findById(batalhaCriacaoDTO.getIdOponente());
@@ -46,7 +51,20 @@ public class BatalhaService {
             throw new JogadorNaoEncontradoException("Oponente de id " + batalhaCriacaoDTO.getIdOponente() + " não foi encontrado.");
         }
 
-        Batalha novaBatalha = new Batalha(batalhaCriacaoDTO.getJogadorVenceu(), LocalDateTime.now(), jogador, oponente);
+        BigDecimal moedasRecompensa = gerarMoedasRecompensa(MIN_MOEDAS_RECOMPENSA, MAX_MOEDAS_RECOMPENSA);
+
+        jogador.setSaldo(jogador.getSaldo().add(moedasRecompensa));
+        oponente.setSaldo(oponente.getSaldo().subtract(moedasRecompensa));
+        jogadorRepository.update(jogador);
+        jogadorRepository.update(oponente);
+
+        Batalha novaBatalha = new Batalha(
+                batalhaCriacaoDTO.getJogadorVenceu(),
+                LocalDateTime.now(),
+                jogador, oponente,
+                batalhaCriacaoDTO.getJogadorVenceu() ? moedasRecompensa : moedasRecompensa.negate()
+        );
+
         batalhaRepository.save(novaBatalha);
         return BatalhaParser.EntityToReturnDTO(novaBatalha);
 
@@ -83,5 +101,10 @@ public class BatalhaService {
 
         batalha.setLogBatalha(novosLogBatalha);
         batalhaRepository.update(batalha);
+    }
+
+    private BigDecimal gerarMoedasRecompensa(int min, int max){
+        double valorMoeda = (Math.floor(Math.random() * (10*max - 10*min)) + 10*min) / 10;
+        return BigDecimal.valueOf(valorMoeda).setScale(1, RoundingMode.UNNECESSARY);
     }
 }

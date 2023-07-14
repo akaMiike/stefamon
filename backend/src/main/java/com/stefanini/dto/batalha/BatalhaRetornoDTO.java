@@ -2,6 +2,7 @@ package com.stefanini.dto.batalha;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class BatalhaRetornoDTO {
@@ -12,15 +13,18 @@ public class BatalhaRetornoDTO {
     private Boolean jogadorVenceu;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime dataBatalha;
+    private BigDecimal moedasObtidas;
 
     public BatalhaRetornoDTO(){}
 
-    public BatalhaRetornoDTO(Long id, String nomeJogador, String nomeOponente, Boolean jogadorVenceu, LocalDateTime dataBatalha) {
+    public BatalhaRetornoDTO(Long id, String nomeJogador, String nomeOponente, Boolean jogadorVenceu,
+                             LocalDateTime dataBatalha, BigDecimal moedasObtidas) {
         this.id = id;
         this.nomeJogador = nomeJogador;
         this.nomeOponente = nomeOponente;
         this.jogadorVenceu = jogadorVenceu;
         this.dataBatalha = dataBatalha;
+        this.moedasObtidas = moedasObtidas;
     }
 
     public Long getId() {
@@ -61,5 +65,13 @@ public class BatalhaRetornoDTO {
 
     public void setDataBatalha(LocalDateTime dataBatalha) {
         this.dataBatalha = dataBatalha;
+    }
+
+    public BigDecimal getMoedasObtidas() {
+        return moedasObtidas;
+    }
+
+    public void setMoedasObtidas(BigDecimal moedasObtidas) {
+        this.moedasObtidas = moedasObtidas;
     }
 }

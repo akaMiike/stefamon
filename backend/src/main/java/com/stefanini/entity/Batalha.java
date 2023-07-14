@@ -1,6 +1,7 @@
 package com.stefanini.entity;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -18,6 +19,9 @@ public class Batalha {
     @Column
     private LocalDateTime dataBatalha;
 
+    @Column
+    private BigDecimal moedasObtidas;
+
     @ManyToOne
     private Jogador jogador;
 
@@ -29,11 +33,12 @@ public class Batalha {
 
     public Batalha(){}
 
-    public Batalha(Boolean jogadorVenceu, LocalDateTime dataBatalha, Jogador jogador, Jogador oponente) {
+    public Batalha(Boolean jogadorVenceu, LocalDateTime dataBatalha, Jogador jogador, Jogador oponente, BigDecimal moedasObtidas) {
         this.jogadorVenceu = jogadorVenceu;
         this.dataBatalha = dataBatalha;
         this.jogador = jogador;
         this.oponente = oponente;
+        this.moedasObtidas = moedasObtidas;
     }
 
     public Long getId() {
@@ -82,5 +87,13 @@ public class Batalha {
 
     public void setLogBatalha(List<LogRodada> logBatalha) {
         this.logBatalha = logBatalha;
+    }
+
+    public BigDecimal getMoedasObtidas() {
+        return moedasObtidas;
+    }
+
+    public void setMoedasObtidas(BigDecimal moedasObtidas) {
+        this.moedasObtidas = moedasObtidas;
     }
 }
