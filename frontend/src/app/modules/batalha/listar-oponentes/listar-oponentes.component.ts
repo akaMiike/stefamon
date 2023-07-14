@@ -87,7 +87,12 @@ export class ListarOponentesComponent implements OnInit {
     const logsBatalha = this.logsRodadaService.getLogsBatalha();
     await this.logsRodadaService.salvarLogsBatalha(batalha.id).toPromise();
     
-    const resultadoBatalha: ResultadoBatalha = {vencedor: vencedor, perdedor: perdedor, logsBatalha: logsBatalha}
+    const resultadoBatalha: ResultadoBatalha = {
+      vencedor: vencedor,
+      perdedor: perdedor, 
+      idBatalha: batalha.id,
+      moedasObtidas: batalha.moedasObtidas, 
+      logsBatalha: logsBatalha}
 
     setTimeout(() => {
       const extras: NavigationExtras = { state: resultadoBatalha, relativeTo: this.activatedRoute}

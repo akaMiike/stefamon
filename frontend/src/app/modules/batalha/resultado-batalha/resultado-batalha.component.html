@@ -1,14 +1,14 @@
 <div class="p-mt-4">
     <div class="p-grid p-nogutter p-mr-4 p-ml-4">
         <div class="p-col-4 p-d-flex p-jc-center">
-            <img src="../../../../assets/avatar-homem.png" class="avatar-jogador">
+            <img src="../../../../assets/{{dadosJogador.nomeArquivoAvatar}}" class="avatar-jogador">
         </div>
         <div class="p-col-4 p-text-center p-pt-5">
             <p style="font-size:42px;" [ngClass]="{'texto-vencedor': isJogadorLogadoVencedor, 'texto-perdedor': !isJogadorLogadoVencedor}">
                 <b>{{isJogadorLogadoVencedor ? 'Você venceu a batalha!' : 'Você perdeu a batalha.'}}</b>
             </p>
             <p class="p-mt-1" style="color: white">
-                {{isJogadorLogadoVencedor ? 'Você ganhou ' : 'Você perdeu '}} {{recompensaJogador + ' moedas'}}
+                {{isJogadorLogadoVencedor ? 'Você ganhou ' : 'Você perdeu '}} {{resultadoBatalha.moedasObtidas}} moedas
             </p>
             <div class="p-mt-5 p-d-flex p-jc-center">
                 <button pButton type="button" class="botao-batalha" label="Nova Batalha" (click)="redirecionarParaListarOponentes()"></button>
@@ -16,14 +16,19 @@
             </div>
         </div>
         <div class="p-col-4 p-d-flex p-jc-center">
-            <img src="../../../../assets/avatar-homem.png" class="avatar-jogador">
+            <img src="../../../../assets/{{dadosOponente.nomeArquivoAvatar}}" class="avatar-jogador">
         </div>
 
         <div class="p-col-4 p-text-center" style="color:white;">
-            <h3>{{resultadoBatalha.vencedor.nickname}}</h3>
+            <h3>{{dadosJogador.nickname}}</h3>
         </div>
         <div class="p-col-4 p-offset-4 p-text-center" style="color:white;">
-            <h3>{{resultadoBatalha.perdedor.nickname}}</h3>
+            <h3>{{dadosOponente.nickname}}</h3>
         </div>
     </div>
+</div>
+
+<div class="p-m-4 p-mt-5">
+    <h2 class="p-text-center p-mb-3" style="color: white;">Logs da Batalha</h2>
+    <app-listar-log-batalha [idBatalha]="resultadoBatalha.idBatalha"></app-listar-log-batalha>
 </div>
