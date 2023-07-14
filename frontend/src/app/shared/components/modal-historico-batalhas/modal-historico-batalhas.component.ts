@@ -16,6 +16,7 @@ export class ModalHistoricoBatalhasComponent implements OnInit {
   dadosJogadorLogado: Jogador;
   @Input() mostrarModal = false;
   @Output() mostrarModalChange = new EventEmitter<boolean>();
+  mostrarHistoricoBatalha = true;
   paginaHistoricoBatalha = new Page<Batalha>();
 
   constructor(
@@ -44,6 +45,11 @@ export class ModalHistoricoBatalhasComponent implements OnInit {
   fecharModal(){
     this.mostrarModal = false;
     this.mostrarModalChange.emit(this.mostrarModal);
+  }
+
+  isJogadorLogadoVencedorBatalha(batalha: Batalha){
+    return (batalha.jogadorVenceu && batalha.nomeJogador === this.dadosJogadorLogado.nickname) ||
+    (!batalha.jogadorVenceu && batalha.nomeOponente === this.dadosJogadorLogado.nickname)
   }
 
 }
