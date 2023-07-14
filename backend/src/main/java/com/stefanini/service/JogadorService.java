@@ -134,7 +134,7 @@ public class JogadorService {
         perdedor.setSaldo(BigDecimal.ZERO.max(perdedor.getSaldo().add(moedasObtidas.negate())));
 
         vencedor.setQtdVitorias(vencedor.getQtdVitorias() + 1);
-        perdedor.setQtdDerrotas(vencedor.getQtdDerrotas() + 1);
+        perdedor.setQtdDerrotas(perdedor.getQtdDerrotas() + 1);
 
         jogadorRepository.update(vencedor);
         jogadorRepository.update(perdedor);
