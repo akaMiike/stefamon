@@ -23,11 +23,11 @@ export class BatalhaService {
     });
   }
 
-  salvarBatalha(idJogador: number, idOponente: number, isJogadorVencedor: boolean){
-    return this.http.post(this.URL, {
+  salvarBatalha(idJogador: number, idOponente: number, jogadorVenceu: boolean){
+    return this.http.post<Batalha>(this.URL, {
       idJogador: idJogador,
       idOponente: idOponente,
-      isJogadorVencedor: isJogadorVencedor
+      jogadorVenceu: jogadorVenceu
     })
   }
 

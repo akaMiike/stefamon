@@ -5,8 +5,11 @@ import { Page } from 'src/app/shared/models/Page.model';
 import { ResultadoBatalha } from 'src/app/shared/models/ResultadoBatalha.model';
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
 import { LogicaBatalhaService } from 'src/app/shared/services/batalha/logica-batalha/logica-batalha.service';
+import { BatalhaService } from 'src/app/shared/services/batalha/requests/batalha.service';
 import { JogadorService } from 'src/app/shared/services/jogador/jogador.service';
 import { LoadingService } from 'src/app/shared/services/loading/loading.service';
+import { LogRodadaService } from 'src/app/shared/services/log-rodada/log-rodada.service';
+import { Batalha } from 'src/app/models/Batalha.model';
 
 @Component({
   selector: 'app-listar-oponentes',
@@ -18,6 +21,7 @@ export class ListarOponentesComponent implements OnInit {
   paginaJogadores = new Page<Jogador>();
   sugestaoJogadores: Jogador[] = [];
   usuarioLogado?: Jogador;
+  mostrarModalHistoricoBatalha = false;
 
   private readonly PAGINA_INICIAL = 0;
   private readonly QTD_OPONENTES_PAGINA = 3;
@@ -30,6 +34,8 @@ export class ListarOponentesComponent implements OnInit {
     private jogadorService: JogadorService,
     private authService: AuthService,
     private logicaBatalhaService: LogicaBatalhaService,
+    private logsRodadaService: LogRodadaService,
+    private batalhaService: BatalhaService,
     private loadingService: LoadingService,
     private router: Router,
     private activatedRoute: ActivatedRoute
@@ -72,16 +78,26 @@ export class ListarOponentesComponent implements OnInit {
     }
   }
 
-  batalhar(oponente: Jogador){
+  async batalhar(oponente: Jogador){
     this.loadingService.mostrarCarregamento('Batalha em andamento...');
     const [vencedor, perdedor] = this.logicaBatalhaService.iniciarBatalha(this.usuarioLogado, oponente);
-    const resultadoBatalha: ResultadoBatalha = {vencedor: vencedor, perdedor: perdedor}
+    
+    const batalha: Batalha = await this.batalhaService.salvarBatalha(this.usuarioLogado.id, oponente.id, vencedor.id === this.usuarioLogado.id).toPromise();
+    
+    const logsBatalha = this.logsRodadaService.getLogsBatalha();
+    await this.logsRodadaService.salvarLogsBatalha(batalha.id).toPromise();
+    
+    const resultadoBatalha: ResultadoBatalha = {vencedor: vencedor, perdedor: perdedor, logsBatalha: logsBatalha}
 
     setTimeout(() => {
       const extras: NavigationExtras = { state: resultadoBatalha, relativeTo: this.activatedRoute}
       this.loadingService.pararCarregamento();
       this.router.navigate(['resultado'], extras)
     }, 3000)
+  }
+
+  mostrarModalHistoricoBatalhas(){
+    this.mostrarModalHistoricoBatalha = true;
   }
 
 }
