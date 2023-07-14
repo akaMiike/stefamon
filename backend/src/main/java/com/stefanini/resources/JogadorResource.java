@@ -55,8 +55,8 @@ public class JogadorResource {
 
     @PUT
     @Path("/{id}")
-    public Response atualizar(@PathParam("id") Long id, @Valid JogadorCriacaoDTO jogador) {
-        jogadorService.atualizar(jogador, id);
+    public Response atualizar(@PathParam("id") Long id, @Valid JogadorCriacaoDTO jogadorAtualizado) {
+        jogadorService.atualizar(jogadorAtualizado, id);
         return Response.status(Response.Status.OK).build();
     }
 

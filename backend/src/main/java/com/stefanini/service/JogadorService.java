@@ -5,7 +5,6 @@ import com.stefanini.dto.jogador.JogadorRetornoDTO;
 import com.stefanini.dto.paginacao.Page;
 import com.stefanini.dto.stefamon.StefamonDTO;
 import com.stefanini.entity.Jogador;
-import com.stefanini.entity.Stefamon;
 import com.stefanini.exceptions.jogador.JogadorNaoEncontradoException;
 import com.stefanini.exceptions.jogador.LimiteDeStefamonsAtingidoException;
 import com.stefanini.exceptions.jogador.NicknameJaExistenteException;
@@ -14,13 +13,11 @@ import com.stefanini.exceptions.stefamon.StefamonNaoEncontradoException;
 import com.stefanini.parser.JogadorParser;
 import com.stefanini.parser.StefamonParser;
 import com.stefanini.repository.JogadorRepository;
-import com.stefanini.utils.JogadorConstants;
 import com.stefanini.utils.PasswordUtils;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -130,5 +127,16 @@ public class JogadorService {
         jogador.getStefamons().remove(stefamonARemover);
 
         return JogadorParser.EntityToReturnDTO(jogadorRepository.update(jogador));
+    }
+
+    public void atualizarDadosJogadoresAposBatalha(Jogador vencedor, Jogador perdedor, BigDecimal moedasObtidas){
+        vencedor.setSaldo(vencedor.getSaldo().add(moedasObtidas));
+        perdedor.setSaldo(BigDecimal.ZERO.max(perdedor.getSaldo().add(moedasObtidas.negate())));
+
+        vencedor.setQtdVitorias(vencedor.getQtdVitorias() + 1);
+        perdedor.setQtdDerrotas(vencedor.getQtdDerrotas() + 1);
+
+        jogadorRepository.update(vencedor);
+        jogadorRepository.update(perdedor);
     }
 }

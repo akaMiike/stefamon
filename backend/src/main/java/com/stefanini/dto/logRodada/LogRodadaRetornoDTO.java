@@ -8,17 +8,19 @@ public class LogRodadaRetornoDTO {
     private String nomeJogadorAtacado;
     private String nomeStefamonAtacante;
     private String nomeStefamonAtacado;
+    private String vidaStefamonAntesAtaque;
     private String vidaStefamonAposAtaque;
     private String detalhesRodada;
 
     public LogRodadaRetornoDTO(Long id, Long numRodada, String nomeJogadorAtacante, String nomeJogadorAtacado, String nomeStefamonAtacante,
-                               String nomeStefamonAtacado, String vidaStefamonAposAtaque, String detalhesRodada) {
+                               String nomeStefamonAtacado, String vidaStefamonAntesAtaque ,String vidaStefamonAposAtaque, String detalhesRodada) {
         this.id = id;
         this.numRodada = numRodada;
         this.nomeJogadorAtacante = nomeJogadorAtacante;
         this.nomeJogadorAtacado = nomeJogadorAtacado;
         this.nomeStefamonAtacante = nomeStefamonAtacante;
         this.nomeStefamonAtacado = nomeStefamonAtacado;
+        this.vidaStefamonAntesAtaque = vidaStefamonAntesAtaque;
         this.vidaStefamonAposAtaque = vidaStefamonAposAtaque;
         this.detalhesRodada = detalhesRodada;
     }
@@ -86,5 +88,13 @@ public class LogRodadaRetornoDTO {
 
     public void setVidaStefamonAposAtaque(String vidaStefamonAposAtaque) {
         this.vidaStefamonAposAtaque = vidaStefamonAposAtaque;
+    }
+
+    public String getVidaStefamonAntesAtaque() {
+        return vidaStefamonAntesAtaque;
+    }
+
+    public void setVidaStefamonAntesAtaque(String vidaStefamonAntesAtaque) {
+        this.vidaStefamonAntesAtaque = vidaStefamonAntesAtaque;
     }
 }

@@ -53,10 +53,11 @@ public class BatalhaService {
 
         BigDecimal moedasRecompensa = gerarMoedasRecompensa(MIN_MOEDAS_RECOMPENSA, MAX_MOEDAS_RECOMPENSA);
 
-        jogador.setSaldo(jogador.getSaldo().add(moedasRecompensa));
-        oponente.setSaldo(oponente.getSaldo().subtract(moedasRecompensa));
-        jogadorRepository.update(jogador);
-        jogadorRepository.update(oponente);
+        jogadorService.atualizarDadosJogadoresAposBatalha(
+                batalhaCriacaoDTO.getJogadorVenceu() ? jogador : oponente,
+                batalhaCriacaoDTO.getJogadorVenceu() ? oponente : jogador,
+                moedasRecompensa
+        );
 
         Batalha novaBatalha = new Batalha(
                 batalhaCriacaoDTO.getJogadorVenceu(),

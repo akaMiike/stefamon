@@ -15,6 +15,7 @@ public class LogRodadaParser {
                 logRodada.getNomeJogadorAtacado(),
                 logRodada.getNomeStefamonAtacante(),
                 logRodada.getNomeStefamonAtacado(),
+                logRodada.getVidaStefamonAntesAtaque(),
                 logRodada.getVidaStefamonAposAtaque(),
                 logRodada.getDetalhesRodada()
         );
@@ -28,6 +29,7 @@ public class LogRodadaParser {
                 logRodada.getNomeJogadorAtacado(),
                 logRodada.getNomeStefamonAtacante(),
                 logRodada.getNomeStefamonAtacado(),
+                logRodada.getVidaStefamonAntesAtaque(),
                 logRodada.getVidaStefamonAposAtaque(),
                 logRodada.getDetalhesRodada()
         );

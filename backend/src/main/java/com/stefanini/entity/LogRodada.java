@@ -30,6 +30,9 @@ public class LogRodada {
     private String nomeStefamonAtacado;
 
     @Column
+    private String vidaStefamonAntesAtaque;
+
+    @Column
     private String vidaStefamonAposAtaque;
 
     @Column
@@ -37,14 +40,15 @@ public class LogRodada {
 
     public LogRodada(){}
 
-    public LogRodada(Batalha batalha, Long numRodada, String nomeJogadorAtacante, String nomeJogadorAtacado,
-                     String nomeStefamonAtacante, String nomeStefamonAtacado, String vidaStefamonAposAtaque, String detalhesRodada) {
+    public LogRodada(Batalha batalha, Long numRodada, String nomeJogadorAtacante, String nomeJogadorAtacado, String nomeStefamonAtacante,
+                     String nomeStefamonAtacado, String vidaStefamonAntesAtaque, String vidaStefamonAposAtaque, String detalhesRodada) {
         this.batalha = batalha;
         this.numRodada = numRodada;
         this.nomeJogadorAtacante = nomeJogadorAtacante;
         this.nomeJogadorAtacado = nomeJogadorAtacado;
         this.nomeStefamonAtacante = nomeStefamonAtacante;
         this.nomeStefamonAtacado = nomeStefamonAtacado;
+        this.vidaStefamonAntesAtaque = vidaStefamonAntesAtaque;
         this.vidaStefamonAposAtaque = vidaStefamonAposAtaque;
         this.detalhesRodada = detalhesRodada;
     }
@@ -119,5 +123,13 @@ public class LogRodada {
 
     public void setDetalhesRodada(String detalhesRodada) {
         this.detalhesRodada = detalhesRodada;
+    }
+
+    public String getVidaStefamonAntesAtaque() {
+        return vidaStefamonAntesAtaque;
+    }
+
+    public void setVidaStefamonAntesAtaque(String vidaStefamonAntesAtaque) {
+        this.vidaStefamonAntesAtaque = vidaStefamonAntesAtaque;
     }
 }

@@ -15,6 +15,7 @@ public class LogRodadaCreationDTO {
     private String nomeJogadorAtacado;
     private String nomeStefamonAtacante;
     private String nomeStefamonAtacado;
+    private String vidaStefamonAntesAtaque;
     private String vidaStefamonAposAtaque;
 
     public LogRodadaCreationDTO() {}
@@ -73,5 +74,13 @@ public class LogRodadaCreationDTO {
 
     public void setDetalhesRodada(String detalhesRodada) {
         this.detalhesRodada = detalhesRodada;
+    }
+
+    public String getVidaStefamonAntesAtaque() {
+        return vidaStefamonAntesAtaque;
+    }
+
+    public void setVidaStefamonAntesAtaque(String vidaStefamonAntesAtaque) {
+        this.vidaStefamonAntesAtaque = vidaStefamonAntesAtaque;
     }
 }
