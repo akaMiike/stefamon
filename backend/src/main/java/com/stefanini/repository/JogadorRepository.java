@@ -21,7 +21,7 @@ public class JogadorRepository extends GenericDAO<Jogador, Long> {
     }
 
     public Optional<Jogador> buscarJogadorPorNickName(String nickname){
-        return createQuery("SELECT j FROM Jogador j WHERE j.nickname = :nickname")
+        return createQuery("SELECT j FROM Jogador j JOIN FETCH j.stefamons s WHERE j.nickname = :nickname")
                 .setParameter("nickname", nickname)
                 .getResultStream().findFirst();
     }

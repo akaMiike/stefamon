@@ -2,10 +2,13 @@ package com.stefanini.parser;
 
 import com.stefanini.dto.jogador.JogadorCriacaoDTO;
 import com.stefanini.dto.jogador.JogadorRetornoDTO;
+import com.stefanini.dto.stefamon.StefamonDTO;
 import com.stefanini.entity.Jogador;
 import com.stefanini.utils.JogadorConstants;
+import org.hibernate.Hibernate;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class JogadorParser {
@@ -23,6 +26,11 @@ public class JogadorParser {
     }
 
     public static JogadorRetornoDTO EntityToReturnDTO(Jogador jogador){
+        List<StefamonDTO> stefamonsDTO = Hibernate.isPropertyInitialized(jogador, "stefamons") ?
+                jogador.getStefamons().stream()
+                        .map(StefamonParser::EntityToDto)
+                        .collect(Collectors.toList()) : new ArrayList<>();
+
         return new JogadorRetornoDTO(
                 jogador.getId(),
                 jogador.getNickname(),
@@ -30,9 +38,7 @@ public class JogadorParser {
                 jogador.getNomeArquivoAvatar(),
                 jogador.getQtdVitorias(),
                 jogador.getQtdDerrotas(),
-                jogador.getStefamons().stream()
-                        .map(StefamonParser::EntityToDto)
-                        .collect(Collectors.toList())
+                stefamonsDTO
         );
     }
 }
