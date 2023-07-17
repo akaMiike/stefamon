@@ -1,7 +1,5 @@
 package com.stefanini.entity;
 
-import com.stefanini.dto.stefamon.StefamonDTO;
-
 import javax.persistence.*;
 
 @Entity
