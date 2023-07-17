@@ -12,18 +12,20 @@ import { FormValidatorService } from 'src/app/shared/services/validators/form-va
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  private readonly INDICE_AVATAR_INICIAL = 0;
+  private readonly SEXO_AVATAR_INICIAL = 'masculino';
 
   fotosAvatares: string[] = [];
   isSelecaoAvatar: boolean = false;
   isUsuarioLogado: boolean;
   dadosJogadorLogado: Jogador;
   sexoAvatar: SelectItem[];
-  sexoAvatarEscolhido: string = 'masculino';
+  indiceAvatarAtual = 0;
 
   mostrarModalHistoricoBatalha = false;
 
   criacaoUsuarioForm = this.fb.group({
-    nickname: ['', [Validators.required]],
+    nickname: ['', [Validators.required, Validators.minLength(4)]],
     password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(10)]],
     sexoAvatar: ['', [Validators.required]],
     avatar: ['', [Validators.required]]
@@ -38,7 +40,8 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getArquivosFotosAvatares(this.sexoAvatarEscolhido);
+    this.getArquivosFotosAvatares(this.SEXO_AVATAR_INICIAL);
+    this.setAvatarAtual(this.INDICE_AVATAR_INICIAL);
 
     this.sexoAvatar = [
       {label: 'Masculino', value: 'masculino'},
@@ -59,7 +62,7 @@ export class HomeComponent implements OnInit {
     if(!this.isSelecaoAvatar){
       this.isSelecaoAvatar = true;
     } else {
-      this.authService.registrar(
+      /*this.authService.registrar(
         this.criacaoUsuarioForm.value.nickname,
         this.criacaoUsuarioForm.value.password,
         this.criacaoUsuarioForm.value.avatar
@@ -72,17 +75,19 @@ export class HomeComponent implements OnInit {
 
         this.isSelecaoAvatar = false;
         this.criacaoUsuarioForm.reset();
-      });
+      });*/
+      console.log(this.criacaoUsuarioForm.value.avatar);
     }
   }
 
   getArquivosFotosAvatares(sexoAvatarEscolhido: string){
     this.fotosAvatares = [];
-    this.sexoAvatarEscolhido = sexoAvatarEscolhido;
+    this.setAvatarAtual();
+
     for(let i = 1; i <= 10; i++){
         if(sexoAvatarEscolhido === 'masculino'){
           this.fotosAvatares.push(`homem_avatar${i}.png`);
-        } else {
+        } else {          
           this.fotosAvatares.push(`mulher_avatar${i}.png`);
         }
     }
@@ -95,6 +100,16 @@ export class HomeComponent implements OnInit {
   redirecionarParaMeusStefamons(){
     const extras: NavigationExtras = { state: {fromHome: true}}
     this.router.navigate(['loja'], extras);
+  }
+
+  setAvatarAtual(index: number = this.indiceAvatarAtual){
+    this.indiceAvatarAtual = index;
+    if(this.criacaoUsuarioForm.value.sexoAvatar === 'feminino'){
+      this.criacaoUsuarioForm.patchValue({'avatar': `mulher_avatar${index+1}.png`});
+    }
+    else{
+      this.criacaoUsuarioForm.patchValue({'avatar': `homem_avatar${index+1}.png`});
+    }
   }
 
 }

@@ -13,8 +13,8 @@
           <div *ngIf="!isSelecaoAvatar">
             <div class="p-field p-mt-3">
               <input id="login" type="text" pInputText formControlName="nickname" placeholder="Usuário"
-              pTooltip="O nome de usuário deve começar com uma letra." tooltipPosition="left">
-              <span class="mensagem-erro-form" *ngIf="possuiErro('nickname')">O nome de usuário é obrigatório.</span>
+              pTooltip="O nome de usuário deve possuir ao menos 4 letras." tooltipPosition="left">
+              <span class="mensagem-erro-form" *ngIf="possuiErro('nickname')">O nome de usuário deve possuir ao menos 4 letras.</span>
             </div>
             <div class="p-field">
               <input id="senha" type="password" pInputText formControlName="password" placeholder="Senha"
@@ -32,10 +32,9 @@
               [(ngModel)]="sexoAvatarEscolhido"></p-selectButton>
             </div>
 
-            <p-carousel [value]="fotosAvatares" [circular]="true">
+            <p-carousel [value]="fotosAvatares" (onPage)="setAvatarAtual($event.page)">
               <ng-template let-avatar pTemplate="item">
-                  <img src="assets/{{avatar}}" width="170px">
-                  <input formControlName="avatar" type="hidden" [ngModel]="avatar">
+                  <img src="assets/avatares/{{avatar}}" width="170px">
               </ng-template>
             </p-carousel>
           </div>
@@ -49,7 +48,7 @@
       <div *ngIf="isUsuarioLogado" class="p-text-center">
         <h2>Suas Informações</h2>
         <div class="p-mb-2">
-          <img src="assets/{{dadosJogadorLogado.nomeArquivoAvatar}}"  width="150px"/>
+          <img src="assets/avatares/{{dadosJogadorLogado.nomeArquivoAvatar}}"  width="150px"/>
           <h3>{{dadosJogadorLogado.nickname}}</h3>
         </div>
         <div class="p-grid p-mb-2">
