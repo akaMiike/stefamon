@@ -44,7 +44,7 @@ export class AuthService {
     }
 
     logout(){
-      this.atualizarJogadorLogado(null);
+      this._isAuthenticatedSubject.next(null);
       this.messageService.add({severity:'success', summary:'Logout', detail: 'Logout realizado com sucesso.'})
     }
 
@@ -52,13 +52,15 @@ export class AuthService {
       return !!this._isAuthenticatedSubject.getValue();
     }
 
-    atualizarJogadorLogado(jogadorAtualizado: Jogador){
-      this._isAuthenticatedSubject.next(jogadorAtualizado);
+    atualizarJogadorLogado(){
+      this.jogadorService.buscarPorUsername(this._isAuthenticatedSubject.getValue().nickname).subscribe(jogador => {
+        this._isAuthenticatedSubject.next(jogador);
+      })
     }
 
     private obterDadosJogadorLogado(username: string){
       this.jogadorService.buscarPorUsername(username).subscribe(jogador => {
-        this.atualizarJogadorLogado(jogador);
+        this._isAuthenticatedSubject.next(jogador);
       })
     }
 }

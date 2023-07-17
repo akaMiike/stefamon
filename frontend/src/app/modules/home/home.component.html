@@ -8,7 +8,7 @@
     <div class="p-ai-center vertical-container">
       <form *ngIf="!isUsuarioLogado" [formGroup]="criacaoUsuarioForm">
         <div class="p-fluid p-p-2">
-          <h1 class="p-text-center p-mb-1">Cadastre-se</h1>
+          <h1 class="p-text-center p-mb-1">{{!isSelecaoAvatar ? 'Cadastre-se' : 'Escolha seu Avatar'}}</h1>
 
           <div *ngIf="!isSelecaoAvatar">
             <div class="p-field p-mt-3">
@@ -23,7 +23,7 @@
             </div>
           </div>
 
-          <div *ngIf="isSelecaoAvatar" class="p-mt-2 p-mb-2">
+          <div *ngIf="isSelecaoAvatar" class="p-mt-2 p-mb-3">
             <div class="p-mb-2">
               <p-selectButton
               formControlName="sexoAvatar"
@@ -34,7 +34,7 @@
 
             <p-carousel [value]="fotosAvatares" [circular]="true">
               <ng-template let-avatar pTemplate="item">
-                  <img src="assets/{{avatar}}" width="150px">
+                  <img src="assets/{{avatar}}" width="170px">
                   <input formControlName="avatar" type="hidden" [ngModel]="avatar">
               </ng-template>
             </p-carousel>

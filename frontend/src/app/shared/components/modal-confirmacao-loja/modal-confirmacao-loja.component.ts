@@ -48,7 +48,7 @@ export class ModalConfirmacaoLojaComponent implements OnInit {
 
   confirmarCompra(){
     this.jogadorService.comprarStefamon(this.dadosJogador.id, this.stefamonEscolhido.id).subscribe((jogadorAtualizado) => {
-      this.authService.atualizarJogadorLogado(jogadorAtualizado);
+      this.authService.atualizarJogadorLogado();
       this.messageService.add({severity: 'success', summary:'Compra realizada', detail:'Stefamon comprado com sucesso.'})
     })
     this.fecharModal();
@@ -56,7 +56,7 @@ export class ModalConfirmacaoLojaComponent implements OnInit {
 
   confirmarVenda(){
     this.jogadorService.venderStefamon(this.dadosJogador.id, this.stefamonEscolhido.id).subscribe((jogadorAtualizado) => {
-      this.authService.atualizarJogadorLogado(jogadorAtualizado);
+      this.authService.atualizarJogadorLogado();
     })
     this.messageService.add({severity:'success', summary:'Venda realizada', detail:'O stefamon foi vendido com sucesso.'})
     this.fecharModal();

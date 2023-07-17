@@ -86,6 +86,7 @@ export class ListarOponentesComponent implements OnInit {
     
     const logsBatalha = this.logsRodadaService.getLogsBatalha();
     await this.logsRodadaService.salvarLogsBatalha(batalha.id).toPromise();
+    this.authService.atualizarJogadorLogado();
     
     const resultadoBatalha: ResultadoBatalha = {
       vencedor: vencedor,
