@@ -21,7 +21,9 @@ export class ListarOponentesComponent implements OnInit {
   paginaJogadores = new Page<Jogador>();
   sugestaoJogadores: Jogador[] = [];
   usuarioLogado?: Jogador;
+
   mostrarModalHistoricoBatalha = false;
+  mostrarModalRankingJogadores = false;
 
   private readonly PAGINA_INICIAL = 0;
   private readonly QTD_OPONENTES_PAGINA = 3;
@@ -104,6 +106,10 @@ export class ListarOponentesComponent implements OnInit {
 
   mostrarModalHistoricoBatalhas(){
     this.mostrarModalHistoricoBatalha = true;
+  }
+
+  mostrarModalRanking(){
+    this.mostrarModalRankingJogadores = true;
   }
 
 }

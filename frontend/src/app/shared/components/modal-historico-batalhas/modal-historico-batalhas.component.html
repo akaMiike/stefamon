@@ -54,11 +54,6 @@ header="Histórico de Batalhas"
     </p-table>
 
     <div *ngIf="mostrarLogBatalha">
-        <div class="p-d-flex p-jc-evenly p-ai-center p-mb-4 p-mt-2">
-            <h3>{{dadosBatalhaEscolhido.nomeJogador}} </h3>
-            <i class="pi pi-times" style="font-size: 20px"></i>
-            <h3>{{dadosBatalhaEscolhido.nomeOponente}} </h3>
-        </div>
         <app-listar-log-batalha [idBatalha]="dadosBatalhaEscolhido.id"></app-listar-log-batalha>
     </div>
     <div *ngIf="mostrarLogBatalha" class="p-dialog-footer" style="padding: 1rem 0 0 0;">

@@ -62,7 +62,7 @@ export class HomeComponent implements OnInit {
     if(!this.isSelecaoAvatar){
       this.isSelecaoAvatar = true;
     } else {
-      /*this.authService.registrar(
+      this.authService.registrar(
         this.criacaoUsuarioForm.value.nickname,
         this.criacaoUsuarioForm.value.password,
         this.criacaoUsuarioForm.value.avatar
@@ -75,8 +75,7 @@ export class HomeComponent implements OnInit {
 
         this.isSelecaoAvatar = false;
         this.criacaoUsuarioForm.reset();
-      });*/
-      console.log(this.criacaoUsuarioForm.value.avatar);
+      });
     }
   }
 

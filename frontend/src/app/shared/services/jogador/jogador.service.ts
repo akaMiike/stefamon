@@ -16,10 +16,6 @@ export class JogadorService {
     private http: HttpClient
   ) { }
 
-  buscarPorId(id: number): Observable<Jogador>{
-    return this.http.get<Jogador>(`${this.URL}/${id}`)
-  }
-
   buscarPorUsername(username: string): Observable<Jogador>{
     return this.http.get<Jogador>(`${this.URL}/${username}`)
   }
@@ -34,6 +30,15 @@ export class JogadorService {
 
   buscarTodosPaginado(paginacao: Page<Jogador>){
     return this.http.get<Page<Jogador>>(this.URL, {
+      params:{
+        pagina: paginacao.pagina.toString(),
+        tamanhoPagina: paginacao.tamanhoPagina.toString()
+      }
+    });
+  }
+
+  buscarRankingUsuarios(paginacao: Page<Jogador>){
+    return this.http.get<Page<Jogador>>(`${this.URL}/ranking`, {
       params:{
         pagina: paginacao.pagina.toString(),
         tamanhoPagina: paginacao.tamanhoPagina.toString()

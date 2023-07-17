@@ -20,6 +20,8 @@ import { ComprarStefamonsComponent } from './loja/comprar-stefamons/comprar-stef
 import { ListarOponentesComponent } from './batalha/listar-oponentes/listar-oponentes.component';
 import { ResultadoBatalhaComponent } from './batalha/resultado-batalha/resultado-batalha.component';
 import { SharedModule } from '../shared/shared.module';
+import { ModalAjudaBatalhaComponent } from './batalha/modal-ajuda-batalha/modal-ajuda-batalha.component';
+import { ModalRankingJogadoresComponent } from './batalha/modal-ranking-jogadores/modal-ranking-jogadores.component';
 
 
 
@@ -30,7 +32,9 @@ import { SharedModule } from '../shared/shared.module';
     MeusStefamonsComponent,
     ComprarStefamonsComponent,
     ListarOponentesComponent,
-    ResultadoBatalhaComponent
+    ResultadoBatalhaComponent,
+    ModalAjudaBatalhaComponent,
+    ModalRankingJogadoresComponent
   ],
   imports: [
     CommonModule,
