@@ -1,14 +1,12 @@
 package com.stefanini.dto.jogador;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 public class JogadorCriacaoDTO {
 
     @NotBlank(message = "Nickname não pode ser vazio.")
     @Size(min = 4, message="Nickname deve possuir ao menos 4 caracteres")
-    @Pattern(regexp = "[a-zA-Z][a-zA-Z0-9]*", message = "Nickname deve começar com uma letra")
     private String nickname;
 
     @NotBlank(message = "Senha não pode estar vazia.")

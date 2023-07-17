@@ -32,7 +32,7 @@ public class Jogador {
     @Column
     private BigDecimal saldo;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "Jogador_Stefamon",
             joinColumns = {@JoinColumn(name = "id_jogador")},
             inverseJoinColumns = {@JoinColumn(name = "id")})

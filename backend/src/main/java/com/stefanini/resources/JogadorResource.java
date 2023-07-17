@@ -28,18 +28,20 @@ public class JogadorResource {
             @DefaultValue("0") @QueryParam("pagina") Integer pagina,
             @DefaultValue("5") @QueryParam("tamanhoPagina") Integer tamanhoPagina
     ){
-        return Response.status(Response.Status.OK)
-                .entity(jogadorService.listarTodosOponentes(pagina, tamanhoPagina)).build();
+        return Response.ok(jogadorService.listarTodosOponentes(pagina, tamanhoPagina)).build();
     }
 
     @GET
-    @Path("/{id:\\d+}")
-    public Response buscarPorId(@PathParam("id") Long id){
-        return Response.status(Response.Status.OK).entity(jogadorService.buscarPorId(id)).build();
+    @Path("/ranking")
+    public Response listarRankingJogadores(
+            @DefaultValue("0") @QueryParam("pagina") Integer pagina,
+            @DefaultValue("10") @QueryParam("tamanhoPagina") Integer tamanhoPagina
+    ){
+       return Response.ok(jogadorService.listarRankingJogadoresPaginado(pagina, tamanhoPagina)).build();
     }
 
     @GET
-    @Path("/{nome: [a-zA-Z][a-zA-Z0-9]*}")
+    @Path("/{nome}")
     public Response buscarPorNome(@PathParam("nome") String nome){
             return Response.status(Response.Status.OK)
                     .entity(jogadorService.buscarPorNickname(nome))

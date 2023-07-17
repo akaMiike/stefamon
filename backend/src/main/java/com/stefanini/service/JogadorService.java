@@ -139,4 +139,13 @@ public class JogadorService {
         jogadorRepository.update(vencedor);
         jogadorRepository.update(perdedor);
     }
+
+    public Page<JogadorRetornoDTO> listarRankingJogadoresPaginado(Integer pagina, Integer tamanhoPagina){
+        Page<Jogador> paginaJogadores = jogadorRepository.buscarRankingJogadoresPaginado(pagina, tamanhoPagina);
+
+        return new Page<>(
+                paginaJogadores.getElementos().stream().map(JogadorParser::EntityToReturnDTO).collect(Collectors.toList()),
+                paginaJogadores.getTotalElementos()
+        );
+    }
 }

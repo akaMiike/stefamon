@@ -39,4 +39,18 @@ public class JogadorRepository extends GenericDAO<Jogador, Long> {
 
         return new Page<>(result, count);
     }
+
+
+    public Page<Jogador> buscarRankingJogadoresPaginado(Integer pagina, Integer tamanhoPagina){
+         List<Jogador> result = createQuery("SELECT j FROM Jogador j ORDER BY j.qtdVitorias DESC")
+                .setFirstResult(pagina * tamanhoPagina)
+                .setMaxResults(tamanhoPagina)
+                .getResultList();
+
+        long count = getEntityManager()
+                .createQuery("SELECT COUNT(j) FROM Jogador j ORDER BY j.qtdVitorias DESC", Long.class)
+                .getSingleResult();
+
+        return new Page<>(result, count);
+    }
 }
