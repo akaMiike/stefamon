@@ -1,7 +1,7 @@
 import { Stefamon } from "./Stefamon.model"
 
 export interface Jogador {
-    id: number,
+    id?: number,
     nickname: string
     password: string,
     saldo: number,
