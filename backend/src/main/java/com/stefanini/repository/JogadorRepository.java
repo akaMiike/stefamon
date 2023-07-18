@@ -28,7 +28,7 @@ public class JogadorRepository extends GenericDAO<Jogador, Long> {
 
     public Page<Jogador> buscarOponentesPaginado(Integer pagina, Integer tamanhoPagina){
 
-        List<Jogador> result = createQuery("SELECT DISTINCT j FROM Jogador j JOIN FETCH j.stefamons s")
+        List<Jogador> result = createQuery("SELECT j FROM Jogador j JOIN FETCH j.stefamons s")
                 .setFirstResult(pagina * tamanhoPagina)
                 .setMaxResults(tamanhoPagina)
                 .getResultList();
