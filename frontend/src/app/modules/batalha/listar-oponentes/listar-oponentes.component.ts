@@ -24,6 +24,8 @@ export class ListarOponentesComponent implements OnInit {
 
   mostrarModalHistoricoBatalha = false;
   mostrarModalRankingJogadores = false;
+  mostrarModalAjudaBatalha = false;
+  modoContraBot = false;
 
   private readonly PAGINA_INICIAL = 0;
   private readonly QTD_OPONENTES_PAGINA = 3;
@@ -110,6 +112,14 @@ export class ListarOponentesComponent implements OnInit {
 
   mostrarModalRanking(){
     this.mostrarModalRankingJogadores = true;
+  }
+
+  mostrarModalAjuda(){
+    this.mostrarModalAjudaBatalha = true;
+  }
+
+  alterarModoJogo(){
+    this.modoContraBot = !this.modoContraBot;
   }
 
 }

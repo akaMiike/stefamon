@@ -1,0 +1,55 @@
+<p-dialog 
+header="{{tituloModal}}"
+[(visible)]="mostrarModal"
+[style]="{width: '60vw'}"
+(onHide)="fecharModal()"
+[blockScroll]="true"
+[modal]="true">
+
+    <div *ngIf="paginaModalAjuda === 0">
+        <div class="p-text-center">
+            <img src="../../../../assets/exemplos/listar-jogadores.png" width="80%" class="p-mb-3">
+        </div>
+        <p class="p-mb-2">No modo contra jogador, são mostradas as sugestões de oponentes, suas quantidades de vitórias, derrotas e de stefamons.</p>
+        <p class="p-mb-2">Você pode escolher entre as 3 sugestões mostradas ou atualizar as sugestões no botão superior esquerdo.</p>
+        <p class="p-mb-2">
+            Você também pode ver o ranking de jogadores, seu históricos de batalhas,
+            alternar para o modo contra BOT, ou ver essa página de ajuda, nos outros botões superiores, respectivamente.
+        </p>
+    </div>
+
+    <div *ngIf="paginaModalAjuda === 1">
+        <p class="p-mb-2">Nesse modo você batalha contra um BOT que possui stefamons aleatórios, variando de acordo com a dificuldade.</p>
+        <p class="p-mb-2">Você pode escolher entre a dificuldade fácil, médio ou difícil. Quanto maior a dificuldade maior a recompensa.</p>
+        <div class="p-mb-2">
+            <p><b>Fácil</b>: Você batalha contra 2 stefamons aleatórios. <b>Recompensa</b>: de 1 a 3 moedas</p>
+            <p><b>Médio</b>: Você batalha contra 4 stefamons aleatórios. <b>Recompensa</b>: de 3 a 5 moedas</p>
+            <p><b>Difícil</b>: Você batalha contra 6 stefamons aleatórios. <b>Recompensa</b>: de 5 a 10 moedas</p>
+        </div>
+        <p>Nesse modo, caso perca, você não perde nenhuma moeda.</p>
+    </div>
+    <div *ngIf="paginaModalAjuda === 2">
+        <p class="p-mb-2">
+            Cada jogador pode ter no máximo 6 stefamons. 
+            Os atributos dos stefamons são definidos da seguinte forma: 
+        </p>
+        <p><b>Ataque</b>: Define a quantidade de dano dado ao Stefamon oponente</p>
+        <p><b>Vida</b>: Define a quantidade de vida do stefamon.</p>
+        <p><b>Defesa</b>: O stefamon atacado possui 10% de chance de defender, reduzindo o dano recebido pelo numero de pontos de defesa.</p>
+        <p><b>Velocidade</b>: O stefamon atacado pode esquivar de um ataque, com chance de <i>(Velocidade/10)</i> por cento.</p>
+        <p><b>Inteligência</b>: Porcentagem de chance que um stefamon pode dar um acerto crítico.</p>
+        <p><b>Poder</b> Caso o stefamon dê um acerto crítico, o dano crítico é calculado como: <i>(Ataque + Ataque * (Poder/100))</i></p>
+    </div>
+    <div *ngIf="paginaModalAjuda === 3">
+        <p>Ao batalhar, toda as ações são feitas de forma automática, por turnos. Ou seja, cada rodada um jogador faz um ataque.</p>
+        <p>Vence quem derrotar todos os stefamons do oponente primeiro.</p>
+        <p>Ao final, é mostrado o vencedor, o perdedor, a quantidade de moedas que ganhou (ou perdeu) e um log detalhado de cada ação da batalha.</p>
+        <p>Caso vença a batalha, você ganha entre 5 a 10 moedas. Caso perca, você perde de 5 a 10 moedas.</p>
+    </div>
+    <p-footer>
+        <div>
+            <button pButton label="Anterior" *ngIf="paginaModalAjuda !== 0" (click)="paginaAnterior()"></button>
+            <button pButton label="Próximo" *ngIf="paginaModalAjuda !== 3" (click)="proximaPagina()"></button>
+        </div>
+    </p-footer>
+</p-dialog>

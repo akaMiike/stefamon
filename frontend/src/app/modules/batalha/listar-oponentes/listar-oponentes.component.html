@@ -1,13 +1,25 @@
 <div class="background"></div>
 <div>
     <div class="p-p-3 p-d-flex">
-        <button pButton class="p-ml-2 p-button-info" (click)="atualizarSugestaoJogadores()" icon="pi pi-refresh" pTooltip="Atualizar Oponentes"></button>
+        <p-button class="p-ml-2" (click)="alterarModoJogo()" >
+            <div class="p-d-flex p-ai-center p-jc-center">
+                <div *ngIf="!modoContraBot">
+                    <span>Jogador x BOT</span>
+                    <img style="margin-left: 5px; margin-right: -2px;" src="../../../../assets/icons/robot-solid.svg">
+                </div>
+                <div *ngIf="modoContraBot">
+                    <span>Jogador x Jogador</span>
+                    <i class="pi pi-users p-ml-1" style="font-size:14px;"></i>
+                </div>
+            </div>
+        </p-button>
+        <button pButton class="p-ml-2 p-button-info" (click)="atualizarSugestaoJogadores()" icon="pi pi-refresh" pTooltip="Atualizar Oponentes" tooltipPosition="bottom"></button>
         
         <p-button class="p-mr-2 p-ml-auto" styleClass="p-button-warning" pTooltip="Ranking de Jogadores" tooltipPosition="bottom" (click)="mostrarModalRanking()">
-            <div style="margin-right:-7px; margin-left:-2px; margin-bottom:-2px;"><img src="../../../../assets/icons/ranking-star-solid.svg"></div>
+            <img style="margin: 2px -3px 2px -2px;" src="../../../../assets/icons/ranking-star-solid.svg">
         </p-button>
         <button pButton class="p-mr-2" icon="pi pi-chart-bar" (click)="mostrarModalHistoricoBatalhas()" pTooltip="Histórico de Batalha" tooltipPosition="bottom"></button>
-        <button pButton type="button" class="p-button-help" icon="pi pi-question" pTooltip="Ajuda" tooltipPosition="bottom"></button>
+        <button pButton type="button" class="p-button-help" icon="pi pi-question" pTooltip="Ajuda" tooltipPosition="bottom" (click)="mostrarModalAjuda()"></button>
     </div>
     <div class="p-jc-center p-ai-center jogadores-div">
         <ng-container *ngFor="let jogador of sugestaoJogadores">
@@ -49,3 +61,7 @@
 <app-modal-ranking-jogadores
 [(mostrarModal)]="mostrarModalRankingJogadores">
 </app-modal-ranking-jogadores>
+
+<app-modal-ajuda-batalha
+[(mostrarModal)]="mostrarModalAjudaBatalha">
+</app-modal-ajuda-batalha>
