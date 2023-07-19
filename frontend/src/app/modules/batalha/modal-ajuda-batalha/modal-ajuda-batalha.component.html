@@ -40,30 +40,18 @@ header="{{tituloModal}}"
         <p>Nesse modo, caso perca, você não perde nenhuma moeda.</p>
     </div>
     <div *ngIf="paginaModalAjuda === 2">
-        <p class="p-mb-2">
-            Cada jogador pode ter no máximo 6 stefamons. 
-            Os atributos dos stefamons são definidos da seguinte forma: 
-        </p>
-        <p><b>Ataque</b>: Define a quantidade de dano dado ao Stefamon oponente</p>
-        <p><b>Vida</b>: Define a quantidade de vida do stefamon.</p>
-        <p><b>Defesa</b>: O stefamon atacado possui 10% de chance de defender, reduzindo o dano recebido pelo numero de pontos de defesa.</p>
-        <p><b>Velocidade</b>: O stefamon atacado pode esquivar de um ataque, com chance de <i>(Velocidade/10)</i> por cento.</p>
-        <p><b>Inteligência</b>: Porcentagem de chance que um stefamon pode dar um acerto crítico.</p>
-        <p><b>Poder</b> Caso o stefamon dê um acerto crítico, o dano crítico é calculado como: <i>(Ataque + Ataque * (Poder/100))</i></p>
-    </div>
-    <div *ngIf="paginaModalAjuda === 3">
         <div class="p-mb-2 p-text-center">
             <img src="../../../../assets/exemplos/resultado-batalha.png" width="80%">
         </div>
-        <p>Ao batalhar, toda as ações são feitas de forma automática, por turnos. Ou seja, cada rodada um jogador faz um ataque.</p>
-        <p>Vence quem derrotar todos os stefamons do oponente primeiro.</p>
-        <p>Ao final, é mostrado o vencedor, o perdedor, a quantidade de moedas que ganhou (ou perdeu) e um log detalhado de cada ação da batalha.</p>
-        <p>Caso vença a batalha, você ganha entre 5 a 10 moedas. Caso perca, você perde de 5 a 10 moedas.</p>
+        <p class="p-mb-2">Ao batalhar, toda as ações são feitas de forma automática, por turnos. Ou seja, cada rodada um jogador faz um ataque.</p>
+        <p class="p-mb-2">Vence quem derrotar todos os stefamons do oponente primeiro.</p>
+        <p class="p-mb-2">Ao final, é mostrado o vencedor, o perdedor, a quantidade de moedas que ganhou (ou perdeu) e um log detalhado de cada ação da batalha.</p>
+        <p class="p-mb-2">Caso vença a batalha, você ganha entre 5 a 10 moedas. Caso perca, você perde de 5 a 10 moedas.</p>
     </div>
     <p-footer>
         <div>
             <button pButton label="Anterior" *ngIf="paginaModalAjuda !== 0" (click)="paginaAnterior()"></button>
-            <button pButton label="Próximo" *ngIf="paginaModalAjuda !== 3" (click)="proximaPagina()"></button>
+            <button pButton label="Próximo" *ngIf="paginaModalAjuda !== 2" (click)="proximaPagina()"></button>
         </div>
     </p-footer>
 </p-dialog>

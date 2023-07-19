@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
-  selector: 'app-modal-ajuda-batalha',
-  templateUrl: './modal-ajuda-batalha.component.html',
-  styleUrls: ['./modal-ajuda-batalha.component.css']
+  selector: 'app-modal-ajuda-loja',
+  templateUrl: './modal-ajuda-loja.component.html',
+  styleUrls: ['./modal-ajuda-loja.component.css']
 })
-export class ModalAjudaBatalhaComponent implements OnInit {
+export class ModalAjudaLojaComponent implements OnInit {
 
   @Input() mostrarModal: boolean
   @Output() mostrarModalChange = new EventEmitter<boolean>();
@@ -15,7 +15,7 @@ export class ModalAjudaBatalhaComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.tituloModal = 'Modo contra Jogador'
+    this.tituloModal = 'Boas Vindas'
   }
 
   fecharModal(){
@@ -37,13 +37,10 @@ export class ModalAjudaBatalhaComponent implements OnInit {
   trocarTituloModal(){
     switch(this.paginaModalAjuda){
       case 0:
-        this.tituloModal = 'Modo contra Jogador';
+        this.tituloModal = 'Boas Vindas';
         break;
       case 1:
-        this.tituloModal = 'Modo contra Bot';
-        break;
-      case 2:
-        this.tituloModal = 'Resultado da Batalha';
+        this.tituloModal = 'Atributos do Stefamon';
         break;
       default:
         break;

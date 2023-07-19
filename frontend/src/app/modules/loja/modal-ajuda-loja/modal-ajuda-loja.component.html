@@ -1,0 +1,52 @@
+<p-dialog 
+header="{{tituloModal}}"
+[(visible)]="mostrarModal"
+[style]="{width: '60vw'}"
+(onHide)="fecharModal()"
+[blockScroll]="true"
+[modal]="true">
+
+    <div *ngIf="paginaModalAjuda === 0">
+        <div class="p-text-center p-mb-2">
+            <img src="../../../../assets/exemplos/loja-stefamon.png" width="100%">
+        </div>
+        <p class="p-mb-2">
+            Na loja de stefamons, você pode buscar, com filtros, todos os stefamons disponíveis, cada um com seus respectivos preços.
+            Na mesma tela, você também pode conferir quantas moedas você possui.
+        </p>
+        <p class="p-mb-2">
+            Você deve possuir ao menos 1 stefamon para participar das batalhas, tanto contra jogador quanto o BOT.
+            Além disso, cada jogador só pode ter no máximo 6 stefamons.
+        </p>
+        <p class="p-mb-2">
+            Você pode conferir seus stefamons e vendê-los na aba 'Meus Stefamons'.
+        </p>
+    </div>
+
+    <div *ngIf="paginaModalAjuda === 1">
+        <div class="p-grid p-jc-center p-mb-2">
+            <div class="p-text-center">
+                <img src="../../../../assets/exemplos/stefamon-1.png" width="55%">
+            </div>
+            <div class="p-text-center">
+                <img src="../../../../assets/exemplos/stefamon-2.png" width="55%">
+            </div>
+            <div class="p-text-center">
+                <img src="../../../../assets/exemplos/stefamon-3.png" width="55%">
+            </div>
+        </div>
+        <p class="p-mb-2">Os atributos dos stefamons são definidos da seguinte forma: </p>
+        <p><b>Ataque</b>: Define a quantidade de dano dado ao Stefamon oponente</p>
+        <p><b>Vida</b>: Define a quantidade de vida do stefamon.</p>
+        <p><b>Defesa</b>: O stefamon atacado possui 10% de chance de defender, reduzindo o dano recebido pelo numero de pontos de defesa.</p>
+        <p><b>Velocidade</b>: O stefamon atacado pode esquivar de um ataque, com chance de <i>(Velocidade/10)</i> por cento.</p>
+        <p><b>Inteligência</b>: Porcentagem de chance que um stefamon pode dar um acerto crítico.</p>
+        <p><b>Poder</b> Caso o stefamon dê um acerto crítico, o dano crítico é calculado como: <i>(Ataque + Ataque * (Poder/100))</i></p>
+    </div>
+    <p-footer>
+        <div>
+            <button pButton label="Anterior" *ngIf="paginaModalAjuda !== 0" (click)="paginaAnterior()"></button>
+            <button pButton label="Próximo" *ngIf="paginaModalAjuda !== 1" (click)="proximaPagina()"></button>
+        </div>
+    </p-footer>
+</p-dialog>

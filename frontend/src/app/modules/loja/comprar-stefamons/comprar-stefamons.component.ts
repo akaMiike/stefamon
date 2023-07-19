@@ -15,6 +15,7 @@ export class ComprarStefamonsComponent implements OnInit {
 
   dadosJogador?: Jogador;
   mostrarModalConfirmacao: boolean = false;
+  mostrarModalAjuda: boolean = false;
   stefamonEscolhido: Stefamon;
 
   paginacaoStefamon = new Page<Stefamon>();
@@ -80,6 +81,10 @@ export class ComprarStefamonsComponent implements OnInit {
   setStefamonEscolhido(stefamon: Stefamon){
     this.stefamonEscolhido = stefamon;
     this.mostrarModalConfirmacao = true;
+  }
+
+  abrirModalAjuda(){
+    this.mostrarModalAjuda = true;
   }
 
 }

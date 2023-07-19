@@ -27,6 +27,10 @@
   </div>
 
   <h4 class="p-ml-auto coins-text" *ngIf="dadosJogador">Você possui: {{dadosJogador.saldo}} moedas</h4>
+  <p-button [ngClass]="{'p-ml-2': dadosJogador, 'p-ml-auto': !dadosJogador}"
+  styleClass="p-button-help" icon="pi pi-question" 
+  pTooltip="Ajuda" tooltipPosition="top" (click)="abrirModalAjuda()">
+  </p-button>
 </div>
 
 <app-listar-stefamons
@@ -51,3 +55,7 @@
 [stefamonEscolhido]="stefamonEscolhido"
 [isCompra]="true"
 ></app-modal-confirmacao-loja>
+
+<app-modal-ajuda-loja
+[(mostrarModal)]="mostrarModalAjuda">
+</app-modal-ajuda-loja>
