@@ -129,15 +129,16 @@ public class JogadorService {
         return JogadorParser.EntityToReturnDTO(jogadorRepository.update(jogador));
     }
 
-    public void atualizarDadosJogadoresAposBatalha(Jogador vencedor, Jogador perdedor, BigDecimal moedasObtidas){
-        vencedor.setSaldo(vencedor.getSaldo().add(moedasObtidas));
-        perdedor.setSaldo(BigDecimal.ZERO.max(perdedor.getSaldo().add(moedasObtidas.negate())));
+    public void atualizarDadosJogadorAposBatalha(Jogador jogador, BigDecimal moedasObtidas, Boolean isVencedor){
+        jogador.setSaldo(BigDecimal.ZERO.max(jogador.getSaldo().add(moedasObtidas)));
 
-        vencedor.setQtdVitorias(vencedor.getQtdVitorias() + 1);
-        perdedor.setQtdDerrotas(perdedor.getQtdDerrotas() + 1);
+        if(isVencedor){
+            jogador.setQtdVitorias(jogador.getQtdVitorias() + 1);
+        } else{
+            jogador.setQtdDerrotas(jogador.getQtdDerrotas() + 1);
+        }
 
-        jogadorRepository.update(vencedor);
-        jogadorRepository.update(perdedor);
+        jogadorRepository.update(jogador);
     }
 
     public Page<JogadorRetornoDTO> listarRankingJogadoresPaginado(Integer pagina, Integer tamanhoPagina){

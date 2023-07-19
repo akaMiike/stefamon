@@ -6,7 +6,6 @@ public class BatalhaCriacaoDTO {
 
     @NotNull(message= "Id do jogador é obrigatório")
     private Long idJogador;
-    @NotNull(message= "Id do oponente é obrigatório")
     private Long idOponente;
     @NotNull(message= "Resultado da batalha é obrigatório")
     private Boolean jogadorVenceu;

@@ -20,7 +20,7 @@ public class Batalha {
     private LocalDateTime dataBatalha;
 
     @Column
-    private BigDecimal moedasObtidas;
+    private BigDecimal moedasObtidasJogador;
 
     @ManyToOne
     private Jogador jogador;
@@ -33,12 +33,12 @@ public class Batalha {
 
     public Batalha(){}
 
-    public Batalha(Boolean jogadorVenceu, LocalDateTime dataBatalha, Jogador jogador, Jogador oponente, BigDecimal moedasObtidas) {
+    public Batalha(Boolean jogadorVenceu, LocalDateTime dataBatalha, Jogador jogador, Jogador oponente, BigDecimal moedasObtidasJogador) {
         this.jogadorVenceu = jogadorVenceu;
         this.dataBatalha = dataBatalha;
         this.jogador = jogador;
         this.oponente = oponente;
-        this.moedasObtidas = moedasObtidas;
+        this.moedasObtidasJogador = moedasObtidasJogador;
     }
 
     public Long getId() {
@@ -89,11 +89,11 @@ public class Batalha {
         this.logBatalha = logBatalha;
     }
 
-    public BigDecimal getMoedasObtidas() {
-        return moedasObtidas;
+    public BigDecimal getMoedasObtidasJogador() {
+        return moedasObtidasJogador;
     }
 
-    public void setMoedasObtidas(BigDecimal moedasObtidas) {
-        this.moedasObtidas = moedasObtidas;
+    public void setMoedasObtidasJogador(BigDecimal moedasObtidas) {
+        this.moedasObtidasJogador = moedasObtidas;
     }
 }

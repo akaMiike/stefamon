@@ -23,6 +23,7 @@ import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @ApplicationScoped
@@ -41,29 +42,28 @@ public class BatalhaService {
     private final Integer MAX_MOEDAS_RECOMPENSA = 10;
 
     public BatalhaRetornoDTO salvar(BatalhaCriacaoDTO batalhaCriacaoDTO){
-        Jogador jogador = this.jogadorRepository.findById(batalhaCriacaoDTO.getIdJogador());
-        Jogador oponente = this.jogadorRepository.findById(batalhaCriacaoDTO.getIdOponente());
-
-        if(Objects.isNull(jogador)) {
-            throw new JogadorNaoEncontradoException("Jogador de id " + batalhaCriacaoDTO.getIdJogador() + " não foi encontrado.");
-        }
-        else if(Objects.isNull(oponente)) {
-            throw new JogadorNaoEncontradoException("Oponente de id " + batalhaCriacaoDTO.getIdOponente() + " não foi encontrado.");
-        }
-
-        BigDecimal moedasRecompensa = gerarMoedasRecompensa(MIN_MOEDAS_RECOMPENSA, MAX_MOEDAS_RECOMPENSA);
-
-        jogadorService.atualizarDadosJogadoresAposBatalha(
-                batalhaCriacaoDTO.getJogadorVenceu() ? jogador : oponente,
-                batalhaCriacaoDTO.getJogadorVenceu() ? oponente : jogador,
-                moedasRecompensa
+        BigDecimal moedasRecompensaJogador = gerarMoedasRecompensa(MIN_MOEDAS_RECOMPENSA, MAX_MOEDAS_RECOMPENSA);
+        Jogador oponente = null;
+        Jogador jogador = Optional.ofNullable(jogadorRepository.findById(batalhaCriacaoDTO.getIdJogador())).orElseThrow(
+                () -> new JogadorNaoEncontradoException("Jogador de id " + batalhaCriacaoDTO.getIdJogador() + " não foi encontrado.")
         );
+
+        if(!Objects.isNull(batalhaCriacaoDTO.getIdOponente())) {
+            oponente = Optional.ofNullable(jogadorRepository.findById(batalhaCriacaoDTO.getIdOponente())).orElseThrow(
+                    () -> new JogadorNaoEncontradoException("Oponente de id " + batalhaCriacaoDTO.getIdOponente() + " não foi encontrado.")
+            );
+
+            jogadorService.atualizarDadosJogadorAposBatalha(oponente, moedasRecompensaJogador, !batalhaCriacaoDTO.getJogadorVenceu());
+        }
+
+        jogadorService.atualizarDadosJogadorAposBatalha(jogador, moedasRecompensaJogador, batalhaCriacaoDTO.getJogadorVenceu());
+
 
         Batalha novaBatalha = new Batalha(
                 batalhaCriacaoDTO.getJogadorVenceu(),
                 LocalDateTime.now(),
                 jogador, oponente,
-                batalhaCriacaoDTO.getJogadorVenceu() ? moedasRecompensa : moedasRecompensa.negate()
+                batalhaCriacaoDTO.getJogadorVenceu() ? moedasRecompensaJogador : moedasRecompensaJogador.negate()
         );
 
         batalhaRepository.save(novaBatalha);
