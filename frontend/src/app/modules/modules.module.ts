@@ -22,6 +22,8 @@ import { ResultadoBatalhaComponent } from './batalha/resultado-batalha/resultado
 import { SharedModule } from '../shared/shared.module';
 import { ModalAjudaBatalhaComponent } from './batalha/modal-ajuda-batalha/modal-ajuda-batalha.component';
 import { ModalRankingJogadoresComponent } from './batalha/modal-ranking-jogadores/modal-ranking-jogadores.component';
+import { ModalAjudaLojaComponent } from './loja/modal-ajuda-loja/modal-ajuda-loja.component';
+import { ModalBoasVindasComponent } from './home/modal-boas-vindas/modal-boas-vindas.component';
 
 
 
@@ -34,7 +36,9 @@ import { ModalRankingJogadoresComponent } from './batalha/modal-ranking-jogadore
     ListarOponentesComponent,
     ResultadoBatalhaComponent,
     ModalAjudaBatalhaComponent,
-    ModalRankingJogadoresComponent
+    ModalRankingJogadoresComponent,
+    ModalAjudaLojaComponent,
+    ModalBoasVindasComponent
   ],
   imports: [
     CommonModule,

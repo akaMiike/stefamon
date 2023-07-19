@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit {
   indiceAvatarAtual = 0;
 
   mostrarModalHistoricoBatalha = false;
+  mostrarModalBoasVindas = false;
 
   criacaoUsuarioForm = this.fb.group({
     nickname: ['', [Validators.required, Validators.minLength(4)]],
@@ -51,7 +52,13 @@ export class HomeComponent implements OnInit {
     this.authService.usuarioLogado.subscribe(jogador => {
       this.dadosJogadorLogado = jogador;
       this.isUsuarioLogado = !!jogador;
+      
+      if(this.isUsuarioLogado && jogador.primeiroLogin){
+        console.log('ENTROU');
+        this.mostrarModalBoasVindas = true;
+      }
     });
+
   }
 
   possuiErro(nomeCampo: string){

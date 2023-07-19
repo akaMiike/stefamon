@@ -8,5 +8,6 @@ export interface Jogador {
     nomeArquivoAvatar: string,
     qtdVitorias: number,
     qtdDerrotas: number,
+    primeiroLogin: boolean,
     stefamons: Stefamon[];
 }

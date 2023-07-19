@@ -32,15 +32,14 @@ export class AuthService {
   }
 
     login(nickname: string, password: string){
-      this.http.post(`${this.URL}/jogador/login`, {
+      this.http.post<Jogador>(`${this.URL}/jogador/login`, {
         nickname: nickname,
         password: password
       }).pipe(
         tap(() => {
           this.messageService.add({severity:'success', summary:'Login', detail: 'Login realizado com sucesso.'})
-          this.obterDadosJogadorLogado(nickname);
         })
-      ).subscribe();
+      ).subscribe(jogador => this._isAuthenticatedSubject.next(jogador));
     }
 
     logout(){
@@ -58,9 +57,4 @@ export class AuthService {
       })
     }
 
-    private obterDadosJogadorLogado(username: string){
-      this.jogadorService.buscarPorUsername(username).subscribe(jogador => {
-        this._isAuthenticatedSubject.next(jogador);
-      })
-    }
 }
