@@ -19,6 +19,17 @@ header="{{tituloModal}}"
     </div>
 
     <div *ngIf="paginaModalAjuda === 1">
+        <div class="p-grid p-mb-2">
+            <div class="p-text-center">
+                <img src="../../../../assets/exemplos/bot-facil.png" width="55%">
+            </div>
+            <div class="p-text-center">
+                <img src="../../../../assets/exemplos/bot-medio.png" width="55%">
+            </div>
+            <div class="p-text-center">
+                <img src="../../../../assets/exemplos/bot-dificil.png" width="55%">
+            </div>
+        </div>
         <p class="p-mb-2">Nesse modo você batalha contra um BOT que possui stefamons aleatórios, variando de acordo com a dificuldade.</p>
         <p class="p-mb-2">Você pode escolher entre a dificuldade fácil, médio ou difícil. Quanto maior a dificuldade maior a recompensa.</p>
         <div class="p-mb-2">
@@ -41,6 +52,9 @@ header="{{tituloModal}}"
         <p><b>Poder</b> Caso o stefamon dê um acerto crítico, o dano crítico é calculado como: <i>(Ataque + Ataque * (Poder/100))</i></p>
     </div>
     <div *ngIf="paginaModalAjuda === 3">
+        <div class="p-mb-2 p-text-center">
+            <img src="../../../../assets/exemplos/resultado-batalha.png" width="80%">
+        </div>
         <p>Ao batalhar, toda as ações são feitas de forma automática, por turnos. Ou seja, cada rodada um jogador faz um ataque.</p>
         <p>Vence quem derrotar todos os stefamons do oponente primeiro.</p>
         <p>Ao final, é mostrado o vencedor, o perdedor, a quantidade de moedas que ganhou (ou perdeu) e um log detalhado de cada ação da batalha.</p>
