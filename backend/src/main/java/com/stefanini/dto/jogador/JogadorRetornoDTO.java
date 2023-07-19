@@ -13,10 +13,11 @@ public class JogadorRetornoDTO {
     private Integer qtdVitorias;
     private Integer qtdDerrotas;
     private String nomeArquivoAvatar;
+    private Boolean primeiroLogin;
     private List<StefamonDTO> stefamons;
 
     public JogadorRetornoDTO(Long id, String nickname, BigDecimal saldo, String nomeArquivoAvatar,
-                             Integer qtdVitorias, Integer qtdDerrotas, List<StefamonDTO> stefamons) {
+                             Integer qtdVitorias, Integer qtdDerrotas, List<StefamonDTO> stefamons, Boolean primeiroLogin) {
         this.id = id;
         this.nickname = nickname;
         this.saldo = saldo;
@@ -24,6 +25,7 @@ public class JogadorRetornoDTO {
         this.qtdVitorias = qtdVitorias;
         this.qtdDerrotas = qtdDerrotas;
         this.stefamons = stefamons;
+        this.primeiroLogin = primeiroLogin;
     }
 
     public Long getId() {
@@ -80,5 +82,13 @@ public class JogadorRetornoDTO {
 
     public void setNomeArquivoAvatar(String nomeArquivoAvatar) {
         this.nomeArquivoAvatar = nomeArquivoAvatar;
+    }
+
+    public Boolean getPrimeiroLogin() {
+        return primeiroLogin;
+    }
+
+    public void setPrimeiroLogin(Boolean primeiroLogin) {
+        this.primeiroLogin = primeiroLogin;
     }
 }

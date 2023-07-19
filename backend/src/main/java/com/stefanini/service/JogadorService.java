@@ -19,7 +19,6 @@ import com.stefanini.utils.PasswordUtils;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.Objects;
 import java.util.stream.Collectors;
 

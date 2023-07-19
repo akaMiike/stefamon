@@ -32,6 +32,9 @@ public class Jogador {
     @Column
     private BigDecimal saldo;
 
+    @Column
+    private Boolean primeiroLogin;
+
     @ManyToMany
     @JoinTable(name = "Jogador_Stefamon",
             joinColumns = {@JoinColumn(name = "id_jogador")},
@@ -42,7 +45,7 @@ public class Jogador {
     }
 
     public Jogador(String nickname, String password, BigDecimal saldo, String nomeArquivoAvatar,
-                   Integer qtdVitorias, Integer qtdDerrotas, List<Stefamon> stefamons) {
+                   Integer qtdVitorias, Integer qtdDerrotas, List<Stefamon> stefamons, Boolean primeiroLogin) {
         this.nickname = nickname;
         this.password = password;
         this.saldo = saldo;
@@ -50,6 +53,7 @@ public class Jogador {
         this.qtdDerrotas = qtdDerrotas;
         this.qtdVitorias = qtdVitorias;
         this.stefamons = stefamons;
+        this.primeiroLogin = primeiroLogin;
     }
 
     public Long getId() {
@@ -110,5 +114,13 @@ public class Jogador {
 
     public void setQtdDerrotas(Integer qtdDerrotas) {
         this.qtdDerrotas = qtdDerrotas;
+    }
+
+    public Boolean getPrimeiroLogin() {
+        return primeiroLogin;
+    }
+
+    public void setPrimeiroLogin(Boolean primeiroLogin) {
+        this.primeiroLogin = primeiroLogin;
     }
 }

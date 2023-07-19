@@ -72,8 +72,9 @@ public class JogadorResource {
     @POST
     @Path("/login")
     public Response login(@Valid JogadorLoginDTO jogadorLoginDTO){
-        authService.autenticar(jogadorLoginDTO.getNickname(), jogadorLoginDTO.getPassword());
-        return Response.status(Response.Status.NO_CONTENT).build();
+        return Response
+                .ok(authService.autenticar(jogadorLoginDTO.getNickname(), jogadorLoginDTO.getPassword()))
+                .build();
     }
 
     @PUT

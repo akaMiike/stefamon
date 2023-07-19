@@ -20,7 +20,8 @@ public class JogadorParser {
                 JogadorConstants.SALDO_INICIAL,
                 dto.getNomeArquivoAvatar(),
                 0, 0,
-                new ArrayList<>()
+                new ArrayList<>(),
+                true
         );
 
     }
@@ -38,7 +39,8 @@ public class JogadorParser {
                 jogador.getNomeArquivoAvatar(),
                 jogador.getQtdVitorias(),
                 jogador.getQtdDerrotas(),
-                stefamonsDTO
+                stefamonsDTO,
+                jogador.getPrimeiroLogin()
         );
     }
 }
