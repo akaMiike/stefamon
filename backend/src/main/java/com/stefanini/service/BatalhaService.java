@@ -15,6 +15,7 @@ import com.stefanini.parser.BatalhaParser;
 import com.stefanini.parser.LogRodadaParser;
 import com.stefanini.repository.BatalhaRepository;
 import com.stefanini.repository.JogadorRepository;
+import com.stefanini.utils.EnumDificuldadeBot;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -38,26 +39,32 @@ public class BatalhaService {
     @Inject
     JogadorService jogadorService;
 
-    private final Integer MIN_MOEDAS_RECOMPENSA = 5;
-    private final Integer MAX_MOEDAS_RECOMPENSA = 10;
-
-    public BatalhaRetornoDTO salvar(BatalhaCriacaoDTO batalhaCriacaoDTO){
-        BigDecimal moedasRecompensaJogador = gerarMoedasRecompensa(MIN_MOEDAS_RECOMPENSA, MAX_MOEDAS_RECOMPENSA);
+    public BatalhaRetornoDTO salvar(BatalhaCriacaoDTO batalhaCriacaoDTO, EnumDificuldadeBot dificuldadeBot){
+        BigDecimal moedasRecompensaJogador = gerarMoedasRecompensa(dificuldadeBot);
         Jogador oponente = null;
         Jogador jogador = Optional.ofNullable(jogadorRepository.findById(batalhaCriacaoDTO.getIdJogador())).orElseThrow(
                 () -> new JogadorNaoEncontradoException("Jogador de id " + batalhaCriacaoDTO.getIdJogador() + " não foi encontrado.")
         );
 
-        if(!Objects.isNull(batalhaCriacaoDTO.getIdOponente())) {
+        if(dificuldadeBot == EnumDificuldadeBot.SEM_BOT) {
             oponente = Optional.ofNullable(jogadorRepository.findById(batalhaCriacaoDTO.getIdOponente())).orElseThrow(
                     () -> new JogadorNaoEncontradoException("Oponente de id " + batalhaCriacaoDTO.getIdOponente() + " não foi encontrado.")
             );
 
-            jogadorService.atualizarDadosJogadorAposBatalha(oponente, moedasRecompensaJogador, !batalhaCriacaoDTO.getJogadorVenceu());
+            jogadorService.atualizarDadosJogadorAposBatalha(
+                    oponente,
+                    moedasRecompensaJogador,
+                    !batalhaCriacaoDTO.getJogadorVenceu(),
+                    dificuldadeBot
+            );
         }
 
-        jogadorService.atualizarDadosJogadorAposBatalha(jogador, moedasRecompensaJogador, batalhaCriacaoDTO.getJogadorVenceu());
-
+        jogadorService.atualizarDadosJogadorAposBatalha(
+                jogador,
+                moedasRecompensaJogador,
+                batalhaCriacaoDTO.getJogadorVenceu(),
+                dificuldadeBot
+        );
 
         Batalha novaBatalha = new Batalha(
                 batalhaCriacaoDTO.getJogadorVenceu(),
@@ -104,7 +111,22 @@ public class BatalhaService {
         batalhaRepository.update(batalha);
     }
 
-    private BigDecimal gerarMoedasRecompensa(int min, int max){
+    private BigDecimal gerarMoedasRecompensa(EnumDificuldadeBot dificuldadeBot){
+        int min; int max;
+
+        switch(dificuldadeBot){
+            case FACIL:
+                min = 1; max = 3;
+                break;
+            case MEDIO:
+                min = 3; max = 5;
+                break;
+            case DIFICIL:
+            default:
+                min = 5; max = 10;
+                break;
+        }
+
         double valorMoeda = (Math.floor(Math.random() * (10*max - 10*min)) + 10*min) / 10;
         return BigDecimal.valueOf(valorMoeda).setScale(1, RoundingMode.UNNECESSARY);
     }

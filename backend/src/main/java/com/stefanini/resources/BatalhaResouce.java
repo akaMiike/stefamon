@@ -4,6 +4,7 @@ import com.stefanini.dto.batalha.BatalhaCriacaoDTO;
 import com.stefanini.dto.logRodada.LogRodadaCreationDTO;
 import com.stefanini.service.BatalhaService;
 import com.stefanini.service.LogRodadaService;
+import com.stefanini.utils.EnumDificuldadeBot;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -35,9 +36,12 @@ public class BatalhaResouce {
     }
 
     @POST
-    public Response salvarBatalha(@Valid BatalhaCriacaoDTO batalha){
+    public Response salvarBatalha(
+            @Valid BatalhaCriacaoDTO batalha,
+            @QueryParam("bot") @DefaultValue("SEM_BOT") EnumDificuldadeBot dificuldadeBot
+    ){
         return Response.status(Response.Status.CREATED)
-                .entity(batalhaService.salvar(batalha))
+                .entity(batalhaService.salvar(batalha, dificuldadeBot))
                 .build();
     }
 

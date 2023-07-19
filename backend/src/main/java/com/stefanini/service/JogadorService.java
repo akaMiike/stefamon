@@ -13,6 +13,7 @@ import com.stefanini.exceptions.stefamon.StefamonNaoEncontradoException;
 import com.stefanini.parser.JogadorParser;
 import com.stefanini.parser.StefamonParser;
 import com.stefanini.repository.JogadorRepository;
+import com.stefanini.utils.EnumDificuldadeBot;
 import com.stefanini.utils.PasswordUtils;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -129,7 +130,16 @@ public class JogadorService {
         return JogadorParser.EntityToReturnDTO(jogadorRepository.update(jogador));
     }
 
-    public void atualizarDadosJogadorAposBatalha(Jogador jogador, BigDecimal moedasObtidas, Boolean isVencedor){
+    public void atualizarDadosJogadorAposBatalha(Jogador jogador, BigDecimal moedasObtidas,
+                                                 Boolean isVencedor, EnumDificuldadeBot dificuldadeBot
+    ){
+
+        if(dificuldadeBot != EnumDificuldadeBot.SEM_BOT && !isVencedor){
+            moedasObtidas = BigDecimal.ZERO;
+        } else{
+            moedasObtidas = isVencedor ? moedasObtidas : moedasObtidas.negate();
+        }
+
         jogador.setSaldo(BigDecimal.ZERO.max(jogador.getSaldo().add(moedasObtidas)));
 
         if(isVencedor){
