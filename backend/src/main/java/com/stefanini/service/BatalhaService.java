@@ -40,20 +40,21 @@ public class BatalhaService {
     JogadorService jogadorService;
 
     public BatalhaRetornoDTO salvar(BatalhaCriacaoDTO batalhaCriacaoDTO, EnumDificuldadeBot dificuldadeBot){
-        BigDecimal moedasRecompensaJogador = gerarMoedasRecompensa(dificuldadeBot);
         Jogador oponente = null;
         Jogador jogador = Optional.ofNullable(jogadorRepository.findById(batalhaCriacaoDTO.getIdJogador())).orElseThrow(
                 () -> new JogadorNaoEncontradoException("Jogador de id " + batalhaCriacaoDTO.getIdJogador() + " não foi encontrado.")
         );
+        BigDecimal moedasRecompensaJogador = gerarMoedasRecompensaBatalha(batalhaCriacaoDTO.getJogadorVenceu(), dificuldadeBot);
 
         if(dificuldadeBot == EnumDificuldadeBot.SEM_BOT) {
             oponente = Optional.ofNullable(jogadorRepository.findById(batalhaCriacaoDTO.getIdOponente())).orElseThrow(
                     () -> new JogadorNaoEncontradoException("Oponente de id " + batalhaCriacaoDTO.getIdOponente() + " não foi encontrado.")
             );
+            BigDecimal moedasRecompensaOponente = gerarMoedasRecompensaBatalha(!batalhaCriacaoDTO.getJogadorVenceu(), dificuldadeBot);
 
             jogadorService.atualizarDadosJogadorAposBatalha(
                     oponente,
-                    moedasRecompensaJogador,
+                    moedasRecompensaOponente,
                     !batalhaCriacaoDTO.getJogadorVenceu(),
                     dificuldadeBot
             );
@@ -70,7 +71,7 @@ public class BatalhaService {
                 batalhaCriacaoDTO.getJogadorVenceu(),
                 LocalDateTime.now(),
                 jogador, oponente,
-                batalhaCriacaoDTO.getJogadorVenceu() ? moedasRecompensaJogador : moedasRecompensaJogador.negate()
+                moedasRecompensaJogador
         );
 
         batalhaRepository.save(novaBatalha);
@@ -111,7 +112,7 @@ public class BatalhaService {
         batalhaRepository.update(batalha);
     }
 
-    private BigDecimal gerarMoedasRecompensa(EnumDificuldadeBot dificuldadeBot){
+    private BigDecimal gerarMoedasRecompensaBatalha(Boolean isVencedor, EnumDificuldadeBot dificuldadeBot){
         int min; int max;
 
         switch(dificuldadeBot){
@@ -127,7 +128,12 @@ public class BatalhaService {
                 break;
         }
 
-        double valorMoeda = (Math.floor(Math.random() * (10*max - 10*min)) + 10*min) / 10;
-        return BigDecimal.valueOf(valorMoeda).setScale(1, RoundingMode.UNNECESSARY);
+        if(dificuldadeBot != EnumDificuldadeBot.SEM_BOT && !isVencedor){
+            return BigDecimal.ZERO;
+        } else {
+            double valorMoeda = (Math.floor(Math.random() * (10*max - 10*min)) + 10*min) / 10;
+            BigDecimal recompensa = BigDecimal.valueOf(valorMoeda).setScale(1, RoundingMode.UNNECESSARY);
+            return isVencedor ? recompensa : recompensa.negate();
+        }
     }
 }

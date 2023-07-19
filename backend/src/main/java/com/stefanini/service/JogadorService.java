@@ -19,6 +19,7 @@ import com.stefanini.utils.PasswordUtils;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -130,22 +131,18 @@ public class JogadorService {
         return JogadorParser.EntityToReturnDTO(jogadorRepository.update(jogador));
     }
 
-    public void atualizarDadosJogadorAposBatalha(Jogador jogador, BigDecimal moedasObtidas,
-                                                 Boolean isVencedor, EnumDificuldadeBot dificuldadeBot
+    public void atualizarDadosJogadorAposBatalha(
+            Jogador jogador, BigDecimal moedasObtidas,
+            Boolean isVencedor, EnumDificuldadeBot dificuldadeBot
     ){
-
-        if(dificuldadeBot != EnumDificuldadeBot.SEM_BOT && !isVencedor){
-            moedasObtidas = BigDecimal.ZERO;
-        } else{
-            moedasObtidas = isVencedor ? moedasObtidas : moedasObtidas.negate();
-        }
-
         jogador.setSaldo(BigDecimal.ZERO.max(jogador.getSaldo().add(moedasObtidas)));
 
-        if(isVencedor){
-            jogador.setQtdVitorias(jogador.getQtdVitorias() + 1);
-        } else{
-            jogador.setQtdDerrotas(jogador.getQtdDerrotas() + 1);
+        if(dificuldadeBot == EnumDificuldadeBot.SEM_BOT){
+            if(isVencedor){
+                jogador.setQtdVitorias(jogador.getQtdVitorias() + 1);
+            } else{
+                jogador.setQtdDerrotas(jogador.getQtdDerrotas() + 1);
+            }
         }
 
         jogadorRepository.update(jogador);
