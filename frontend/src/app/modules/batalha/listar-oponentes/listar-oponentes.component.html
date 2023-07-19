@@ -49,7 +49,7 @@
                 <div *ngIf="modoContraBot" class="p-pb-2 p-fluid">
                     <p class="p-text-center">Dificuldade</p>
                     <p-selectButton
-                    (onChange)="alterarDificuldadeBot($event.value)"
+                    (onChange)="alterarQntdStefamonsBot($event.value)"
                     [options]="dificuldadesBot"
                     [(ngModel)]="dificuldadeEscolhida"></p-selectButton>
                 </div>

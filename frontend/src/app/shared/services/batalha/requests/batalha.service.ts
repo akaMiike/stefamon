@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Batalha } from 'src/app/models/Batalha.model';
 import { LogRodada } from 'src/app/models/LogRodada.model';
+import { EnumDificuldadeBot } from 'src/app/shared/models/EnumDIficuldadeBot.model';
 import { environment } from 'src/environments/environment.prod';
 import { Page } from '../../../models/Page.model';
 
@@ -23,12 +24,16 @@ export class BatalhaService {
     });
   }
 
-  salvarBatalha(idJogador: number, idOponente: number, jogadorVenceu: boolean){
+  salvarBatalha(idJogador: number, idOponente: number, jogadorVenceu: boolean, dificuldadeBot: EnumDificuldadeBot){
     return this.http.post<Batalha>(this.URL, {
       idJogador: idJogador,
       idOponente: idOponente,
       jogadorVenceu: jogadorVenceu
-    })
+    },
+    {
+      params: {bot: EnumDificuldadeBot[dificuldadeBot]}
+    }
+    )
   }
 
   criarLogsBatalha(idBatalha: number, logsBatalha: LogRodada[]){

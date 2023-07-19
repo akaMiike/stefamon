@@ -4,6 +4,7 @@ import { Batalha } from 'src/app/models/Batalha.model';
 import { Jogador } from 'src/app/models/Jogador.model';
 import { Page } from '../../models/Page.model';
 import { AuthService } from '../../services/auth/auth.service';
+import { LogicaBatalhaService } from '../../services/batalha/logica-batalha/logica-batalha.service';
 import { BatalhaService } from '../../services/batalha/requests/batalha.service';
 
 @Component({
@@ -14,15 +15,16 @@ import { BatalhaService } from '../../services/batalha/requests/batalha.service'
 export class ModalHistoricoBatalhasComponent implements OnInit {
 
   dadosJogadorLogado: Jogador;
+  dadosBatalhaEscolhido: Batalha;
   @Input() mostrarModal = false;
   @Output() mostrarModalChange = new EventEmitter<boolean>();
-  dadosBatalhaEscolhido: Batalha;
   mostrarLogBatalha = false;
   mostrarHistoricoBatalha = true;
   paginaHistoricoBatalha = new Page<Batalha>();
 
   constructor(
     private authService: AuthService,
+    private logicaBatalhaService: LogicaBatalhaService,
     private batalhaService: BatalhaService
   ) { }
 
@@ -50,6 +52,10 @@ export class ModalHistoricoBatalhasComponent implements OnInit {
   }
 
   isJogadorLogadoVencedorBatalha(batalha: Batalha){
+    if(!batalha.nomeOponente){
+      batalha.nomeOponente = this.logicaBatalhaService.getDadosBot().nickname;
+    }
+
     return (batalha.jogadorVenceu && batalha.nomeJogador === this.dadosJogadorLogado.nickname) ||
     (!batalha.jogadorVenceu && batalha.nomeOponente === this.dadosJogadorLogado.nickname)
   }

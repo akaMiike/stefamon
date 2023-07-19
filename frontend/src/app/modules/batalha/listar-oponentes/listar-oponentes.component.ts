@@ -2,14 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { Jogador } from 'src/app/models/Jogador.model';
 import { Page } from 'src/app/shared/models/Page.model';
-import { ResultadoBatalha } from 'src/app/shared/models/ResultadoBatalha.model';
+import { EnumDificuldadeBot } from 'src/app/shared/models/EnumDIficuldadeBot.model';
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
 import { LogicaBatalhaService } from 'src/app/shared/services/batalha/logica-batalha/logica-batalha.service';
-import { BatalhaService } from 'src/app/shared/services/batalha/requests/batalha.service';
 import { JogadorService } from 'src/app/shared/services/jogador/jogador.service';
 import { LoadingService } from 'src/app/shared/services/loading/loading.service';
-import { LogRodadaService } from 'src/app/shared/services/log-rodada/log-rodada.service';
-import { Batalha } from 'src/app/models/Batalha.model';
 import { StefamonService } from 'src/app/shared/services/stefamon/stefamon.service';
 import { Stefamon } from 'src/app/models/Stefamon.model';
 import { SelectItem } from 'primeng/api';
@@ -21,11 +18,6 @@ import { SelectItem } from 'primeng/api';
 })
 export class ListarOponentesComponent implements OnInit {
 
-  private readonly NOME_ARQUIVO_AVATAR_BOT = 'bot_avatar.png';
-  private readonly BOT_DIFICULDADE_FACIL = 0;
-  private readonly BOT_DIFICULDADE_MEDIO = 1;
-  private readonly BOT_DIFICULDADE_DIFICIL = 2;
-
   private readonly PAGINA_INICIAL = 0;
   private readonly QTD_OPONENTES_PAGINA = 3;
   private readonly TAMANHO_PAGINA = 30;
@@ -35,16 +27,8 @@ export class ListarOponentesComponent implements OnInit {
   sugestaoJogadores: Jogador[] = [];
   usuarioLogado?: Jogador;
   
-  dadosBot: Jogador = {
-    nickname: 'StefaBot',
-    password: 'StefaBot',
-    nomeArquivoAvatar: this.NOME_ARQUIVO_AVATAR_BOT,
-    qtdDerrotas: 0,
-    qtdVitorias: 0,
-    saldo: 0,
-    stefamons: []
-  };
-  dificuldadeEscolhida = this.BOT_DIFICULDADE_FACIL;
+  dadosBot: Jogador = this.logicaBatalhaService.getDadosBot();
+  dificuldadeBotEscolhida = EnumDificuldadeBot.SEM_BOT;
   dificuldadesBot: SelectItem[];
 
   mostrarModalHistoricoBatalha = false;
@@ -60,8 +44,6 @@ export class ListarOponentesComponent implements OnInit {
     private authService: AuthService,
     private stefamonService: StefamonService,
     private logicaBatalhaService: LogicaBatalhaService,
-    private logsRodadaService: LogRodadaService,
-    private batalhaService: BatalhaService,
     private loadingService: LoadingService,
     private router: Router,
     private activatedRoute: ActivatedRoute
@@ -72,9 +54,9 @@ export class ListarOponentesComponent implements OnInit {
     this.authService.usuarioLogado.subscribe(jogador => {this.usuarioLogado = jogador})
   
     this.dificuldadesBot = [
-      {label: 'Fácil', value: this.BOT_DIFICULDADE_FACIL},
-      {label: 'Médio', value: this.BOT_DIFICULDADE_MEDIO},
-      {label: 'Difícil', value: this.BOT_DIFICULDADE_DIFICIL},
+      {label: 'Fácil', value: EnumDificuldadeBot.FACIL},
+      {label: 'Médio', value: EnumDificuldadeBot.MEDIO},
+      {label: 'Difícil', value: EnumDificuldadeBot.DIFICIL},
     ]
 
     this.buscarTodosStefamons();
@@ -113,25 +95,10 @@ export class ListarOponentesComponent implements OnInit {
 
   async batalhar(oponente: Jogador){
     this.loadingService.mostrarCarregamento('Batalha em andamento...');
-    const [vencedor, perdedor] = this.logicaBatalhaService.iniciarBatalha(this.usuarioLogado, oponente);
-    
-    const batalha: Batalha = await this.batalhaService.salvarBatalha(
-      this.usuarioLogado.id, 
-      oponente.id, 
-      vencedor.id === this.usuarioLogado.id
-    ).toPromise();
-    
-    const logsBatalha = this.logsRodadaService.getLogsBatalha();
-    await this.logsRodadaService.salvarLogsBatalha(batalha.id).toPromise();
-    this.authService.atualizarJogadorLogado();
-    
-    const resultadoBatalha: ResultadoBatalha = {
-      vencedor: vencedor,
-      perdedor: perdedor, 
-      idBatalha: batalha.id,
-      moedasObtidas: batalha.moedasObtidas, 
-      logsBatalha: logsBatalha
-    }
+
+    const resultadoBatalha = await this.logicaBatalhaService.batalhar(
+      this.usuarioLogado, oponente, this.dificuldadeBotEscolhida
+      );
 
     setTimeout(() => {
       const extras: NavigationExtras = { state: resultadoBatalha, relativeTo: this.activatedRoute}
@@ -159,19 +126,19 @@ export class ListarOponentesComponent implements OnInit {
     });
   }
 
-  alterarDificuldadeBot(dificuldadeBot: number){
-    console.log(dificuldadeBot)
+  alterarQntdStefamonsBot(dificuldadeBot: EnumDificuldadeBot){
     let numStefamons = 0;
     this.dadosBot.stefamons = [];
+    this.dificuldadeBotEscolhida = dificuldadeBot;
 
     switch(dificuldadeBot){
-      case this.BOT_DIFICULDADE_FACIL:
+      case EnumDificuldadeBot.FACIL:
         numStefamons = 2;
         break;
-      case this.BOT_DIFICULDADE_MEDIO:
+      case EnumDificuldadeBot.MEDIO:
         numStefamons = 4;
         break;
-      case this.BOT_DIFICULDADE_DIFICIL:
+      case EnumDificuldadeBot.DIFICIL:
         numStefamons = 6;
         break;
       default:
@@ -185,15 +152,17 @@ export class ListarOponentesComponent implements OnInit {
   }
 
   alterarModoJogo(){
-    this.modoContraBot = !this.modoContraBot;
-    
     if(this.modoContraBot){
-      this.alterarDificuldadeBot(this.BOT_DIFICULDADE_FACIL);
-      this.sugestaoJogadores = [this.dadosBot];
-    }
-    else{
+      this.dificuldadeBotEscolhida = EnumDificuldadeBot.SEM_BOT;
       this.atualizarSugestaoJogadores();
     }
+    else{
+      this.dificuldadeBotEscolhida = EnumDificuldadeBot.FACIL;
+      this.alterarQntdStefamonsBot(this.dificuldadeBotEscolhida);
+      this.sugestaoJogadores = [this.dadosBot];
+    }
+    
+    this.modoContraBot = !this.modoContraBot;
   }
 
 }
