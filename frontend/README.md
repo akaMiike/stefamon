@@ -2,19 +2,19 @@
 
 ### HackathonAngular
 # StefaMon:
-### StefaMon é um sistema de rinha de criaturas mágicas onde jogadores disputam batalhas acirradas em busca de ser o melhor treinador. Vença as batalhas e conquiste seu lugar no ranking.
+### StefaMon is a fight system with magical creatures, where players can battle to be the best trainer in the world. Win the battles and conquer your place in the ranking.
 
-# Objetivo:
-## Adequar o Front-end de acordo com os requisitos do [Back-end](./desafio/StefaMon.pdf)
+# Main Objective:
+## Adapt front-end following the backend instructions [Back-end](./desafio/StefaMon.pdf)
 
 ---
 
-# Arquitetura do projeto
-- [Instruções Arquiteturais](./Instruções.md)
+# Project Architecture
+- [Architectural Instructions](./Instruções.md)
 
-Projeto gerado usando [Angular CLI](https://v10.angular.io/docs) versão 10.2.4.
+Project generated with [Angular CLI](https://v10.angular.io/docs) v10.2.4.
 
-## Pré-Requisitos
+## Prerequisites
 
 NodeJS: [v10.24.1](https://nodejs.org/docs/latest-v10.x/api/)
 
@@ -22,23 +22,23 @@ Npm: v6.14.12
 
 PrimeNg [v10.0.0](https://www.primefaces.org/primeng-v10-lts/)
 
-## Servidor de Desenvolvimento
+## Development Server
 
-Execute `ng serve`. Link de acesso: http://localhost:4200/
+Execute `ng serve`. Access link: http://localhost:4200/
 
-## Criar um Component
+## Create a Component
 
-Execute `ng generate component component-name` para gerar um novo component. Você tambem pode usar `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Execute `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build (Não vai precisar)
+## Build
 
-Execute `ng build`. Os artefatos gerados ficaram em `dist/`. Pode usar a flag `--prod` pra build de produção.
+Execute `ng build`. The generated artefacts `dist/`. You can use `--prod` flag to production build.
 
-## Para Ajuda
+## Help
 
-Use `ng help` ou visite [Angular IO](https://v10.angular.io/docs).
+Use `ng help` or visit [Angular IO](https://v10.angular.io/docs).
 
-## Links Úteis
+## Useful Links
 - https://www.primefaces.org/primeng-v10-lts/#/
 - https://www.primefaces.org/primeflex
 - https://www.primefaces.org/primeng-v10-lts/#/icons
