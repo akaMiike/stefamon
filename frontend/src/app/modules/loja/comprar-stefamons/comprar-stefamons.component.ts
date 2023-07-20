@@ -43,7 +43,7 @@ export class ComprarStefamonsComponent implements OnInit {
 
     this.direcoesOrdenacao = [
       {label:"Menor para Maior", value: "ASC"},
-      {label:"Maior para Maior", value: "DESC"}
+      {label:"Maior para Menor", value: "DESC"}
     ]
 
     this.listarTodosStefamons();

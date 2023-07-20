@@ -57,6 +57,6 @@ header="Histórico de Batalhas"
         <app-listar-log-batalha [idBatalha]="dadosBatalhaEscolhido.id"></app-listar-log-batalha>
     </div>
     <div *ngIf="mostrarLogBatalha" class="p-dialog-footer" style="padding: 1rem 0 0 0;">
-        <p-button label="Voltar" icon="pi pi-angle-left" iconPos="left" (click)="voltarHistoricoBatalhas()"></p-button>
+        <button pButton type="button" label="Voltar" icon="pi pi-angle-left" iconPos="left" (click)="voltarHistoricoBatalhas()"></button>
     </div>
 </p-dialog>
