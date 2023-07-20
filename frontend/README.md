@@ -1,6 +1,5 @@
 ![Logo do Desafio](./src/assets/header.png)
 
-### HackathonAngular
 # StefaMon:
 ### StefaMon is a fight system with magical creatures, where players can battle to be the best trainer in the world. Win the battles and conquer your place in the ranking.
 
