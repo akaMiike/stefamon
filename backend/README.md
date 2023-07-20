@@ -1,165 +1,162 @@
 ![Logo do Desafio](./desafio/header.png)
-### Desafio Hackathon Stefanini
 
 # StefaMon:
-### StefaMon é um sistema de rinha de criaturas mágicas onde jogadores disputam batalhas acirradas em busca de ser o melhor treinador. Vença as batalhas e conquiste seu lugar no ranking.
+### StefaMon is a fight system with magical creatures, where players can battle to be the best trainer in the world. Win the battles and conquer your place in the ranking.
 
-# Objetivos Principais:
-- ### **Consertar os diversos bugs que estão na aplicação;**
-
-
-- ### **Desenvolver um sistema que obedeça as boas práticas de programação;**
-    - Root da api deve ser a url ‘/api’; ex: localhost:8080/api/…
-    - Os end-points devem obedecer aos verbos HTTPs corretos;
-    - Princípio da responsabilidade única;
+# Main Objectives:
+- ### **Fix the various bugs present in the application**
 
 
--   ### **Criar a entidade (JAVA) Jogador com os atributos:**
+- ### **Develop an application that follows coding best practices.;**
+    - Api root must be ‘/api’; ex: localhost:8080/api/…
+    - The endpoints must be in conformity with the correct HTTPs verbs.;
+    - Must follow the single-responsability principle;
+
+
+-   ### **Create the Java Entity 'Jogador' with the following attributes:**
 
     -   **Nickname**:
-        -   Obrigatório;
-        -   Os nicknames devem ser únicos;
+        -   Required;
+        -   The nicknames must be unique;
     -   **Senha**:
-        -   Obrigatório;
-        -   Deve ser criptografada;
-        -   Tamanho mínimo de 4 caracteres;
-        -   Tamanho máximo de 10 caracteres;
+        -   Required;
+        -   Must be encrypted;
+        -   Minimum size of 4 characters;
+        -   Maximum size of 10 characters;
     -   **Stefamons:**
-        -   Lista de StefaMons (ManyToMany);
+        -   Stefamons List (ManyToMany);
     -   **Saldo**:
-        -   Obrigatório;
-        -   Campo de valor BigDecimal;
-        -   Deverá ter um valor padrão (Você escolhe)
+        -   Required;
+        -   BigDecimal field type;
+        -   Must have a default value (You choose)
 
 
--   ### **Criar funcionalidade de cadastro de Jogador**
-    -   Obedecendo os critérios da Entidade Jogador:
+-   ### **Create functionality of register a Player**
+    -  Must follow the criteria of 'Jogador' entity:
 
 
--   ### **Criar funcionalidade de login que valide o nickname e senha salvos no banco de dados;**
-    -   Mostrar mensagem de erro (mensagem a sua escolha) caso os dados informados estejam incorretos;
-    -   Somente jogadores cadastrados poderão batalhar;
-    -   Apenas uma validação simples não é necessário implementar nenhum framework de autenticação;
+-   ### **Create functionality that validates Login and Password saved in the database**
+    -   Show error message (Your choice) if the login data was incorrect;
+    -   Only registered players can battle;
+    -   Only a simple validation is required, its not necessary to use any authentication framework;
 
 
--   ### **Criar a funcionalidade de comprar/escolher StefaMons;**
-    -   O preço do StefaMon será uma média do valor dos seus atributos;
-        -   Esse preço não é persistido em banco, será calculado em tempo de execução e será implementado como quiser;
-    -   O jogador poderá ter no máximo 6 StefaMons e no mínimo 1 StefaMon para batalhar;
-    -   Pode ser feito na hora de cadastro ou após o primeiro login;
+-   ### **Create functionality to buy/choose Stefamons**
+    -   Stefamon price must be the average of his attributed;
+        -   This price is not persisted in database, it must be calculated in runtime and can be implemented as you want;
+    -   The player can have a maximum of 6 Stefamons, and have at least one to battle;
+    -   Can be made during the register or after;
 
 
--   ### **Criar funcionalidade de Batalha (poderá ser implementada como quiser) respeitando os seguintes critérios:**
-    - **A Batalha é composta pela quantidade de StefaMons de cada Jogador**
-      - Ex: Jogador1 tem 4 Stefamons X Jogador2 tem 6 StefaMons
-    - **Criar o modo de batalha contra outro Jogador;**
-        -   Os 2 jogadores devem estar cadastrados no sistema e com StefaMon(s) selecionado(s);
-        -   Implementar uma lógica de ganho de moedas (saldo do jogador)
-    - **Criar o modo de batalha contra BOT;**
-        -   O bot sempre escolherá 6 StefaMons aleatórios;
-        -   (Opcional) Implementar uma lógica de ganho de moedas (saldo do jogador)
-    - **Apresentar o Jogador vencedor da batalha;**  
-      - Não poderá haver empate, a lógica da batalha deverá indicar um vencedor;
-    - **Deverá ser utilizado pelo menos 1 atributo do StefaMon além dos atributos obrigatórios;**
+-   ### **Create battle functionality (can be implemented as you choose) respecting the following rules:**
+    - **The battle is composed of the stefamons of each player**
+      - Ex: Player 1 has 4 Stefamons X Player 2 has 6 StefaMons
+    - **Create battle functionality against other players**
+        -   Both players must be registered and have stefamons;
+        -   Implement a logic to win coins (Increase player balance)
+    - **Create battle functionality agains a BOT;**
+        -   Bot will always have 6 stefamons;
+        -   (Optional) Implement a logic to win coins (Increase player balance)
+    - **Show the player winner and the loser**  
+      - It cannot be a draw, the battle logic must always choose a winner;
+    - **Must use at least 1 required stefamons attribute in the battle logic;**
     
     <br/>
     
     - **Obs:** 
-      - Basicamente fazer apenas a batalha. Escolher um adversario, fazer a lógica da batalha e apresentar o vencedor;
-      - Desenvolver além dos objetivos principais (descritos acima) serão considerados objetivos extras (descritos abaixo) e só serão avaliados se os objetivos principais
-      estiverem concluídos;
-      - Ideias de tipos de batalhas: [Instruções](./Instruções.md)
+      - Basically just do the battle logic. Choose a opponent, do the battle logic and show the winner;
+      - In addition to the required objectives (Described above) it'll be considered the extras objectives (Described bellow) and it will only be evaluated if all the required objectives was concluded.
+      - Battle ideas: [Instructions](./Instruções.md)
 
 ---
-# Objetivos Extras:
--   ### **Criar um ranking de jogadores;**
-    -   Mostrar um ranking de jogadores que mais venceram batalhas;
--   ### **Apresentar um LOG do ocorrido na batalha;**
-    -   Movimentos (Ataques e defesas) de cada StefaMon;
-    -   Derrota de cada StefaMon;
--   ### **Funcionalidade de histórico de batalhas (histórico de partida);**
-    -   Mostrar cada batalha do Jogador, vitórias e derrotas;
+# Extras:
+-   ### **Create a player ranking**
+    -   Show ranking of players who had the most wins;
+-   ### **Show battle Log;**
+    -   Defenses and Attacks moves from each Stefamon
+    -   Defeats of each Stefamon;
+-   ### **Show battle history;**
+    -   Show each battle from a players, and its wins and losses;
     -   Preferencialmente apresentando o LOG de batalha também;
--   ### **Criar um redirecionamento para uma página Not Found quando acessar uma URL que não existe no Frontend;**
--   ### **Desenvolver funcionalidades a sua escolha;**
-    -   Fique a vontade de desenvolver novas funcionalidades para o desafio, lembrando que os objetivos extras 
-    só serão avaliadas se os objetivos principais estiverem concluídos;
+-   ### **Redirect a user when acessing a non-existent page (Not Found);**
+-   ### **Develop more functionalities at your choice;**
+    -   Feel free to develop more functionalities at your choice for the challenge. But remember the it will be only evaluated if the main objectives was concluded.
 ---
 
-# Tabelas:
-- ### **Jogador:**
+# Tables:
+- ### **Player:**
     -   **id:** BigInt
     -   **Nickname:** Varchar
     -   **Senha:** Varchar
     -   **Saldo:** BigDecimal
   
-- ### **Jogador_Stefamon**
+- ### **Player_Stefamon**
     -   **IdJogador:** BigInt
     -   **IdStefaMon:** BigInt
 
-## Tabelas de domínio (apenas leitura):
+## Domain Classes (read only):
 
 - ###   **StefaMon**:
-    -   **Id:** (Não é um atributo de lógica)
-    -   **Nome:** (Não é um atributo de lógica)
-    -   **Vida:** (Atributo de lógica **Obrigatório**)
-    -   **Ataque:** (Atributo de lógica **Obrigatório**)
-    -   **Defesa:** (Atributo de lógica **Obrigatório**)
-    -   **Inteligência:** (Atributo de lógica Opcional)
-    -   **Poder:** (Atributo de lógica Opcional)
-    -   **Velocidade:** (Atributo de lógica Opcional)
+    -   **Id:** (It's not a logic attribute)
+    -   **Nome:** (It's not a logic attribute)
+    -   **Vida:** (**Required** to battle logic)
+    -   **Ataque:** ((**Required** to battle logic)
+    -   **Defesa:** ((**Required** to battle logic)
+    -   **Inteligência:** (Optional attribute to battle logic)
+    -   **Poder:** (Optional attribute to battle logic)
+    -   **Velocidade:** (Optional attribute to battle logic)
 
-Jogo baseado em:
+Game based on:
 [https://www.tuxemon.org/](https://www.tuxemon.org/)
 
 ---
 
-# Arquitetura do projeto
-- [Instruções Arquiteturais](./Instruções.md)
+# Project Architecture
+- [Architectural Instructions](./Instruções.md)
 
-### Pré-Requisitos *obrigatórios*:
+### Prerequisites *required*:
  - Git
  - JDK 11+
  - Maven 3.8.1
  - MySql/MariaDB
 
-### Pré-Requisitos *opcionais*:
- - Docker (Caso queira usar o mysql que tem no projeto)
- - Docker Compose (Normalmente vem com o docker)
+### Prerequisites *optional*:
+ - Docker (If you want to use the MySQL)
+ - Docker Compose (Normally comes with the Docker)
 
-## Rodar a aplicação em modo de desenvolvimento
+## Run the application in development mode
 
 ## Docker
-**Lembrando que esses comando são no terminal dentro da pasta _"./src/main/docker"_**
+**Remembering that these commands are in the terminal inside the folder _"./src/main/docker"_**
 <br/><br/>
-E caso queira usar o MySQL no docker:<br/>
-<small>Obs: Não use o "-d" caso queira que o terminal do docker fique aberto.</small>
+And if  you want to use the docker MySQL:<br/>
+<small>Obs: Don't use "-d" flag if you want to see the docker terminal.</small>
 ```
 docker-compose up -d 
 ```
 <br/>
 
-E para parar o MySQL no docker:<br/>
-<small>Obs: Não precisa caso não tenha usado o "-d"</small>
+And to stop the docker container:<br/>
+<small>Obs: Don't need it if you haven't used the "-d"</small>
 ```
 docker-compose down
 ```
 
 ## Maven
-**Lembrando que precisa do MySQL já esta rodando!**<br/>
+**Remembering that you need MySQL already running!**<br/>
 
-Use o seguinte comando para iniciar o servidor:<br/>
-<small>Obs: Esse comando deve ser executado na _raiz_ do projeto!</small>
+Use the following command to start the server:<br/>
+<small>Obs: This command must be executed inside the project _root_ </small>
 ```shell script
 ./mvnw clean compile quarkus:dev
 ```
 
 
-#### Alguns guias relacionados:
-- Maven ([guia](https://maven.apache.org/what-is-maven.html))
-- Hibernate ORM (Implementação do JPA) ([guia](https://docs.jboss.org/hibernate/orm/current/userguide/html_single/Hibernate_User_Guide.html))
-- RESTEasy JAX-RS ([guia](https://docs.jboss.org/resteasy/docs/3.0.9.Final/userguide/html_single/index.html))
-- MySQL ([guia](https://dev.mysql.com/doc/))
+#### Related Tutorials:
+- Maven ([tutorial](https://maven.apache.org/what-is-maven.html))
+- Hibernate ORM (JPA Implementation) ([tutorial](https://docs.jboss.org/hibernate/orm/current/userguide/html_single/Hibernate_User_Guide.html))
+- RESTEasy JAX-RS ([tutorial](https://docs.jboss.org/resteasy/docs/3.0.9.Final/userguide/html_single/index.html))
+- MySQL ([tutorial](https://dev.mysql.com/doc/))
 
-Opcionais:
-- Docker([guia](https://docs.docker.com/))
+Optionals:
+- Docker([tutorial](https://docs.docker.com/))
